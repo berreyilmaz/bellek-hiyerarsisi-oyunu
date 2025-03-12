@@ -1,0 +1,188 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #cabbcf;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column; /* Dikey sıralama */
+    align-items: center; /* Yatayda ortala */
+    gap: 20px; /* Butonlar arasında boşluk bırak */
+}
+
+/* Tüm butonların ortak stilini buradan belirliyoruz */
+.baslabtn, .nasilbtn, .ayarlarbtn {
+    padding: 20px 40px;
+    font-size: 40px;
+    cursor: pointer;
+    border-radius: 20px;
+    background-color: #7fabd2;
+    color: #132507;
+    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.3);
+    border: 3px solid #000000;
+    transition: 0.3s; /* Hover efekti için yumuşak geçiş */
+}
+
+.baslabtn{
+    padding: 20px 40px;
+    font-size: 40px;
+}
+
+.nasilbtn{
+    padding: 20px 40px;
+    font-size: 20px;
+}
+
+.ayarlarbtn{
+    padding: 20px 40px;
+    font-size: 20px;
+}
+
+
+
+#btn:hover {
+    background-color: #9207a8;
+    color: #fff;
+}
+
+.kayan-yazi {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgb(208, 148, 224);
+    color: rgb(133, 7, 165);
+    padding: 10px 10px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.kaydir {
+    display: inline-block;
+    white-space: nowrap;
+    animation: kaydir 20s linear infinite;
+}
+
+.kaydir span {
+    display: inline-block;
+    margin-right: 20px; /* Yazılar arasında boşluk bırakır */
+    font-size: 25px;
+    font-weight: bold;
+}
+
+@keyframes kaydir {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+
+/* Sayfanın tam ortasına butonları hizalar */
+.buton-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 40px;
+}
+
+/* Butonlara stil verelim */
+.seviyebtn {
+    padding: 10px 20px;
+    font-size: 30px;
+    font-weight: bold;
+    background-color: #b026da;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.seviyebtn:hover {
+    background-color: #8600b3;
+}
+
+.question-box {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 600px;
+    text-align: center;
+}
+
+/* Başlık (soru) stili */
+.question-box h2 {
+    font-size: 23px;
+    margin-bottom: 30px;
+}
+
+/* Cevap butonları düzeni */
+.answer-buttons {
+    display: flex;
+    justify-content: center;  /* Ortaya hizalama */
+    flex-wrap: wrap;          /* Küçük ekranlarda taşmayı önler */
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Genel buton stili */
+.answer-btn {
+    padding: 12px 20px;
+    font-size: 18px;
+    background-color: #af4caf;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 150px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Butonların üzerine gelindiğinde efekt */
+.answer-btn:hover {
+    background-color: #680a5e;
+    transform: scale(1.05); /* Hafif büyüme efekti */
+}
+
+/* Yanıt sonrası durumlar */
+.correct {
+    background-color: green !important;
+    color: white;
+}
+
+.incorrect {
+    background-color: red !important;
+    color: white;
+}
+
+/* Ekstra seçenek butonları */
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Ekstra seçenek stilleri */
+.option {
+    padding: 12px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.option:hover {
+    opacity: 0.8;
+}
+
