@@ -13,6 +13,15 @@ const questions = [
 ];
 
 let currentQuestionIndex = 0; // Mevcut soru indeksi
+let score = 0; // Skor değişkeni
+const pointsPerCorrect = 10; // Her doğru cevap için 10 puan
+const pointsPerinCorrect = -5; // Her doğru cevap için 10 puan
+const totalQuestions = questions.length;
+const maxScore = totalQuestions * pointsPerCorrect + totalQuestions*pointsPerinCorrect; // Maksimum puanı hesapla
+
+// Sayfa yüklendiğinde toplam puanı skor kutusuna ekle
+document.getElementById("total-score").innerText = maxScore;
+
 
 // Soruyu ve seçenekleri yükleme fonksiyonu
 function loadQuestion() {
@@ -43,14 +52,19 @@ function checkAnswer(button, answer) {
     let nextBtn = document.getElementById("next-btn");
 
     buttons.forEach(btn => btn.disabled = true);
-
+    
     if (answer === currentQuestion.correct) {
         button.classList.add("correct");
         resultText.innerText = "Doğru! 🚀";
+        score += pointsPerCorrect; // Skora 10 puan ekle
+        document.getElementById("score").innerText = score; // Skor güncelle
     } else {
         button.classList.add("incorrect");
         resultText.innerText = "Yanlış! Tekrar dene. ❌";
+        score += pointsPerinCorrect; // Skora 10 puan ekle
+        document.getElementById("score").innerText = score; // Skor güncelle
     }
+    
 
     nextBtn.style.display = "block";
 }
