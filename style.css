@@ -220,3 +220,43 @@ body {
 #question-text {
     margin-top: 20px; /* Skor kutusu ile arasındaki boşluğu artırır */
 }
+
+.ayarlar-container{
+
+    position: relative;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 600px;
+    text-align: center;
+    
+}
+
+.ses-kutusu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;  /* Buton ile çubuk arasındaki boşluk */
+}
+
+#volume-upbtn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#volume-upbtn i {
+    font-size: 20px;
+}
+
+#volume-upbtn:hover {
+    background: #0056b3;
+}

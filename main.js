@@ -1,9 +1,10 @@
+
+
 // Başlangıç butonları
 const basla = document.querySelector(".baslabtn");
 const nasilbtn = document.querySelector(".nasilbtn");
 const ayarlar = document.querySelector(".ayarlarbtn");
 
-//
 
 // Sayfa yönlendirmeleri
 document.addEventListener("DOMContentLoaded", () => {
