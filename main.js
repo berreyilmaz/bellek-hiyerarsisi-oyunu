@@ -1,54 +1,65 @@
+// Başlangıç butonları
 const basla = document.querySelector(".baslabtn");
 const nasilbtn = document.querySelector(".nasilbtn");
 const ayarlar = document.querySelector(".ayarlarbtn");
 
-
-
+// Sayfa yönlendirmeleri
 document.addEventListener("DOMContentLoaded", () => {
     const junior = document.querySelector("#junior");
     const mid = document.querySelector("#mid");
     const senior = document.querySelector("#senior");
 
-    junior.addEventListener("click", () => {
-        window.location.href = "junior.html";
-    });
-
-    mid.addEventListener("click", () => {
-        window.location.href = "mid.html";
-    });
-
-    senior.addEventListener("click", () => {
-        window.location.href = "senior.html";
-    });
+    if (junior) junior.addEventListener("click", () => window.location.href = "junior.html");
+    if (mid) mid.addEventListener("click", () => window.location.href = "mid.html");
+    if (senior) senior.addEventListener("click", () => window.location.href = "senior.html");
+    
+    loadQuestion(); // İlk soruyu yükle
 });
 
+if (basla) basla.addEventListener('click', () => window.location.href = "basla.html");
+if (nasilbtn) nasilbtn.addEventListener('click', () => window.location.href = "nasiloynanir.html");
+if (ayarlar) ayarlar.addEventListener('click', () => window.location.href = "ayarlar.html");
 
+// Soru listesi
+const questions = [
+    { question: "Bellek hiyerarşisinde en hızlı bileşen hangisidir?", options: ["RAM", "Cache", "Disk", "Register"], correct: "D" },
+    { question: "Cache bellek, hangi bileşene en yakın çalışır?", options: ["RAM", "Disk", "İşlemci (CPU)", "USB Bellek"], correct: "C" },
+    { question: "RAM ile Disk arasındaki hız farkı nasıl bir etki yaratır?", options: ["Bilgisayarın açılış süresi uzar", "İşlemci daha az güç tüketir", "Veriler daha hızlı işlenir", "Hiçbir fark yaratmaz"], correct: "A" }
+];
 
-basla.addEventListener('click', () => {
-    window.location.href = "basla.html";
-})
+let currentQuestionIndex = 0; // Mevcut soru indeksi
 
-nasilbtn.addEventListener('click', () => {
-    window.location.href = "nasiloynanir.html";
-})
+// Soruyu ve seçenekleri yükleme fonksiyonu
+function loadQuestion() {
+    const questionText = document.getElementById("question-text");
+    const buttons = document.querySelectorAll(".option");
+    const currentQuestion = questions[currentQuestionIndex];
 
-ayarlar.addEventListener('click', () => {
-    window.location.href = "ayarlar.html";
-})
+    if (!questionText || !buttons.length) return;
 
+    questionText.innerText = currentQuestion.question;
+
+    buttons.forEach((btn, index) => {
+        btn.innerText = currentQuestion.options[index];
+        btn.classList.remove("correct", "incorrect");
+        btn.disabled = false;
+        btn.setAttribute("onclick", `checkAnswer(this, '${String.fromCharCode(65 + index)}')`);
+    });
+
+    document.getElementById("result").innerText = "";
+    document.getElementById("next-btn").style.display = "none";
+}
+
+// Cevap kontrol fonksiyonu
 function checkAnswer(button, answer) {
-    const correctAnswer = "B"; // Doğru cevap Önbellek (Cache)
+    const currentQuestion = questions[currentQuestionIndex];
     let buttons = document.querySelectorAll(".option");
     let resultText = document.getElementById("result");
     let nextBtn = document.getElementById("next-btn");
 
-    // Önce tüm butonları temizle
-    buttons.forEach(btn => {
-        btn.classList.remove("correct", "incorrect");
-        btn.disabled = true; // Seçimden sonra butonlar devre dışı
-    });
+    buttons.forEach(btn => btn.disabled = true);
 
-    if (answer === correctAnswer) {
+    if (answer === currentQuestion.correct) {
         button.classList.add("correct");
         resultText.innerText = "Doğru! 🚀";
     } else {
@@ -56,37 +67,25 @@ function checkAnswer(button, answer) {
         resultText.innerText = "Yanlış! Tekrar dene. ❌";
     }
 
-    // "Sonraki Soru" butonunu görünür yap
     nextBtn.style.display = "block";
 }
 
+// Sonraki soruya geçiş fonksiyonu
 function nextQuestion() {
-    // Yeni soru ve seçenekleri değiştirmek için
-    document.getElementById("question-text").innerText = "Bir CPU'nun ana görevi nedir?";
-    
-    let buttons = document.querySelectorAll(".option");
-    let nextBtn = document.getElementById("next-btn");
-    let resultText = document.getElementById("result");
+    currentQuestionIndex++;
 
-    // Yeni seçenekleri güncelle (şu an statik ama sonra dinamik hale getirebiliriz)
-    let newOptions = ["Veri depolamak", "İşlem yapmak", "Ekrana görüntü vermek", "Ağ bağlantısını yönetmek"];
-    let correctAnswer = "B"; // Yeni sorunun doğru cevabı
+    if (currentQuestionIndex >= questions.length) {
+        document.getElementById("question-text").innerText = "Tebrikler! Tüm soruları tamamladın 🎉";
+        document.querySelector(".answer-buttons").innerHTML = "";
+        document.getElementById("next-btn").style.display = "none";
+        return;
+    }
 
-    buttons.forEach((btn, index) => {
-        btn.innerText = newOptions[index]; // Butonları güncelle
-        btn.classList.remove("correct", "incorrect"); // Önceki renklendirmeyi temizle
-        btn.disabled = false; // Tekrar seçilebilir hale getir
-        btn.setAttribute("onclick", `checkAnswer(this, '${String.fromCharCode(65 + index)}')`); // Yeni tıklama olayını güncelle
-    });
-
-    // "Sonraki" butonunu tekrar gizle
-    nextBtn.style.display = "none";
-
-    // Sonuç mesajını temizle
-    resultText.innerText = "";
-
-
+    loadQuestion();
 }
+
+
+
 
 
 
