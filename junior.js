@@ -1,3 +1,9 @@
+
+// Ses dosyalarını yükle
+const correctSound = new Audio("sounds/correct.mp3");  // ✅ Doğru cevap sesi
+const incorrectSound = new Audio("sounds/incorrect.mp3");  // ❌ Yanlış cevap sesi
+
+
 // Soru listesi
 const questions = [
     { question: "1) Bellek hiyerarşisinde en hızlı bileşen hangisidir?", options: ["RAM", "Cache", "Disk", "Register"], correct: "D" },
@@ -58,11 +64,13 @@ function checkAnswer(button, answer) {
         resultText.innerText = "Doğru! 🚀";
         score += pointsPerCorrect; // Skora 10 puan ekle
         document.getElementById("score").innerText = score; // Skor güncelle
+        correctSound.play();  // ✅ Doğru cevap sesi çal
     } else {
         button.classList.add("incorrect");
         resultText.innerText = "Yanlış! Tekrar dene. ❌";
         score += pointsPerinCorrect; // Skora 10 puan ekle
         document.getElementById("score").innerText = score; // Skor güncelle
+        incorrectSound.play();  // ❌ Yanlış cevap sesi çal
     }
     
 
