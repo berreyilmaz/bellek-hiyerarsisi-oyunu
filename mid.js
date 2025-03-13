@@ -1,18 +1,26 @@
+document.addEventListener("DOMContentLoaded", function() {
+    loadQuestion(); // Sayfa açıldığında ilk soruyu yükle
+});
+
 // Ses dosyalarını yükle
 const correctSound = new Audio("sounds/correct.mp3");  // ✅ Doğru cevap sesi
 const incorrectSound = new Audio("sounds/incorrect.mp3");  // ❌ Yanlış cevap sesi
 
-
-// Soru listesi
+// MİD seviyesindeki soru listesi
 const questions = [
-    { question: "1) Bellek hiyerarşisinde en hızlı bileşen hangisidir?", options: ["RAM", "Cache", "Disk", "Register"], correct: "D" },
-    { question: "2) Cache bellek, hangi bileşene en yakın çalışır?", options: ["RAM", "Disk", "İşlemci (CPU)", "USB Bellek"], correct: "C" },
-    { question: "3) RAM ile Disk arasındaki hız farkı nasıl bir etki yaratır?", options: ["Bilgisayarın açılış süresi uzar", "İşlemci daha az güç tüketir", "Veriler daha hızlı işlenir", "Hiçbir fark yaratmaz"], correct: "A" },
-    { question: "4) RAM ve Cache arasındaki temel fark nedir?", options: ["Cache daha büyüktür", "RAM daha hızlıdır", "Cache daha küçüktür ama daha hızlıdır", "RAM daha ucuzdur"], correct: "C" },
-    { question: "5) Cache bellek neden vardır?", options: ["Disk'teki verileri depolamak için", "İşlemciye daha hızlı veri sağlamak için", "Elektrik tüketimini azaltmak için", "RAM'i yedeklemek için"], correct: "C" }
+    { question: "1) RAM'de depolanan veriler ne zaman kaybolur?", options: ["Bilgisayar kapandığında", "İşlemci devre dışı kaldığında", "Disk dolduğunda", "RAM'in kapasitesi dolduğunda"], correct: "A" },
+    { question: "2) Cache bellek neden çok küçük tutulur?", options: ["Daha pahalı olduğu için", "Daha yavaş olduğu için", "Daha az güç tükettiği için", "Daha fazla kapasite gerektirdiği için"], correct: "A" },
+    { question: "3) Virtual Memory'nin temel amacı nedir?", options: ["İşlemcinin daha hızlı çalışmasını sağlamak", "RAM dolduğunda disk alanını bellek gibi kullanmak", "Cache belleği hızlandırmak", "Register kapasitesini artırmak"], correct: "B" },
+    { question: "4) Hangi bellek doğrudan işlemci ile entegre edilmiştir?", options: ["RAM", "Cache", "Disk", "Register"], correct: "D" },
+    { question: "5) Hangi bellek, L1, L2 ve L3 olarak sınıflandırılır?", options: ["RAM", "Cache", "Disk", "SSD"], correct: "B" },
+    { question: "6) Bir işlemci, bellekten veri çağırırken en çok hangi belleğe bakar?", options: ["RAM", "Disk", "Register", "Cache"], correct: "D" },
+    { question: "7) RAM neden SSD'den daha hızlıdır?", options: ["Manyetik disk yerine yarı iletkenler kullanıldığı için", "Daha fazla kapasiteye sahip olduğu için", "Sürekli veri okuma ve yazma yaptığı için", "Elektrik kesildiğinde veri kaybolduğu için"], correct: "A" },
+    { question: "8) Bellek erişim sürelerini en hızlıdan en yavaşa doğru sıralayın:", options: ["Register → Cache → RAM → Disk", "Cache → Register → RAM → Disk", "Disk → RAM → Cache → Register", "RAM → Cache → Register → Disk"], correct: "A" },
+    { question: "9) Bir program çalıştırıldığında ilk olarak hangi bellek kullanılır?", options: ["Register", "RAM", "Cache", "Disk"], correct: "B" },
+    { question: "10) Hangi bellek doğrudan CPU'ya gömülüdür?", options: ["Cache", "RAM", "Disk", "Virtual Memory"], correct: "A" }
 ];
 
-let currentQuestionIndex = 0; // Mevcut soru indeksi
+let currentQuestionIndex = 0;
 
 // Soruyu ve seçenekleri yükleme fonksiyonu
 function loadQuestion() {
@@ -26,7 +34,7 @@ function loadQuestion() {
 
     buttons.forEach((btn, index) => {
         btn.innerText = currentQuestion.options[index];
-        btn.classList.remove("correct", "incorrect");
+        btn.classList.remove("correct", "incorrect", "shake");
         btn.disabled = false;
         btn.setAttribute("onclick", `checkAnswer(this, '${String.fromCharCode(65 + index)}')`);
     });
@@ -52,14 +60,13 @@ function checkAnswer(button, answer) {
         button.classList.add("incorrect");
         resultText.innerText = "Yanlış! Tekrar dene. ❌";
         incorrectSound.play();  // ❌ Yanlış cevap sesi çal
-        // Yanlış cevapta titreme animasyonu uygula
-        button.classList.add("shake");
+        button.classList.add("shake"); // Yanlış cevapta titreme efekti ekle
     }
 
-  // Ses bitene kadar "Sonraki" butonunu gizle
-  correctSound.onended = incorrectSound.onended = function() {
-    nextBtn.style.display = "block"; // Ses bitince buton görünür olur
-};
+    // Ses bitene kadar "Sonraki" butonunu gizle
+    correctSound.onended = incorrectSound.onended = function() {
+        nextBtn.style.display = "block"; // Ses bitince buton görünür olur
+    };
 }
 
 // Sonraki soruya geçiş fonksiyonu
@@ -67,12 +74,26 @@ function nextQuestion() {
     currentQuestionIndex++;
 
     if (currentQuestionIndex >= questions.length) {
-        document.getElementById("question-text").innerText = "Tebrikler! Tüm soruları tamamladın 🎉";
+        document.getElementById("question-text").innerText = "Tebrikler! MİD seviyesi tamamlandı 🎉";
         document.querySelector(".answer-buttons").innerHTML = "";
         document.getElementById("next-btn").style.display = "none";
         document.getElementById("result").innerText = "";
+
+        // **SENIOR seviyesine geçiş butonunu ekleyelim**
+        const seniorLevelContainer = document.createElement("div");
+        seniorLevelContainer.id = "senior-level-container";
+        seniorLevelContainer.innerHTML = `
+            <button id="senior-level-btn" onclick="goToSeniorLevel()">SENIOR seviyesine geçin</button>
+        `;
+
+        document.querySelector(".question-box").appendChild(seniorLevelContainer);
         return;
     }
 
     loadQuestion();
+}
+
+// **SENIOR seviyesine geçiş fonksiyonu**
+function goToSeniorLevel() {
+    window.location.href = "senior.html";  // senior.html sayfasına yönlendir
 }

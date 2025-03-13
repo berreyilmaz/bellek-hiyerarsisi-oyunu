@@ -1,10 +1,8 @@
-
 // Ses dosyalarını yükle
 const correctSound = new Audio("sounds/correct.mp3");  // ✅ Doğru cevap sesi
 const incorrectSound = new Audio("sounds/incorrect.mp3");  // ❌ Yanlış cevap sesi
 
-
-// Soru listesi
+// Junior seviyesindeki soru listesi (10 soru)
 const questions = [
     { question: "1) Bellek hiyerarşisinde en hızlı bileşen hangisidir?", options: ["RAM", "Cache", "Disk", "Register"], correct: "D" },
     { question: "2) Cache bellek, hangi bileşene en yakın çalışır?", options: ["RAM", "Disk", "İşlemci (CPU)", "USB Bellek"], correct: "C" },
@@ -18,16 +16,15 @@ const questions = [
     { question: "10) SSD’ler hangi belleğe kıyasla daha hızlıdır?", options: ["RAM","Cache","HDD","Register"], correct: "C"}
 ];
 
-let currentQuestionIndex = 0; // Mevcut soru indeksi
-let score = 0; // Skor değişkeni
-const pointsPerCorrect = 10; // Her doğru cevap için 10 puan
-const pointsPerinCorrect = -5; // Her doğru cevap için 10 puan
-const totalQuestions = questions.length;
-const maxScore = totalQuestions * pointsPerCorrect + totalQuestions*pointsPerinCorrect; // Maksimum puanı hesapla
+let currentQuestionIndex = 0;
+let score = 0;
+const pointsPerCorrect = 10;
+const pointsPerinCorrect = -5;
 
-// Sayfa yüklendiğinde toplam puanı skor kutusuna ekle
-document.getElementById("total-score").innerText = maxScore;
-
+// Sayfa yüklendiğinde ilk soruyu yükle
+document.addEventListener("DOMContentLoaded", function() {
+    loadQuestion();
+});
 
 // Soruyu ve seçenekleri yükleme fonksiyonu
 function loadQuestion() {
@@ -41,7 +38,7 @@ function loadQuestion() {
 
     buttons.forEach((btn, index) => {
         btn.innerText = currentQuestion.options[index];
-        btn.classList.remove("correct", "incorrect","shake");
+        btn.classList.remove("correct", "incorrect", "shake");
         btn.disabled = false;
         btn.setAttribute("onclick", `checkAnswer(this, '${String.fromCharCode(65 + index)}')`);
     });
@@ -62,25 +59,37 @@ function checkAnswer(button, answer) {
     if (answer === currentQuestion.correct) {
         button.classList.add("correct");
         resultText.innerText = "Doğru! 🚀";
-        score += pointsPerCorrect; // Skora 10 puan ekle
-        document.getElementById("score").innerText = score; // Skor güncelle
-        correctSound.play();  // ✅ Doğru cevap sesi çal
+        score += pointsPerCorrect;
+        document.getElementById("score").innerText = score;
+        correctSound.play();
     } else {
         button.classList.add("incorrect");
         resultText.innerText = "Yanlış! Tekrar dene. ❌";
-        score += pointsPerinCorrect; // Skora 10 puan ekle
-        document.getElementById("score").innerText = score; // Skor güncelle
-        incorrectSound.play();  // ❌ Yanlış cevap sesi çal
-          // Yanlış cevapta titreme animasyonu uygula
-          button.classList.add("shake");
+        score += pointsPerinCorrect;
+        document.getElementById("score").innerText = score;
+        incorrectSound.play();
+        button.classList.add("shake"); // Yanlış cevapta titreme animasyonu uygula
     }
-    
 
-   
     // Ses bitene kadar "Sonraki" butonunu gizle
     correctSound.onended = incorrectSound.onended = function() {
         nextBtn.style.display = "block"; // Ses bitince buton görünür olur
     };
+
+    // **Tüm sorular tamamlandıysa MİD butonunu ekle**
+    if (currentQuestionIndex >= questions.length - 1) {
+        document.getElementById("question-text").innerText = "Tebrikler! Junior seviyesini tamamladın 🎉";
+        document.querySelector(".answer-buttons").innerHTML = "";
+        document.getElementById("next-btn").style.display = "none";
+        document.getElementById("result").innerText = "";
+
+        // **MİD seviyesine geçiş butonunu ekleyelim**
+        const midLevelContainer = document.createElement("div");
+        midLevelContainer.id = "mid-level-container";
+        midLevelContainer.innerHTML = `<button id="mid-level-btn" onclick="goToMidLevel()">MİD seviyesine geçin</button>`;
+
+        document.querySelector(".question-box").appendChild(midLevelContainer);
+    }
 }
 
 // Sonraki soruya geçiş fonksiyonu
@@ -88,7 +97,7 @@ function nextQuestion() {
     currentQuestionIndex++;
 
     if (currentQuestionIndex >= questions.length) {
-        document.getElementById("question-text").innerText = "Tebrikler! Tüm soruları tamamladın 🎉";
+        document.getElementById("question-text").innerText = "Tebrikler! Junior seviyesini tamamladın 🎉";
         document.querySelector(".answer-buttons").innerHTML = "";
         document.getElementById("next-btn").style.display = "none";
         document.getElementById("result").innerText = "";
@@ -98,8 +107,7 @@ function nextQuestion() {
     loadQuestion();
 }
 
-
-
-
-
-
+// **MİD seviyesine geçiş fonksiyonu**
+function goToMidLevel() {
+    window.location.href = "mid.html";  
+}

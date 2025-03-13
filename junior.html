@@ -10,25 +10,25 @@
 
     <div class="question-box">
         <h2 id="question-text">Bellek hiyerarşisinde en hızlı bileşen hangisidir?</h2>
+
         <div class="answer-buttons">
             <button class="option" onclick="checkAnswer(this, 'A')">Ana Bellek</button>
             <button class="option" onclick="checkAnswer(this, 'B')">Önbellek (Cache)</button>
             <button class="option" onclick="checkAnswer(this, 'C')">Sabit Disk</button>
             <button class="option" onclick="checkAnswer(this, 'D')">Flash Bellek</button>
         </div>
+
         <p id="result"></p>
         <button id="next-btn" style="display: none;" onclick="nextQuestion()">Sonraki Soru</button>
+
         <div id="score-box">Skor: <span id="score">0</span></div>
     </div>
 
+    <!-- MİD seviyesine geçiş butonu (ilk başta gizli) -->
+    <div id="mid-level-container" style="display: none;">
+        <button id="mid-level-btn" onclick="goToMidLevel()">MİD seviyesine geçin</button>
+    </div>
 
-
-
-
-    
-    
-    
-    <script src="main.js" defer></script>
     <script src="junior.js"></script>
 </body>
 </html>

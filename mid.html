@@ -9,20 +9,30 @@
 <body>
 
     <div class="question-box">
-        <h2 id="question-text">Bellek hiyerarşisinde en hızlı bileşen hangisidir?</h2>
+        <h2 id="question-text">MİD seviyesi soruları yükleniyor...</h2>
+
         <div class="answer-buttons">
-            <button class="option" onclick="checkAnswer(this, 'A')">Ana Bellek</button>
-            <button class="option" onclick="checkAnswer(this, 'B')">Önbellek (Cache)</button>
-            <button class="option" onclick="checkAnswer(this, 'C')">Sabit Disk</button>
-            <button class="option" onclick="checkAnswer(this, 'D')">Flash Bellek</button>
-
-
+            <button class="option" onclick="checkAnswer(this, 'A')">Seçenek A</button>
+            <button class="option" onclick="checkAnswer(this, 'B')">Seçenek B</button>
+            <button class="option" onclick="checkAnswer(this, 'C')">Seçenek C</button>
+            <button class="option" onclick="checkAnswer(this, 'D')">Seçenek D</button>
         </div>
+
         <p id="result"></p>
+
         <button id="next-btn" style="display: none;" onclick="nextQuestion()">Sonraki Soru</button>
+
+        <div id="score-box">Skor: <span id="score">0</span></div>
     </div>
 
-    <script src="main.js" defer></script>
+    <!-- 🔥 MİD seviyesine geçiş butonu (BAŞLANGIÇTA GİZLİ) -->
+    <button id="mid-level-btn" style="display:none;" onclick="goToMidLevel()">MİD seviyesine geçin</button>
+
     <script src="mid.js"></script>
+
 </body>
+
+
+
+
 </html>

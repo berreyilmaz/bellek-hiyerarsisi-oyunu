@@ -260,16 +260,47 @@ body {
 #volume-upbtn:hover {
     background: #0056b3;
 }
-/* Titreme animasyonu */
-@keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-10px); }
-    50% { transform: translateX(10px); }
-    75% { transform: translateX(-10px); }
-    100% { transform: translateX(0); }
+#mid-level-container {
+    text-align: center;  /* Ortala */
+    margin-top: 20px;  /* Üst boşluk ekle */
 }
 
-/* Titreme animasyonunu butonlara uygulamak için */
-.shake {
-    animation: shake 0.5s ease-in-out; /* 0.5 saniye süren titreme */
+#mid-level-btn {
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #7f3dd2; /* Uyumlu mor tonu */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#mid-level-btn:hover {
+    background-color: #5e2ba8; /* Daha koyu mor */
+    transform: scale(1.05);
+}
+#senior-level-btn {
+    background-color: #6a0dad; /* Mor renk */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: block;
+    margin: 15px auto; /* Ortalamak için */
+}
+
+#senior-level-btn:hover {
+    background-color: #4b0082; /* Daha koyu mor */
+}
+
+#senior-level-container {
+    text-align: center; /* Butonu ortala */
+    margin-top: 20px;
 }
