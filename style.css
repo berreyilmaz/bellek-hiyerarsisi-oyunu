@@ -184,5 +184,21 @@ body {
 
 .option:hover {
     opacity: 0.8;
+    transform: scale(1.1);
 }
 
+#next-btn {
+    background-color: #237085;
+    color: aliceblue;
+    padding: 12px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+#next-btn:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+}
