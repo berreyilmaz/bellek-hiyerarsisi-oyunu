@@ -41,7 +41,7 @@ function loadQuestion() {
 
     buttons.forEach((btn, index) => {
         btn.innerText = currentQuestion.options[index];
-        btn.classList.remove("correct", "incorrect");
+        btn.classList.remove("correct", "incorrect","shake");
         btn.disabled = false;
         btn.setAttribute("onclick", `checkAnswer(this, '${String.fromCharCode(65 + index)}')`);
     });
@@ -71,10 +71,16 @@ function checkAnswer(button, answer) {
         score += pointsPerinCorrect; // Skora 10 puan ekle
         document.getElementById("score").innerText = score; // Skor güncelle
         incorrectSound.play();  // ❌ Yanlış cevap sesi çal
+          // Yanlış cevapta titreme animasyonu uygula
+          button.classList.add("shake");
     }
     
 
-    nextBtn.style.display = "block";
+   
+    // Ses bitene kadar "Sonraki" butonunu gizle
+    correctSound.onended = incorrectSound.onended = function() {
+        nextBtn.style.display = "block"; // Ses bitince buton görünür olur
+    };
 }
 
 // Sonraki soruya geçiş fonksiyonu

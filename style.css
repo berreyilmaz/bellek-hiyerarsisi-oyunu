@@ -260,3 +260,16 @@ body {
 #volume-upbtn:hover {
     background: #0056b3;
 }
+/* Titreme animasyonu */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    50% { transform: translateX(10px); }
+    75% { transform: translateX(-10px); }
+    100% { transform: translateX(0); }
+}
+
+/* Titreme animasyonunu butonlara uygulamak için */
+.shake {
+    animation: shake 0.5s ease-in-out; /* 0.5 saniye süren titreme */
+}
