@@ -25,8 +25,30 @@ let score = 0;
 const pointsPerCorrect = 10;
 const pointsPerinCorrect = -5;
 
-// Soruyu ve seçenekleri yükleme fonksiyonu
+let timeLeft = 30;  // Süre sınırı (saniye)
+let timerInterval; 
+
+// **Soru yükleme fonksiyonu (TIMER ile birlikte)**
 function loadQuestion() {
+    if (currentQuestionIndex >= questions.length) {
+        endGame();  // Tüm sorular bitince oyunu tamamla
+        return;
+    }
+
+    clearInterval(timerInterval); // Timer'ı sıfırla
+    timeLeft = 30; 
+    document.getElementById("timer-btn").innerText = `⏳ ${timeLeft}s`;
+
+    timerInterval = setInterval(() => {
+        timeLeft--;
+        document.getElementById("timer-btn").innerText = `⏳ ${timeLeft}s`;
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            nextQuestion();  // **Süre bitince otomatik geçiş**
+        }
+    }, 1000);
+
     const questionText = document.getElementById("question-text");
     const buttons = document.querySelectorAll(".option");
     const currentQuestion = questions[currentQuestionIndex];
