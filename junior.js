@@ -2,29 +2,24 @@
 const correctSound = new Audio("sounds/correct.mp3");  // ✅ Doğru cevap sesi
 const incorrectSound = new Audio("sounds/incorrect.mp3");  // ❌ Yanlış cevap sesi
 
-// Junior seviyesindeki soru listesi (10 soru)
+// Soru listesi (10 soru)
 const questions = [
     { question: "1) Bellek hiyerarşisinde en hızlı bileşen hangisidir?", options: ["RAM", "Cache", "Disk", "Register"], correct: "D" },
     { question: "2) Cache bellek, hangi bileşene en yakın çalışır?", options: ["RAM", "Disk", "İşlemci (CPU)", "USB Bellek"], correct: "C" },
     { question: "3) RAM ile Disk arasındaki hız farkı nasıl bir etki yaratır?", options: ["Bilgisayarın açılış süresi uzar", "İşlemci daha az güç tüketir", "Veriler daha hızlı işlenir", "Hiçbir fark yaratmaz"], correct: "A" },
     { question: "4) RAM ve Cache arasındaki temel fark nedir?", options: ["Cache daha büyüktür", "RAM daha hızlıdır", "Cache daha küçüktür ama daha hızlıdır", "RAM daha ucuzdur"], correct: "C" },
-    { question: "5) Cache bellek neden vardır?", options: ["Disk'teki verileri depolamak için", "İşlemciye daha hızlı veri sağlamak için", "Elektrik tüketimini azaltmak için", "RAM'i yedeklemek için"], correct: "C" },
-    { question: "6) Hangi bellek türü kalıcıdır?", options: ["RAM","Cache","Disk","Register"], correct: "C"},
-    { question: "7) Aşağıdaki bellek türlerinden hangisi en büyük kapasiteye sahiptir?", options: ["Register","Cache","RAM","Disk"], correct: "D"},
-    { question: "8) Hangi bellek, işlemcinin en sık eriştiği verileri saklar?", options: ["RAM","Cache","Disk","Register"], correct: "B"},
-    { question: "9) Disk belleğinin diğer adı nedir?", options: ["Swap Alanı","Virtual Memory","Flash Bellek","A ve B doğru"], correct: "D"},
-    { question: "10) SSD’ler hangi belleğe kıyasla daha hızlıdır?", options: ["RAM","Cache","HDD","Register"], correct: "C"}
+    { question: "5) Cache bellek neden vardır?", options: ["Disk'teki verileri depolamak için", "İşlemciye daha hızlı veri sağlamak için", "Elektrik tüketimini azaltmak için", "RAM'i yedeklemek için"], correct: "B" },
+    { question: "6) Hangi bellek türü kalıcıdır?", options: ["RAM","Cache","Disk","Register"], correct: "C" },
+    { question: "7) Aşağıdaki bellek türlerinden hangisi en büyük kapasiteye sahiptir?", options: ["Register","Cache","RAM","Disk"], correct: "D" },
+    { question: "8) Hangi bellek, işlemcinin en sık eriştiği verileri saklar?", options: ["RAM","Cache","Disk","Register"], correct: "B" },
+    { question: "9) Disk belleğinin diğer adı nedir?", options: ["Swap Alanı","Virtual Memory","Flash Bellek","A ve B doğru"], correct: "D" },
+    { question: "10) SSD’ler hangi belleğe kıyasla daha hızlıdır?", options: ["RAM","Cache","HDD","Register"], correct: "C" }
 ];
 
-let currentQuestionIndex = 0;
-let score = 0;
+let currentQuestionIndex = 0; 
+let score = 0;  
 const pointsPerCorrect = 10;
-const pointsPerinCorrect = -5;
-
-// Sayfa yüklendiğinde ilk soruyu yükle
-document.addEventListener("DOMContentLoaded", function() {
-    loadQuestion();
-});
+const pointsPerinCorrect = -5;  
 
 // Soruyu ve seçenekleri yükleme fonksiyonu
 function loadQuestion() {
@@ -59,36 +54,49 @@ function checkAnswer(button, answer) {
     if (answer === currentQuestion.correct) {
         button.classList.add("correct");
         resultText.innerText = "Doğru! 🚀";
-        score += pointsPerCorrect;
-        document.getElementById("score").innerText = score;
-        correctSound.play();
+        score += pointsPerCorrect; 
     } else {
         button.classList.add("incorrect");
         resultText.innerText = "Yanlış! Tekrar dene. ❌";
-        score += pointsPerinCorrect;
-        document.getElementById("score").innerText = score;
-        incorrectSound.play();
-        button.classList.add("shake"); // Yanlış cevapta titreme animasyonu uygula
+        score += pointsPerinCorrect;  
+        button.classList.add("shake"); // Yanlış cevapta titreme efekti ekle
     }
 
-    // Ses bitene kadar "Sonraki" butonunu gizle
-    correctSound.onended = incorrectSound.onended = function() {
-        nextBtn.style.display = "block"; // Ses bitince buton görünür olur
-    };
+    document.getElementById("score").innerText = score;
 
-    // **Tüm sorular tamamlandıysa MİD butonunu ekle**
+    nextBtn.style.display = "block";
+
+    // **Tüm sorular tamamlandıysa geçiş şartı kontrolü**
     if (currentQuestionIndex >= questions.length - 1) {
-        document.getElementById("question-text").innerText = "Tebrikler! Junior seviyesini tamamladın 🎉";
+        document.getElementById("question-text").innerText = "Tebrikler! Tüm soruları tamamladın 🎉";
+
+        const messageContainer = document.createElement("p");
+        messageContainer.id = "retry-message";
+
         document.querySelector(".answer-buttons").innerHTML = "";
         document.getElementById("next-btn").style.display = "none";
         document.getElementById("result").innerText = "";
 
-        // **MİD seviyesine geçiş butonunu ekleyelim**
-        const midLevelContainer = document.createElement("div");
-        midLevelContainer.id = "mid-level-container";
-        midLevelContainer.innerHTML = `<button id="mid-level-btn" onclick="goToMidLevel()">MİD seviyesine geçin</button>`;
+        const buttonContainer = document.createElement("div");
+        buttonContainer.id = "level-container";
 
-        document.querySelector(".question-box").appendChild(midLevelContainer);
+        if (score >= 85) {
+            // Eğer skor 85 ve üzeri ise, MİD seviyesine geçiş butonu oluştur
+            buttonContainer.innerHTML = `
+                <button id="mid-level-btn" class="next-level-btn" onclick="goToMidLevel()">MİD seviyesine geçin</button>
+            `;
+        } else {
+            // Eğer skor 85’ten düşükse, mesaj ve baştan başlama butonu oluştur
+            messageContainer.innerText = "Ne yazık ki skorunuz düşük, bir üst level için tekrar çözmelisiniz. 🆙🥲";
+            messageContainer.classList.add("retry-message");
+
+            buttonContainer.innerHTML = `
+                <button id="retry-btn" class="retry-btn" onclick="restartGame()">Junior seviyesine tekrar başla</button>
+            `;
+        }
+
+        document.querySelector(".question-box").appendChild(messageContainer);
+        document.querySelector(".question-box").appendChild(buttonContainer);
     }
 }
 
@@ -97,10 +105,6 @@ function nextQuestion() {
     currentQuestionIndex++;
 
     if (currentQuestionIndex >= questions.length) {
-        document.getElementById("question-text").innerText = "Tebrikler! Junior seviyesini tamamladın 🎉";
-        document.querySelector(".answer-buttons").innerHTML = "";
-        document.getElementById("next-btn").style.display = "none";
-        document.getElementById("result").innerText = "";
         return;
     }
 
@@ -110,4 +114,9 @@ function nextQuestion() {
 // **MİD seviyesine geçiş fonksiyonu**
 function goToMidLevel() {
     window.location.href = "mid.html";  
+}
+
+// **Oyunu yeniden başlatma fonksiyonu**
+function restartGame() {
+    window.location.href = "junior.html";  
 }
