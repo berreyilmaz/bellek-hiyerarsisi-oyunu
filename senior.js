@@ -21,6 +21,9 @@ const questions = [
 ];
 
 let currentQuestionIndex = 0; 
+let score = 0;  
+const pointsPerCorrect = 10;
+const pointsPerinCorrect = -5;  
 
 // Soruyu ve seçenekleri yükleme fonksiyonu
 function loadQuestion() {
@@ -55,13 +58,17 @@ function checkAnswer(button, answer) {
     if (answer === currentQuestion.correct) {
         button.classList.add("correct");
         resultText.innerText = "Doğru! 🚀";
+        score += pointsPerCorrect;
         correctSound.play();  // ✅ Doğru cevap sesi çal
     } else {
         button.classList.add("incorrect");
         resultText.innerText = "Yanlış! Tekrar dene. ❌";
+        score += pointsPerinCorrect;  
         incorrectSound.play();  // ❌ Yanlış cevap sesi çal
         button.classList.add("shake"); // Yanlış cevapta titreme efekti ekle
     }
+
+    document.getElementById("score").innerText = score;
 
     // Ses bitene kadar "Sonraki" butonunu gizle
     correctSound.onended = incorrectSound.onended = function() {

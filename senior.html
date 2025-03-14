@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Junior</title>
+    <title>Senior</title>
     <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
+    <audio id="audio" src="sounds/ses.mp3"></audio>
+
 
     <div class="question-box">
         <h2 id="question-text">Bellek hiyerarşisinde en hızlı bileşen hangisidir?</h2>
@@ -20,9 +22,11 @@
         </div>
         <p id="result"></p>
         <button id="next-btn" style="display: none;" onclick="nextQuestion()">Sonraki Soru</button>
+
+        <div id="score-box">Skor: <span id="score">0</span></div>
     </div>
 
-    <script src="main.js" defer></script>
     <script src="senior.js"></script>
+    <script src="main.js" defer></script>
 </body>
 </html>
