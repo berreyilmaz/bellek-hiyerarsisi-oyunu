@@ -42,6 +42,32 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+// Jokerler 
+document.addEventListener("DOMContentLoaded", function () {
+    // Joker butonlarını seç
+    const doubleAnswerBtn = document.getElementById("double-answer");
+    const fiftyFiftyBtn = document.getElementById("fifty-fifty");
+
+    // Çift Cevap Jokeri
+    if (doubleAnswerBtn) {
+        doubleAnswerBtn.addEventListener("click", function () {
+            alert("Çift Cevap Jokeri Kullanıldı! Bu soruda iki cevap hakkınız var.");
+            // Burada çift cevap jokeri uygulanacak
+            doubleAnswerBtn.disabled = true; // Joker kullanıldıktan sonra devre dışı bırak
+        });
+    }
+
+    // 50:50 Jokeri
+    if (fiftyFiftyBtn) {
+        fiftyFiftyBtn.addEventListener("click", function () {
+            alert("50:50 Jokeri Kullanıldı! İki yanlış şık kaldırıldı.");
+            // Burada yanlış iki şıkkı kaldıracak fonksiyon çağrılabilir
+            fiftyFiftyBtn.disabled = true; // Joker kullanıldıktan sonra devre dışı bırak
+        });
+    }
+});
+
+
 
 
 

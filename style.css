@@ -341,3 +341,88 @@ body {
     margin-top: 10px;
     font-weight: bold;
 }
+
+
+
+
+
+/* NASIL OYNANIR SAYFASI İÇİN YAPILAN CSS DÜZENLEMELERİ */
+/* Görselleri düzenli bir şekilde yerleştirmek için Grid düzeni kullanıyoruz */
+#image-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 sütunlu düzen */
+    gap: 10px;
+    margin: 20px;
+}
+
+/* Görsel butonlarına stil ekliyoruz */
+.img {
+    width: 100%; /* Görsellerin genişliği 100% olacak */
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Hover efekti */
+}
+
+/* Hover efektiyle görselin biraz büyümesini sağlıyoruz */
+.img:hover {
+    transform: scale(1.05);
+}
+
+/* Büyütülmüş görselin gösterileceği overlay alanı */
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8); /* Yarı saydam siyah arka plan */
+    display: none; /* Başlangıçta gizli */
+    justify-content: center;
+    align-items: center;
+    z-index: 999; /* Overlay'i üstte tutmak için */
+}
+
+/* Büyütülen görseli tam ekran göstermek için stil */
+#expanded-img {
+    width: 80%;
+    height: auto;
+}
+
+/* NASIL OYNANIR İÇİN YAPILAN CSS DÜZENLEMELERİ */
+
+
+
+/* Joker hakları için düzenlemeler */
+/* Joker butonlarını varsayılan olarak gizle */
+#joker-container {
+    display: none;
+}
+
+/* Sadece quiz sayfalarında (soru ekranında) jokerleri göster */
+.quiz-page #joker-container {
+    display: flex;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    gap: 10px;
+}
+
+/* Joker butonları için tasarım */
+.joker-btn {
+    background-color: #2600ff; /* Sarı joker butonları */
+    color: black;
+    border: 2px solid #d4a000; /* Kenarlık */
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+/* Joker butonuna basılınca efekti */
+.joker-btn:hover {
+    background-color: #e6b800;
+}
+
+
