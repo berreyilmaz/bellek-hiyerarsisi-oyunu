@@ -57,6 +57,7 @@ function loadQuestion() {
         btn.innerText = currentQuestion.options[index];
         btn.classList.remove("correct", "incorrect", "shake");
         btn.disabled = false;
+        btn.style.display = "block";  // **50:50 jokeri sonrası gizlenen şıkları geri getir**
         btn.setAttribute("onclick", `checkAnswer(this, '${String.fromCharCode(65 + index)}')`);
     });
 
@@ -148,4 +149,41 @@ function restartGame() {
 
 // **İlk soruyu yükle**
 loadQuestion();
+
+
+
+
+// 50:50 JOKER
+let usedFiftyFifty = false;  // 50:50 jokerinin kullanılıp kullanılmadığını kontrol ediyoruz
+
+function useFiftyFifty() {
+    if (usedFiftyFifty) {
+        alert("50:50 jokeri zaten kullanıldı!");
+        return;
+    }
+
+    // Şıkları alıyoruz
+    const options = document.querySelectorAll(".option");
+    let wrongAnswers = [];
+
+    // Yanlış şıkları buluyoruz
+    options.forEach(option => {
+        if (!option.classList.contains("correct")) {
+            wrongAnswers.push(option);
+        }
+    });
+
+    // Yanlış şıkları gizliyoruz (2 tanesini)
+    if (wrongAnswers.length >= 2) {
+        wrongAnswers[0].style.display = "none";
+        wrongAnswers[1].style.display = "none";
+    }
+
+    // Jokeri kullandık, butonu devre dışı bırakıyoruz
+    usedFiftyFifty = true;
+    document.getElementById("fifty-fifty").disabled = true;
+}
+
+
+
 
