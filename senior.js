@@ -23,8 +23,7 @@ const questions = [
 let currentQuestionIndex = 0; 
 let score = 0;  
 const pointsPerCorrect = 10;
-const pointsPerinCorrect = -5;  
-
+const pointsPerInCorrect = -5;  
 let timeLeft = 45;  // Süre sınırı (saniye)
 let timerInterval; 
 
@@ -36,7 +35,7 @@ function loadQuestion() {
     }
 
     clearInterval(timerInterval); // Timer'ı sıfırla
-    timeLeft = 15; 
+    timeLeft = 45; 
     document.getElementById("timer-btn").innerText = `⏳ ${timeLeft}s`;
 
     timerInterval = setInterval(() => {
@@ -61,7 +60,7 @@ function loadQuestion() {
         btn.innerText = currentQuestion.options[index];
         btn.classList.remove("correct", "incorrect", "shake");
         btn.disabled = false;
-        btn.style.display = "block";  // **50:50 jokeri sonrası gizlenen şıkları geri getir**
+        btn.style.display = "block";  
         btn.setAttribute("onclick", `checkAnswer(this, '${String.fromCharCode(65 + index)}')`);
     });
 
@@ -69,7 +68,7 @@ function loadQuestion() {
     document.getElementById("next-btn").style.display = "none";
 }
 
-// Cevap kontrol fonksiyonu
+// **Cevap kontrol fonksiyonu**
 function checkAnswer(button, answer) {
     const currentQuestion = questions[currentQuestionIndex];
     let buttons = document.querySelectorAll(".option");
@@ -82,51 +81,55 @@ function checkAnswer(button, answer) {
         button.classList.add("correct");
         resultText.innerText = "Doğru! 🚀";
         score += pointsPerCorrect;
-        correctSound.play();  // ✅ Doğru cevap sesi çal
+        correctSound.play();
     } else {
         button.classList.add("incorrect");
         resultText.innerText = "Yanlış! Tekrar dene. ❌";
-        score += pointsPerinCorrect;  
-        incorrectSound.play();  // ❌ Yanlış cevap sesi çal
-        button.classList.add("shake"); // Yanlış cevapta titreme efekti ekle
+        score += pointsPerInCorrect;  
+        incorrectSound.play();
+        button.classList.add("shake");
     }
 
     document.getElementById("score").innerText = score;
 
-    // Ses bitene kadar "Sonraki" butonunu gizle
     correctSound.onended = incorrectSound.onended = function() {
         nextBtn.style.display = "block"; // Ses bitince buton görünür olur
     };
 }
 
-// Sonraki soruya geçiş fonksiyonu
+// **Sonraki soruya geçiş fonksiyonu**
 function nextQuestion() {
     currentQuestionIndex++;
 
     if (currentQuestionIndex >= questions.length) {
-        document.getElementById("question-text").innerText = "Tebrikler! SENIOR seviyesi tamamlandı 🎉";
-        document.querySelector(".answer-buttons").innerHTML = "";
-        document.getElementById("next-btn").style.display = "none";
-        document.getElementById("result").innerText = "";
-
-        // **OYUNU BİTİRME BUTONUNU GÖSTER**
-        const finalLevelContainer = document.createElement("div");
-        finalLevelContainer.id = "final-level-container";
-        finalLevelContainer.innerHTML = `
-            <button id="final-level-btn" onclick="finishGame()">OYUNU BİTİR</button>
-        `;
-
-        document.querySelector(".question-box").appendChild(finalLevelContainer);
+        endGame();
         return;
     }
 
     loadQuestion();
 }
 
-// **OYUNU BİTİRME FONKSİYONU**
-function finishGame() {
-    alert("Tebrikler! Tüm seviyeleri başarıyla tamamladınız 🎉");
+// **Oyunun tamamlanması fonksiyonu**
+function endGame() {
+    clearInterval(timerInterval);
+    document.getElementById("question-text").innerText = "Tebrikler! SENIOR seviyesi tamamlandı 🎉";
+
+    document.querySelector(".answer-buttons").innerHTML = "";
+    document.getElementById("next-btn").style.display = "none";
+    document.getElementById("result").innerText = "";
+
+    if (score >= 75) {
+        document.getElementById("question-text").innerHTML += "<br> 🏆 Harika iş çıkardın!";
+    } else {
+        document.getElementById("question-text").innerHTML += "<br> 😞 Ne yazık ki skorunuz yetersiz! Tekrar çözün :)";
+        const retryButton = document.createElement("button");
+        retryButton.innerText = "Senior seviyesini yeniden çöz";
+        retryButton.classList.add("retry-btn");
+        retryButton.onclick = () => window.location.reload();
+        document.querySelector(".question-box").appendChild(retryButton);
+    }
 }
+
 
 
 

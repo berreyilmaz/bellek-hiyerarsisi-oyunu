@@ -453,3 +453,64 @@ body {
     animation: shake 0.3s ease-in-out;
 }
 
+/* 📌 Tüm seviyelerde kullanılan geçiş butonları (Mid → Senior, Senior → Impossible) */
+.level-btn, #retry-btn {
+    background-color: #6a0dad;  /* Mor renk uyumlu */
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+    display: inline-block;
+    transition: all 0.3s ease-in-out;
+}
+
+.level-btn:hover, #retry-btn:hover {
+    background-color: #520b9d; /* Biraz daha koyu mor hover efekti */
+}
+
+/* 📌 "Skorunuz yetersiz! Tekrar çözün." mesajı için stil */
+#retry-message {
+    font-size: 18px;
+    font-weight: bold;
+    color: #d10000;  /* Kırmızı renk ile uyarı */
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* 📌 "Sonraki Soru" butonu görünürlüğü için */
+#next-btn {
+    background-color: #6a0dad;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: none;
+    margin-top: 15px;
+}
+
+#next-btn:hover {
+    background-color: #520b9d;
+}
+
+/* 📌 Joker butonları uyumlu hale getirildi */
+.joker-btn {
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.joker-btn:hover {
+    background-color: #e68900;
+}

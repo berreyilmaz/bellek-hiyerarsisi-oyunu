@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", function() {
-    loadQuestion(); // Sayfa açıldığında ilk soruyu yükle
+    loadQuestion();
 });
 
 // Ses dosyalarını yükle
-const correctSound = new Audio("sounds/correct.mp3");  // ✅ Doğru cevap sesi
-const incorrectSound = new Audio("sounds/incorrect.mp3");  // ❌ Yanlış cevap sesi
+const correctSound = new Audio("sounds/correct.mp3");  
+const incorrectSound = new Audio("sounds/incorrect.mp3");  
 
-// MİD seviyesindeki soru listesi
+// MID seviyesindeki soru listesi
 const questions = [
     { question: "1) RAM'de depolanan veriler ne zaman kaybolur?", options: ["Bilgisayar kapandığında", "İşlemci devre dışı kaldığında", "Disk dolduğunda", "RAM'in kapasitesi dolduğunda"], correct: "A" },
     { question: "2) Cache bellek neden çok küçük tutulur?", options: ["Daha pahalı olduğu için", "Daha yavaş olduğu için", "Daha az güç tükettiği için", "Daha fazla kapasite gerektirdiği için"], correct: "A" },
@@ -23,20 +23,20 @@ const questions = [
 let currentQuestionIndex = 0;
 let score = 0;  
 const pointsPerCorrect = 10;
-const pointsPerinCorrect = -5;
+const pointsPerIncorrect = -5;
 
-let timeLeft = 30;  // Süre sınırı (saniye)
+let timeLeft = 30;  
 let timerInterval; 
 
 // **Soru yükleme fonksiyonu (TIMER ile birlikte)**
 function loadQuestion() {
     if (currentQuestionIndex >= questions.length) {
-        endGame();  // Tüm sorular bitince oyunu tamamla
+        endGame();  
         return;
     }
 
-    clearInterval(timerInterval); // Timer'ı sıfırla
-    timeLeft = 15; 
+    clearInterval(timerInterval); 
+    timeLeft = 30;  
     document.getElementById("timer-btn").innerText = `⏳ ${timeLeft}s`;
 
     timerInterval = setInterval(() => {
@@ -45,7 +45,7 @@ function loadQuestion() {
 
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
-            nextQuestion();  // **Süre bitince otomatik geçiş**
+            nextQuestion();  
         }
     }, 1000);
 
@@ -53,15 +53,13 @@ function loadQuestion() {
     const buttons = document.querySelectorAll(".option");
     const currentQuestion = questions[currentQuestionIndex];
 
-    if (!questionText || !buttons.length) return;
-
     questionText.innerText = currentQuestion.question;
 
     buttons.forEach((btn, index) => {
         btn.innerText = currentQuestion.options[index];
         btn.classList.remove("correct", "incorrect", "shake");
         btn.disabled = false;
-        btn.style.display = "block";  // **50:50 jokeri sonrası gizlenen şıkları geri getir**
+        btn.style.display = "block";  
         btn.setAttribute("onclick", `checkAnswer(this, '${String.fromCharCode(65 + index)}')`);
     });
 
@@ -69,7 +67,7 @@ function loadQuestion() {
     document.getElementById("next-btn").style.display = "none";
 }
 
-// Cevap kontrol fonksiyonu
+// **Cevap kontrol fonksiyonu**
 function checkAnswer(button, answer) {
     const currentQuestion = questions[currentQuestionIndex];
     let buttons = document.querySelectorAll(".option");
@@ -82,55 +80,62 @@ function checkAnswer(button, answer) {
         button.classList.add("correct");
         resultText.innerText = "Doğru! 🚀";
         score += pointsPerCorrect; 
-        correctSound.play();  // ✅ Doğru cevap sesi çal
+        correctSound.play();
     } else {
         button.classList.add("incorrect");
-        resultText.innerText = "Yanlış! Tekrar dene. ❌";
-        score += pointsPerinCorrect;  
-        incorrectSound.play();  // ❌ Yanlış cevap sesi çal
-        button.classList.add("shake"); // Yanlış cevapta titreme efekti ekle
+        resultText.innerText = "Yanlış! ❌";
+        score += pointsPerIncorrect;  
+        incorrectSound.play();
+        button.classList.add("shake");
     }
 
     document.getElementById("score").innerText = score;
 
-    // Ses bitene kadar "Sonraki" butonunu gizle
     correctSound.onended = incorrectSound.onended = function() {
-        nextBtn.style.display = "block"; // Ses bitince buton görünür olur
+        nextBtn.style.display = "block";
     };
 }
 
-// Sonraki soruya geçiş fonksiyonu
+// **Sonraki soruya geçiş fonksiyonu**
 function nextQuestion() {
     currentQuestionIndex++;
 
     if (currentQuestionIndex >= questions.length) {
-        document.getElementById("question-text").innerText = "Tebrikler! MİD seviyesi tamamlandı 🎉";
-        document.querySelector(".answer-buttons").innerHTML = "";
-        document.getElementById("next-btn").style.display = "none";
-        document.getElementById("result").innerText = "";
-
-        // **SENIOR seviyesine geçiş butonunu ekleyelim**
-        const seniorLevelContainer = document.createElement("div");
-        seniorLevelContainer.id = "senior-level-container";
-        seniorLevelContainer.innerHTML = `
-            <button id="senior-level-btn" onclick="goToSeniorLevel()">SENIOR seviyesine geçin</button>
-        `;
-
-        document.querySelector(".question-box").appendChild(seniorLevelContainer);
+        endGame();
         return;
     }
 
     loadQuestion();
 }
 
-// **SENIOR seviyesine geçiş fonksiyonu**
-function goToSeniorLevel() {
-    window.location.href = "senior.html";  // senior.html sayfasına yönlendir
+// **Oyunun tamamlanması fonksiyonu**
+function endGame() {
+    clearInterval(timerInterval);
+    document.getElementById("question-text").innerText = "Tebrikler! MID seviyesi tamamlandı 🎉";
+
+    document.querySelector(".answer-buttons").innerHTML = "";
+    document.getElementById("next-btn").style.display = "none";
+    document.getElementById("result").innerText = "";
+
+    if (score >= 80) {
+        document.getElementById("question-text").innerHTML += `<br>🏆 Yeni bir seviyeye geçmeye hazır mısın?`;
+        const seniorButton = document.createElement("button");
+        seniorButton.innerText = "Senior Seviyesine Geç";
+        seniorButton.classList.add("level-btn");
+        seniorButton.onclick = () => window.location.href = "senior.html";
+        document.querySelector(".question-box").appendChild(seniorButton);
+    } else {
+        document.getElementById("question-text").innerHTML += `<br>😞 Skorunuz yetersiz! Tekrar çözün.`;
+        const retryButton = document.createElement("button");
+        retryButton.innerText = "Mid Seviyesini Yeniden Çöz";
+        retryButton.classList.add("retry-btn");
+        retryButton.onclick = () => window.location.reload();
+        document.querySelector(".question-box").appendChild(retryButton);
+    }
 }
 
-
-// 50:50 JOKER
-let usedFiftyFifty = false;  // 50:50 jokerinin kullanılıp kullanılmadığını kontrol ediyoruz
+// **50:50 JOKER**
+let usedFiftyFifty = false;
 
 function useFiftyFifty() {
     if (usedFiftyFifty) {
@@ -138,24 +143,20 @@ function useFiftyFifty() {
         return;
     }
 
-    // Şıkları alıyoruz
     const options = document.querySelectorAll(".option");
     let wrongAnswers = [];
 
-    // Yanlış şıkları buluyoruz
     options.forEach(option => {
         if (!option.classList.contains("correct")) {
             wrongAnswers.push(option);
         }
     });
 
-    // Yanlış şıkları gizliyoruz (2 tanesini)
     if (wrongAnswers.length >= 2) {
         wrongAnswers[0].style.display = "none";
         wrongAnswers[1].style.display = "none";
     }
 
-    // Jokeri kullandık, butonu devre dışı bırakıyoruz
     usedFiftyFifty = true;
     document.getElementById("fifty-fifty").disabled = true;
 }
