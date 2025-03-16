@@ -418,6 +418,7 @@ body {
     font-size: 16px;
     font-weight: bold;
     transition: 0.3s;
+    
 }
 
 /* Joker butonuna basılınca efekti */
@@ -547,4 +548,10 @@ body {
 
 .btn-no:hover {
     background-color: #4b0082; /* Koyu mor hover efekti */
+}
+
+
+button:disabled {
+    opacity: 0.5;  /* Butonu yarı saydam yap */
+    cursor: not-allowed; /* Üzerine gelindiğinde yasak işareti çıksın */
 }

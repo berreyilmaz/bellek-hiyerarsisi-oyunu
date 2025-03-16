@@ -92,7 +92,7 @@ function loadQuestion() {
     document.getElementById("next-btn").style.display = "none";
 }
 
-// **Cevap kontrol fonksiyonu**
+/*Cevap kontrol fonksiyonu
 function checkAnswer(button, answer) {
     clearInterval(timerInterval);  // **Doğru/yanlış cevap verildiğinde süreyi durdur**
     
@@ -118,7 +118,65 @@ function checkAnswer(button, answer) {
 
     document.getElementById("score").innerText = score;
     nextBtn.style.display = "block";
+} */
+
+
+// **Cevap kontrol fonksiyonu**
+function checkAnswer(button, answer) {
+    clearInterval(timerInterval);  // **Doğru/yanlış cevap verildiğinde süreyi durdur**
+
+    const currentQuestion = questions[currentQuestionIndex];
+    let buttons = document.querySelectorAll(".option");
+    let resultText = document.getElementById("result");
+    let nextBtn = document.getElementById("next-btn");
+
+    if (answer === currentQuestion.correct) {
+        button.classList.add("correct");
+        resultText.innerText = "Doğru! 🚀";
+        correctSound.play();  
+        score += pointsPerCorrect;
+        nextBtn.style.display = "block";  // **Doğruysa Sonraki Soru butonunu aç**
+        
+        // Çift cevap jokerini sıfırla
+        doubleAnswerActive = false;
+        secondChanceUsed = false;
+
+        // Tüm butonları devre dışı bırak
+        buttons.forEach(btn => btn.disabled = true);
+    } else {
+        // Eğer çift cevap jokeri aktifse ve ilk yanlış cevapsa
+        if (doubleAnswerActive && !secondChanceUsed) {
+            secondChanceUsed = true;  // İlk yanlış yapıldı
+            resultText.innerText = "Yanlış! Bir hakkın daha var. 🔄";
+            button.classList.add("incorrect");
+            incorrectSound.play();  // Yanlış cevap sesi  
+            button.classList.add("shake");  // Yanlış cevapta titreme efekti ekle
+
+            console.log("İlk yanlış yapıldı, ikinci hak verildi.");  
+
+            // **Sadece yanlış seçilen butonu devre dışı bırak**
+            button.disabled = true;  
+            return;  // **Burada durmalı, ikinci hak için devam etmeli**
+        }
+
+        // Eğer çift cevap hakkı yoksa veya ikinci yanlış yapıldıysa:
+        button.classList.add("incorrect");
+        resultText.innerText = "Yanlış! ❌";
+        incorrectSound.play();  
+        score += pointsPerinCorrect;
+
+        // Tüm butonları devre dışı bırak
+        buttons.forEach(btn => btn.disabled = true);
+        nextBtn.style.display = "block";  // **Yanlışsa Sonraki Soru butonunu aç**
+
+        // Çift cevap jokerini sıfırla
+        doubleAnswerActive = false;
+        secondChanceUsed = false;
+    }
+
+    document.getElementById("score").innerText = score;
 }
+
 
 // **Sonraki soruya geçiş fonksiyonu**
 function nextQuestion() {
@@ -131,6 +189,7 @@ function nextQuestion() {
 
     loadQuestion(); // Yeni soruyu yükle
 }
+
 
 // **OYUN BİTTİĞİNDE ÇALIŞACAK FONKSİYON**
 function endGame() {
@@ -210,6 +269,33 @@ function useFiftyFifty() {
     usedFiftyFifty = true;
     document.getElementById("fifty-fifty").disabled = true;
 }
+
+// **ÇİFT CEVAP JOKERİ**
+let usedDoubleAnswer = false;  // Jokerin kullanılıp kullanılmadığını kontrol eder
+let doubleAnswerActive = false; // Çift cevap hakkının aktif olup olmadığını takip eder
+let secondChanceUsed = false;  // İlk hakkın kullanılıp kullanılmadığını tutar
+
+function useDoubleAnswer() {
+    if (usedDoubleAnswer) {
+        alert("Çift cevap jokeri zaten kullanıldı!");
+        return;
+    }
+
+    doubleAnswerActive = true;
+    secondChanceUsed = false; // Yeni soru başladığında sıfırlanır
+    usedDoubleAnswer = true;
+
+    document.getElementById("double-answer").disabled = true; // Butonu devre dışı bırak
+    console.log("Çift cevap jokeri aktif!");
+}
+
+// **Çift Cevap Jokeri Butonu Tıklanınca**
+document.getElementById("double-answer-joker").addEventListener("click", function() {
+    doubleAnswerActive = true;
+    secondChanceUsed = false;
+    this.disabled = true;  // Joker kullanıldıktan sonra devre dışı bırak
+    console.log("Çift cevap jokeri aktifleştirildi!");
+});
 
 
 
