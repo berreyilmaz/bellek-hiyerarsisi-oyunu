@@ -184,7 +184,20 @@ function endGame() {
     } else {
         document.getElementById("question-text").innerHTML += `
             <p>😞 Skorunuz yeterli değil! Yeniden deneyin.</p>
+            <button id="retry-btn" class="btn-retry">Yeniden Çöz</button>
         `;
+
+        // **Burada 'addEventListener' Hatasını Engellemek İçin Kontrol Ekliyoruz**
+        setTimeout(() => {
+            let retryButton = document.getElementById("retry-btn");
+            if (retryButton) {
+                retryButton.addEventListener("click", function() {
+                    window.location.reload();
+                });
+            } else {
+                console.error("Yeniden Çöz butonu bulunamadı!");
+            }
+        }, 500);
     }
 }
 
