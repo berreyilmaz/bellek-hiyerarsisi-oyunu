@@ -300,3 +300,9 @@ document.getElementById("double-answer-joker").addEventListener("click", functio
 
 
 
+// ZAMAN DONDURMA JOKERİ //
+
+// SORU ATLAMA JOKERİ //
+
+
+

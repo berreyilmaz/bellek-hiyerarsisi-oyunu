@@ -426,6 +426,14 @@ body {
     background-color: #e6b800;
 }
 
+
+
+
+
+
+
+
+
 /*süre butonu */
 #timer-btn {
     position: absolute;
@@ -515,12 +523,12 @@ body {
 .joker-btn:hover {
     background-color: #e68900;
 }
-.button-container {
+ .button-container {
     display: flex;
     justify-content: center;
     gap: 15px;
     margin-top: 20px;
-}
+} 
 
 .btn-yes, .btn-no {
     padding: 12px 20px;
@@ -555,3 +563,6 @@ button:disabled {
     opacity: 0.5;  /* Butonu yarı saydam yap */
     cursor: not-allowed; /* Üzerine gelindiğinde yasak işareti çıksın */
 }
+
+
+

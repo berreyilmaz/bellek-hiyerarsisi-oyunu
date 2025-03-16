@@ -41,14 +41,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
+/*
 // Jokerler 
 document.addEventListener("DOMContentLoaded", function () {
     // Joker butonlarını seç
     const doubleAnswerBtn = document.getElementById("double-answer");
     const fiftyFiftyBtn = document.getElementById("fifty-fifty");
+    const timeFreezeBtn = document.getElementById("time-freeze-btn");
+    const skipQuestionBtn = document.getElementById("skip-question-btn");
 
     // Çift Cevap Jokeri
+
     if (doubleAnswerBtn) {
         doubleAnswerBtn.addEventListener("click", function () {
             alert("Çift Cevap Jokeri Kullanıldı! Bu soruda iki cevap hakkınız var.");
@@ -65,10 +68,83 @@ document.addEventListener("DOMContentLoaded", function () {
             fiftyFiftyBtn.disabled = true; // Joker kullanıldıktan sonra devre dışı bırak
         });
     }
+    if (timeFreezeBtn) {
+        timeFreezeBtn.style.display = "inline-block"; 
+    }
+
+    if (skipQuestionBtn) {
+        skipQuestionBtn.style.display = "inline-block"; 
+    }
+});
+*/
+// Jokerler 
+document.addEventListener("DOMContentLoaded", function () {
+    // Joker butonlarını seç
+    const doubleAnswerBtn = document.getElementById("double-answer");
+    const fiftyFiftyBtn = document.getElementById("fifty-fifty");
+    const timeFreezeBtn = document.getElementById("time-freeze-btn");
+    const skipQuestionBtn = document.getElementById("skip-question-btn");
+
+    // Çift Cevap Jokeri
+    if (doubleAnswerBtn) {
+        doubleAnswerBtn.addEventListener("click", function () {
+            alert("Çift Cevap Jokeri Kullanıldı! Bu soruda iki cevap hakkınız var.");
+            doubleAnswerBtn.disabled = true; // Joker kullanıldıktan sonra devre dışı bırak
+        });
+    }
+
+    // 50:50 Jokeri
+    if (fiftyFiftyBtn) {
+        fiftyFiftyBtn.addEventListener("click", function () {
+            alert("50:50 Jokeri Kullanıldı! İki yanlış şık kaldırıldı.");
+            fiftyFiftyBtn.disabled = true; // Joker kullanıldıktan sonra devre dışı bırak
+        });
+    }
+
+    // Zaman Dondurma Jokeri
+    if (timeFreezeBtn) {
+        timeFreezeBtn.addEventListener("click", function () {
+            alert("Zaman Dondurma Jokeri Kullanıldı! Süre geçici olarak durduruldu.");
+            timeFreezeBtn.disabled = true; // Joker kullanıldıktan sonra devre dışı bırak
+            // Burada süreyi durdurma fonksiyonunu çağırabilirsin
+        });
+    }
+
+    // Soruyu Atla Jokeri
+    if (skipQuestionBtn) {
+        skipQuestionBtn.addEventListener("click", function () {
+            alert("Soruyu Atla Jokeri Kullanıldı! Yeni soruya geçiliyor.");
+            skipQuestionBtn.disabled = true; // Joker kullanıldıktan sonra devre dışı bırak
+            // Burada yeni soruya geçiş fonksiyonunu çağırabilirsin
+        });
+    }
+ 
 });
 
 
 
 
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const jokerContainer = document.getElementById("joker-container");
+
+    if (jokerContainer) {
+        jokerContainer.innerHTML = `
+            <button id="double-answer" class="joker-btn" onclick="useDoubleAnswer()">2️⃣✔️Çift Cevap</button>
+            <button id="fifty-fifty" class="joker-btn" onclick="useFiftyFifty()">5️⃣0️⃣:5️⃣0️⃣Şık Eleme</button>
+            <button id="time-freeze-btn" class="joker-btn" onclick="useTimeFreeze()">⏳ Zaman Dondur</button>
+            <button id="skip-question-btn" class="joker-btn" onclick="skipQuestion()">➡️ Soruyu Atla</button>
+        `;
+    }
+
+    // Butonları tekrar seç ve görünür yap
+    const timeFreezeBtn = document.getElementById("time-freeze-btn");
+    const skipQuestionBtn = document.getElementById("skip-question-btn");
+
+    if (timeFreezeBtn) timeFreezeBtn.style.display = "inline-block";
+    if (skipQuestionBtn) skipQuestionBtn.style.display = "inline-block";
+});
 
 
