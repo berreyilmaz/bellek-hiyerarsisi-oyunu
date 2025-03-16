@@ -23,18 +23,18 @@ const questions = [
 let currentQuestionIndex = 0; 
 let score = 0;  
 const pointsPerCorrect = 10;
-const pointsPerInCorrect = -5;  
-let timeLeft = 45;  // Süre sınırı (saniye)
+const pointsPerinCorrect = -5;  
+
+let timeLeft = 45;  
 let timerInterval; 
 
-// **Soru yükleme fonksiyonu (TIMER ile birlikte)**
 function loadQuestion() {
     if (currentQuestionIndex >= questions.length) {
-        endGame();  // Tüm sorular bitince oyunu tamamla
+        endGame();
         return;
     }
 
-    clearInterval(timerInterval); // Timer'ı sıfırla
+    clearInterval(timerInterval);
     timeLeft = 45; 
     document.getElementById("timer-btn").innerText = `⏳ ${timeLeft}s`;
 
@@ -44,7 +44,7 @@ function loadQuestion() {
 
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
-            nextQuestion();  // **Süre bitince otomatik geçiş**
+            nextQuestion();  
         }
     }, 1000);
 
@@ -60,7 +60,7 @@ function loadQuestion() {
         btn.innerText = currentQuestion.options[index];
         btn.classList.remove("correct", "incorrect", "shake");
         btn.disabled = false;
-        btn.style.display = "block";  
+        btn.style.display = "block";
         btn.setAttribute("onclick", `checkAnswer(this, '${String.fromCharCode(65 + index)}')`);
     });
 
@@ -68,7 +68,6 @@ function loadQuestion() {
     document.getElementById("next-btn").style.display = "none";
 }
 
-// **Cevap kontrol fonksiyonu**
 function checkAnswer(button, answer) {
     const currentQuestion = questions[currentQuestionIndex];
     let buttons = document.querySelectorAll(".option");
@@ -85,7 +84,7 @@ function checkAnswer(button, answer) {
     } else {
         button.classList.add("incorrect");
         resultText.innerText = "Yanlış! Tekrar dene. ❌";
-        score += pointsPerInCorrect;  
+        score += pointsPerinCorrect;  
         incorrectSound.play();
         button.classList.add("shake");
     }
@@ -93,11 +92,10 @@ function checkAnswer(button, answer) {
     document.getElementById("score").innerText = score;
 
     correctSound.onended = incorrectSound.onended = function() {
-        nextBtn.style.display = "block"; // Ses bitince buton görünür olur
+        nextBtn.style.display = "block";
     };
 }
 
-// **Sonraki soruya geçiş fonksiyonu**
 function nextQuestion() {
     currentQuestionIndex++;
 
@@ -109,24 +107,36 @@ function nextQuestion() {
     loadQuestion();
 }
 
-// **Oyunun tamamlanması fonksiyonu**
 function endGame() {
     clearInterval(timerInterval);
-    document.getElementById("question-text").innerText = "Tebrikler! SENIOR seviyesi tamamlandı 🎉";
+    document.getElementById("question-text").innerHTML = `<h2>Tebrikler! Senior seviyesini tamamladınız! 🎉</h2>`;
 
     document.querySelector(".answer-buttons").innerHTML = "";
     document.getElementById("next-btn").style.display = "none";
     document.getElementById("result").innerText = "";
 
     if (score >= 75) {
-        document.getElementById("question-text").innerHTML += "<br> 🏆 Harika iş çıkardın!";
+        document.getElementById("question-text").innerHTML += `
+            <p>Eğer gerçek bir Senior isen, son ve imkansız zorlukta bir seviyeye var mısın?</p>
+            <div class="button-container">
+                <button id="yes-impossible" class="btn-yes">Evet, varım!</button>
+                <button id="no-impossible" class="btn-no">Benden şimdilik bu kadar!</button>
+            </div>
+        `;
+
+        document.getElementById("yes-impossible").addEventListener("click", function() {
+            window.location.href = "impossible.html"; 
+        });
+
+        document.getElementById("no-impossible").addEventListener("click", function() {
+            document.getElementById("question-text").innerHTML = `<h2>Tebrikler! Skorunuz: ${score} 🏆</h2>
+                <p>Daha cesur bir zamanında görüşmek üzere...</p>`;
+        });
+
     } else {
-        document.getElementById("question-text").innerHTML += "<br> 😞 Ne yazık ki skorunuz yetersiz! Tekrar çözün :)";
-        const retryButton = document.createElement("button");
-        retryButton.innerText = "Senior seviyesini yeniden çöz";
-        retryButton.classList.add("retry-btn");
-        retryButton.onclick = () => window.location.reload();
-        document.querySelector(".question-box").appendChild(retryButton);
+        document.getElementById("question-text").innerHTML += `
+            <p>😞 Skorunuz yeterli değil! Yeniden deneyin.</p>
+        `;
     }
 }
 
