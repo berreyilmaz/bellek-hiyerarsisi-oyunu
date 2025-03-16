@@ -1,4 +1,7 @@
+let questions = [];  // Global değişken olarak tanımla
+
 document.addEventListener("DOMContentLoaded", function() {
+    questions = getRandomQuestions(); // Sayfa yüklendiğinde 10 rastgele soru al
     loadQuestion();
 });
 
@@ -7,19 +10,59 @@ const correctSound = new Audio("sounds/correct.mp3");
 const incorrectSound = new Audio("sounds/incorrect.mp3");  
 
 // MID seviyesindeki soru listesi
-const questions = [
-    { question: "1) RAM'de depolanan veriler ne zaman kaybolur?", options: ["Bilgisayar kapandığında", "İşlemci devre dışı kaldığında", "Disk dolduğunda", "RAM'in kapasitesi dolduğunda"], correct: "A" },
-    { question: "2) Cache bellek neden çok küçük tutulur?", options: ["Daha pahalı olduğu için", "Daha yavaş olduğu için", "Daha az güç tükettiği için", "Daha fazla kapasite gerektirdiği için"], correct: "A" },
-    { question: "3) Virtual Memory'nin temel amacı nedir?", options: ["İşlemcinin daha hızlı çalışmasını sağlamak", "RAM dolduğunda disk alanını bellek gibi kullanmak", "Cache belleği hızlandırmak", "Register kapasitesini artırmak"], correct: "B" },
-    { question: "4) Hangi bellek doğrudan işlemci ile entegre edilmiştir?", options: ["RAM", "Cache", "Disk", "Register"], correct: "D" },
-    { question: "5) Hangi bellek, L1, L2 ve L3 olarak sınıflandırılır?", options: ["RAM", "Cache", "Disk", "SSD"], correct: "B" },
-    { question: "6) Bir işlemci, bellekten veri çağırırken en çok hangi belleğe bakar?", options: ["RAM", "Disk", "Register", "Cache"], correct: "D" },
-    { question: "7) RAM neden SSD'den daha hızlıdır?", options: ["Manyetik disk yerine yarı iletkenler kullanıldığı için", "Daha fazla kapasiteye sahip olduğu için", "Sürekli veri okuma ve yazma yaptığı için", "Elektrik kesildiğinde veri kaybolduğu için"], correct: "A" },
-    { question: "8) Bellek erişim sürelerini en hızlıdan en yavaşa doğru sıralayın:", options: ["Register → Cache → RAM → Disk", "Cache → Register → RAM → Disk", "Disk → RAM → Cache → Register", "RAM → Cache → Register → Disk"], correct: "A" },
-    { question: "9) Bir program çalıştırıldığında ilk olarak hangi bellek kullanılır?", options: ["Register", "RAM", "Cache", "Disk"], correct: "B" },
-    { question: "10) Hangi bellek doğrudan CPU'ya gömülüdür?", options: ["Cache", "RAM", "Disk", "Virtual Memory"], correct: "A" }
+
+const allQuestions = [
+    { question: "İşlemcinin komutları geçici olarak depoladığı bellek türü nedir?", options: ["RAM", "Cache", "ROM", "Register"], correct: "D" },
+    { question: "Aşağıdaki bellek türlerinden hangisi kalıcı veri saklama için kullanılır?", options: ["RAM", "Cache", "SSD", "Register"], correct: "C" },
+    { question: "RAM neden işlemciye kıyasla daha yavaştır?", options: ["Mekanik parçalar içerdiği için", "Elektrik sinyalleri geç işlediği için", "Gecikme süreleri daha yüksek olduğu için", "İşlemciden daha büyük olduğu için"], correct: "C" },
+    { question: "Aşağıdakilerden hangisi sistem belleği türlerinden biri değildir?", options: ["RAM", "ROM", "Cache", "PCIe"], correct: "D" },
+    { question: "Bir işletim sistemi bellek yönetimi yaparken hangi yöntemi kullanır?", options: ["Fragmentation", "Virtual Memory", "Overclocking", "Defragmentation"], correct: "B" },
+    { question: "Hangi bileşen en hızlı veri erişim hızına sahiptir?", options: ["HDD", "RAM", "SSD", "Cache"], correct: "D" },
+    { question: "32-bit bir sistemin maksimum RAM adresleme kapasitesi nedir?", options: ["2GB", "4GB", "8GB", "16GB"], correct: "B" },
+    { question: "CPU ve RAM arasındaki veri transfer hızını artıran bileşen nedir?", options: ["Cache Bellek", "Sabit Disk", "Ethernet Kartı", "Ekran Kartı"], correct: "A" },
+    { question: "Aşağıdaki depolama birimlerinden hangisi en düşük erişim süresine sahiptir?", options: ["HDD", "SSD", "Cache", "RAM"], correct: "C" },
+    { question: "Bir sistemin bellek bant genişliği nasıl artırılabilir?", options: ["SSD hızını artırarak", "Daha fazla işlemci çekirdeği ekleyerek", "RAM frekansını yükselterek", "Daha büyük bir ekran kartı kullanarak"], correct: "C" },
+    { question: "Swap alanı hangi amaçla kullanılır?", options: ["İşlemcinin daha hızlı çalışmasını sağlamak", "RAM yetersiz kaldığında sanal bellek olarak kullanmak", "Sabit diskte geçici dosya depolamak", "Sistemi daha güvenli hale getirmek"], correct: "B" },
+    { question: "RAM’de saklanan veriler bilgisayar kapatıldığında ne olur?", options: ["Silinir", "Sabit diske taşınır", "ROM içine kaydedilir", "Hiçbir değişiklik olmaz"], correct: "A" },
+    { question: "L1, L2 ve L3 önbellek arasındaki temel fark nedir?", options: ["Kapasiteleri ve hızları farklıdır", "L1 en yavaş olanıdır", "L3 işlemci içinde yer almaz", "L2 sadece grafik işlemleri için kullanılır"], correct: "A" },
+    { question: "RAM frekansı neden önemlidir?", options: ["Görsel kalitesi artırmak için", "İşlemci hızıyla senkron çalışmasını sağlamak için", "Daha fazla depolama alanı sağlamak için", "Sistemin güç tüketimini düşürmek için"], correct: "B" },
+    { question: "DDR4 ile DDR5 arasındaki fark nedir?", options: ["DDR5 daha az güç tüketir", "DDR4 daha hızlıdır", "DDR5 sadece mobil cihazlarda kullanılır", "DDR4 daha yüksek frekanslara ulaşır"], correct: "A" },
+    { question: "Bellek modüllerinin kapasitesi hangi birim ile ölçülür?", options: ["MHz", "GB", "ns", "Kb"], correct: "B" },
+    { question: "RAM’in veri aktarım hızını belirleyen en önemli faktör nedir?", options: ["Boyutu", "Frekansı ve zamanlaması", "Markası", "Kasa tipi"], correct: "B" },
+    { question: "Hangi bellek türü verileri sadece okuma amaçlı saklar?", options: ["RAM", "ROM", "Cache", "VRAM"], correct: "B" },
+    { question: "ECC RAM’in avantajı nedir?", options: ["Daha yüksek kapasite sunar", "Hata düzeltme mekanizması içerir", "Daha az güç tüketir", "Grafik işlemleri için optimize edilmiştir"], correct: "B" },
+    { question: "İşlemci çekirdek sayısının fazla olması hangi avantajı sağlar?", options: ["Daha fazla enerji tasarrufu", "Daha yüksek ekran yenileme hızı", "Daha iyi çoklu görev performansı", "Daha düşük ısı üretimi"], correct: "C" },
+    { question: "Bir işlemciye aynı anda birden fazla komut vermek için hangi teknik kullanılır?", options: ["Overclocking", "Pipelining", "Defragmentation", "Partitioning"], correct: "B" },
+    { question: "RAM ve ROM arasındaki temel fark nedir?", options: ["RAM geçici, ROM kalıcıdır", "RAM sadece okunabilir, ROM yazılabilir", "ROM verileri daha hızlı işler", "RAM daha az enerji tüketir"], correct: "A" },
+    { question: "Hangi bellek türü en düşük gecikme süresine sahiptir?", options: ["HDD", "RAM", "SSD", "Cache"], correct: "D" },
+    { question: "İşlemcinin hızını belirleyen en önemli faktörlerden biri nedir?", options: ["Çekirdek sayısı", "Anakart modeli", "İşletim sistemi", "Ekran kartı"], correct: "A" },
+    { question: "Bilgisayarda verilerin uzun süreli saklanması için hangi bellek türü kullanılır?", options: ["RAM", "Cache", "SSD", "Register"], correct: "C" },
+    { question: "İşlemcinin temel bileşenlerinden biri olan ALU'nun açılımı nedir?", options: ["Arithmetic and Logic Unit", "Advanced Learning Unit", "Automatic Load Utility", "Address Line Unit"], correct: "A" },
+    { question: "Aşağıdakilerden hangisi RAM’in hızını etkileyen faktörlerden biri değildir?", options: ["Frekans değeri", "CAS gecikme süresi", "Anakart modeli", "Güç kaynağı kapasitesi"], correct: "D" },
+    { question: "Sanal bellek hangi bileşen üzerinde oluşturulur?", options: ["RAM", "SSD veya HDD", "GPU", "İşlemci"], correct: "B" },
+    { question: "SSD’lerin en büyük avantajı nedir?", options: ["Daha fazla depolama alanı sunar", "Daha düşük gecikme süresine sahiptir", "Daha ucuzdur", "Daha fazla mekanik parça içerir"], correct: "B" },
+    { question: "Bilgisayarda bellek yönetimini hangi bileşen gerçekleştirir?", options: ["İşlemci", "RAM", "İşletim Sistemi", "Güç kaynağı"], correct: "C" },
+    { question: "CPU’nun çalışma hızını artırmak için hangi yöntem uygulanır?", options: ["RAM kapasitesini artırma", "SSD kullanımını artırma", "Overclocking", "BIOS güncellemesi yapma"], correct: "C" },
+    { question: "Hangi bellek türü yalnızca okuma işlemi için kullanılır?", options: ["RAM", "ROM", "Cache", "Virtual Memory"], correct: "B" },
+    { question: "Bilgisayarda L1, L2 ve L3 bellek türleri neyi ifade eder?", options: ["RAM çeşitlerini", "Ön bellek seviyelerini", "Sabit disk bölümlerini", "Grafik belleği türlerini"], correct: "B" },
+    { question: "RAM’in veri işleme hızını belirleyen en önemli faktörlerden biri nedir?", options: ["CAS Latency (Gecikme Süresi)", "İşlemci frekansı", "GPU modeli", "Anakart boyutu"], correct: "A" },
+    { question: "Bilgisayar kapatıldığında hangi bellek türündeki veriler silinmez?", options: ["RAM", "Cache", "ROM", "Register"], correct: "C" },
+    { question: "İşlemci ile RAM arasındaki veri akışını yöneten bileşen nedir?", options: ["GPU", "Northbridge", "SSD", "PSU"], correct: "B" },
+    { question: "Aşağıdakilerden hangisi birincil bellek türüdür?", options: ["RAM", "SSD", "HDD", "Flash Bellek"], correct: "A" },
+    { question: "Bilgisayarda L1, L2 ve L3 bellek türleri neyi ifade eder?", options: ["RAM çeşitlerini", "Ön bellek seviyelerini", "Sabit disk bölümlerini", "Grafik belleği türlerini"], correct: "B" },
+    { question: "RAM’in veri işleme hızını belirleyen en önemli faktörlerden biri nedir?", options: ["CAS Latency (Gecikme Süresi)", "İşlemci frekansı", "GPU modeli", "Anakart boyutu"], correct: "A" },
+    { question: "Bilgisayar kapatıldığında hangi bellek türündeki veriler silinmez?", options: ["RAM", "Cache", "ROM", "Register"], correct: "C" }
 ];
 
+
+// **Soruları rastgele karıştır ve ilk 10 tanesini seç**
+function getRandomQuestions() {
+    let shuffled = allQuestions.sort(() => 0.5 - Math.random());  // Soruları karıştır
+    return shuffled.slice(0, 10); // İlk 10 tanesini seç
+}
+
+
+// **Seçilen sorular**
 let currentQuestionIndex = 0;
 let score = 0;  
 const pointsPerCorrect = 10;

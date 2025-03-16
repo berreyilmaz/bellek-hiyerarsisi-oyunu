@@ -1,25 +1,52 @@
 // Ses dosyalarını yükle
-const correctSound = new Audio("sounds/correct.mp3");  // ✅ Doğru cevap sesi
-const incorrectSound = new Audio("sounds/incorrect.mp3");  // ❌ Yanlış cevap sesi
+const correctSound = new Audio("sounds/correct.mp3");  
+const incorrectSound = new Audio("sounds/incorrect.mp3");  
 
-// Soru listesi (10 soru)
-const questions = [
-    { question: "1) Bellek hiyerarşisinde en hızlı bileşen hangisidir?", options: ["RAM", "Cache", "Disk", "Register"], correct: "D" },
-    { question: "2) Cache bellek, hangi bileşene en yakın çalışır?", options: ["RAM", "Disk", "İşlemci (CPU)", "USB Bellek"], correct: "C" },
-    { question: "3) RAM ile Disk arasındaki hız farkı nasıl bir etki yaratır?", options: ["Bilgisayarın açılış süresi uzar", "İşlemci daha az güç tüketir", "Veriler daha hızlı işlenir", "Hiçbir fark yaratmaz"], correct: "A" },
-    { question: "4) RAM ve Cache arasındaki temel fark nedir?", options: ["Cache daha büyüktür", "RAM daha hızlıdır", "Cache daha küçüktür ama daha hızlıdır", "RAM daha ucuzdur"], correct: "C" },
-    { question: "5) Cache bellek neden vardır?", options: ["Disk'teki verileri depolamak için", "İşlemciye daha hızlı veri sağlamak için", "Elektrik tüketimini azaltmak için", "RAM'i yedeklemek için"], correct: "B" },
-    { question: "6) Hangi bellek türü kalıcıdır?", options: ["RAM","Cache","Disk","Register"], correct: "C" },
-    { question: "7) Aşağıdaki bellek türlerinden hangisi en büyük kapasiteye sahiptir?", options: ["Register","Cache","RAM","Disk"], correct: "D" },
-    { question: "8) Hangi bellek, işlemcinin en sık eriştiği verileri saklar?", options: ["RAM","Cache","Disk","Register"], correct: "B" },
-    { question: "9) Disk belleğinin diğer adı nedir?", options: ["Swap Alanı","Virtual Memory","Flash Bellek","A ve B doğru"], correct: "D" },
-    { question: "10) SSD’ler hangi belleğe kıyasla daha hızlıdır?", options: ["RAM","Cache","HDD","Register"], correct: "C" }
+// **30 BASİT SEVİYE SORU**
+const allQuestions = [
+    { question: "Bilgisayarın kısa süreli hafızasına ne ad verilir?", options: ["HDD", "RAM", "SSD", "CD"], correct: "B" },
+    { question: "Bilgisayarın uzun süreli veri saklama birimi nedir?", options: ["RAM", "Cache", "HDD", "ROM"], correct: "C" },
+    { question: "Bilgisayar kapandığında verileri saklamayan bellek nedir?", options: ["SSD", "RAM", "HDD", "Flash Bellek"], correct: "B" },
+    { question: "Bilgisayarın beyni olarak adlandırılan bileşen nedir?", options: ["RAM", "HDD", "CPU", "GPU"], correct: "C" },
+    { question: "Bir bilgisayarın hızını en çok etkileyen bileşen nedir?", options: ["RAM", "HDD", "CPU", "Monitör"], correct: "C" },
+    { question: "İşlemcinin en hızlı erişebildiği bellek nedir?", options: ["Cache", "RAM", "HDD", "USB"], correct: "A" },
+    { question: "Bilgisayarda veri geçici olarak hangi bellekte saklanır?", options: ["RAM", "Cache", "HDD", "CD"], correct: "A" },
+    { question: "Aşağıdakilerden hangisi kalıcı veri saklamak için kullanılır?", options: ["RAM", "Cache", "ROM", "SSD"], correct: "D" },
+    { question: "Bilgisayar açıldığında işletim sistemini başlatan bellek türü nedir?", options: ["RAM", "ROM", "Cache", "HDD"], correct: "B" },
+    { question: "İşlemcinin en çok kullandığı küçük ve hızlı bellek nedir?", options: ["RAM", "SSD", "Cache", "HDD"], correct: "C" },
+    { question: "Aşağıdakilerden hangisi taşınabilir bellek türüdür?", options: ["HDD", "Flash Bellek", "RAM", "CPU"], correct: "B" },
+    { question: "Bilgisayarın en büyük veri saklama birimi nedir?", options: ["RAM", "Cache", "HDD", "SSD"], correct: "C" },
+    { question: "Hangisi bilgisayarın merkezi işlem birimidir?", options: ["RAM", "SSD", "CPU", "USB"], correct: "C" },
+    { question: "Hangi bellek bilgisayar kapatıldığında verileri saklamaz?", options: ["HDD", "SSD", "RAM", "Flash Bellek"], correct: "C" },
+    { question: "Bilgisayarda veri depolamak için kullanılan donanım nedir?", options: ["RAM", "SSD", "Monitor", "CPU"], correct: "B" },
+    { question: "Bilgisayarda en hızlı çalışan bellek türü hangisidir?", options: ["Cache", "RAM", "HDD", "SSD"], correct: "A" },
+    { question: "Aşağıdakilerden hangisi bir depolama cihazıdır?", options: ["RAM", "CPU", "HDD", "GPU"], correct: "C" },
+    { question: "Hangi donanım birimi verileri kalıcı olarak saklar?", options: ["RAM", "SSD", "CPU", "Cache"], correct: "B" },
+    { question: "Bilgisayar açıldığında çalışan ilk bellek nedir?", options: ["RAM", "ROM", "Cache", "HDD"], correct: "B" },
+    { question: "Hangi donanım veri işleme görevini yapar?", options: ["RAM", "HDD", "CPU", "GPU"], correct: "C" },
+    { question: "Hangisi geçici bellek olarak bilinir?", options: ["SSD", "Cache", "RAM", "ROM"], correct: "C" },
+    { question: "Bilgisayarda grafik işlemlerini yöneten donanım hangisidir?", options: ["CPU", "GPU", "RAM", "SSD"], correct: "B" },
+    { question: "Veriler en hızlı hangi bellekte saklanır?", options: ["HDD", "RAM", "Cache", "SSD"], correct: "C" },
+    { question: "Hangi donanım bilgileri elektrik kesildiğinde saklamaz?", options: ["HDD", "SSD", "RAM", "USB"], correct: "C" },
+    { question: "İşlemci ile en hızlı veri alışverişi yapan bellek nedir?", options: ["HDD", "SSD", "RAM", "Cache"], correct: "D" },
+    { question: "Hangisi geçici olarak veri saklayan donanımdır?", options: ["RAM", "SSD", "HDD", "Flash Bellek"], correct: "A" },
+    { question: "Bilgisayarın hızını artıran en önemli bellek hangisidir?", options: ["RAM", "Cache", "HDD", "SSD"], correct: "B" },
+    { question: "Hangisi bir depolama birimidir?", options: ["CPU", "RAM", "HDD", "Cache"], correct: "C" },
+    { question: "Bilgisayarda programları çalıştırmak için kullanılan bellek nedir?", options: ["RAM", "ROM", "HDD", "GPU"], correct: "A" }
 ];
 
+// **Soruları rastgele karıştır ve ilk 10 tanesini seç**
+function getRandomQuestions() {
+    let shuffled = allQuestions.sort(() => 0.5 - Math.random());  // Soruları karıştır
+    return shuffled.slice(0, 10); // İlk 10 tanesini seç
+}
+
+// **Seçilen sorular**
+let questions = getRandomQuestions();
 let currentQuestionIndex = 0; 
 let score = 0;  
 const pointsPerCorrect = 10;
-const pointsPerinCorrect = -5;  
+const pointsPerinCorrect = -5;   
 
 let timeLeft = 15;  // Süre sınırı (saniye)
 let timerInterval; 

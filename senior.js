@@ -1,5 +1,8 @@
+let questions = [];  // Global değişken olarak tanımla
+
 document.addEventListener("DOMContentLoaded", function() {
-    loadQuestion(); // Sayfa açıldığında ilk soruyu yükle
+    questions = getRandomQuestions(); // Sayfa yüklendiğinde 10 rastgele soru al
+    loadQuestion(); // İlk soruyu yükle
 });
 
 // Ses dosyalarını yükle
@@ -7,18 +10,63 @@ const correctSound = new Audio("sounds/correct.mp3");  // ✅ Doğru cevap sesi
 const incorrectSound = new Audio("sounds/incorrect.mp3");  // ❌ Yanlış cevap sesi
 
 // SENIOR seviyesindeki soru listesi
-const questions = [
-    { question: "1) Hangi bellek türü en düşük gecikmeye sahiptir?", options: ["RAM", "Cache", "Disk", "Register"], correct: "D" },
-    { question: "2) İşlemcinin komutları işleme sürecinde ilk baktığı bellek hangisidir?", options: ["RAM", "Cache", "Disk", "Register"], correct: "D" },
-    { question: "3) Cache bellek hangi bellek türüne benzer ancak daha hızlıdır?", options: ["RAM", "Cache", "Disk", "Register"], correct: "A" },
-    { question: "4) Disk belleği neden RAM yerine kullanılamaz?", options: ["Çok daha yavaş olduğu için", "Daha pahalı olduğu için", "Kapasitesi daha küçük olduğu için", "Elektrik kesildiğinde verileri kaybettiği için"], correct: "A" },
-    { question: "5) Bir işlemci komutu çalıştırırken cache miss yaşarsa ne olur?", options: ["RAM’e gider ve daha yavaş çalışır", "İşlem durur", "Disk'e yönlenir", "Sistemi yeniden başlatır"], correct: "A" },
-    { question: "6) Cache bellek hiyerarşisinde L3 cache hangi bileşene aittir?", options: ["RAM", "İşlemci (CPU)", "Anakart", "Disk"], correct: "B" },
-    { question: "7) Bellek hiyerarşisini hız açısından sıralayın:", options: ["Register → Cache → RAM → Disk", "Cache → Register → RAM → Disk", "Disk → RAM → Cache → Register", "RAM → Cache → Register → Disk"], correct: "A" },
-    { question: "8) Hangi bellek türü tek döngüde işlem yapabilir?", options: ["RAM", "Cache", "Disk", "Register"], correct: "D" },
-    { question: "9) Virtual Memory, hangi bellek türüne dayanır?", options: ["RAM", "Cache", "Disk", "Register"], correct: "C" },
-    { question: "10) L2 Cache, L1 Cache’ten neden daha büyüktür?", options: ["Daha fazla veri tutabilmesi için", "Daha yavaş olduğu için", "Daha pahalı olduğu için", "RAM ile doğrudan çalıştığı için"], correct: "A" }
+const allQuestionsAdvanced = [
+    { question: "Bir işlemcinin içindeki çekirdeklerin birbirinden bağımsız çalışmasına ne denir?", options: ["Hyper-threading", "Multi-core Processing", "Parallel Processing", "Virtualization"], correct: "B" },
+    { question: "64-bit sistemlerin 32-bit sistemlere göre avantajı nedir?", options: ["Daha fazla RAM adreslemesi yapabilirler", "Daha hızlı işlemci performansı sağlarlar", "Daha az enerji tüketirler", "Daha düşük fiyatlarla satılırlar"], correct: "A" },
+    { question: "Bir bilgisayardaki veri yolu bant genişliği, hangi faktörle doğru orantılıdır?", options: ["İşlemci hızı", "Bellek frekansı", "GPU kapasitesi", "Ekran kartı hızı"], correct: "B" },
+    { question: "RAM ve CPU arasındaki veri iletişimi hangi yolu kullanarak yapılır?", options: ["PCIe", "Bus", "SATA", "USB"], correct: "B" },
+    { question: "Bir bilgisayardaki işlemcinin performansını artırmak için hangi işlem yapılır?", options: ["Overclocking", "Underclocking", "Fragmentation", "Virtualization"], correct: "A" },
+    { question: "SSD teknolojisinde kullanılan NAND flash bellek hücresinin temel yapısı nedir?", options: ["Yazma ve silme işlemleri için daha fazla enerji harcar", "Veriler sadece tek katman üzerinde saklanır", "Veriler elektriksel yükle saklanır", "Sadece okuma işlemleri yapılabilir"], correct: "C" },
+    { question: "Hangi bellek türü, veri iletim hızının düşük olmasına rağmen, sürekli veri saklamak için kullanılır?", options: ["RAM", "Cache", "ROM", "EPROM"], correct: "C" },
+    { question: "İşlemcinin çalıştırdığı komutların sayısına ve hızına göre performansı belirlemek için hangi ölçüm kullanılır?", options: ["Clock Cycles", "MIPS", "Throughput", "FLOPS"], correct: "B" },
+    { question: "Aşağıdakilerden hangisi işlemci için bir paralel işlem yapabilme özelliğini ifade eder?", options: ["Pipelining", "Multithreading", "Virtualization", "Cache Memory"], correct: "B" },
+    { question: "İşlemci ve bellek arasındaki veri transferini hızlandıran teknolojilerin genel adı nedir?", options: ["Direct Memory Access (DMA)", "Hyper-Threading", "Cache Coherency", "Bus Width"], correct: "A" },
+    { question: "Aşağıdakilerden hangisi SSD'nin en büyük avantajlarından biridir?", options: ["Daha düşük güç tüketimi", "Daha fazla kapasite", "Daha hızlı veri erişimi", "Daha ucuz"], correct: "C" },
+    { question: "Hangi sistem bileşeni, daha yüksek işlem gücü ve çoklu görev kapasitesi sağlamak için işlemcinin çekirdek sayısını artırır?", options: ["GPU", "RAM", "Cache", "CPU"], correct: "D" },
+    { question: "DDR4 bellek teknolojisinin avantajı nedir?", options: ["Daha düşük güç tüketimi", "Daha hızlı veri transferi", "Daha fazla depolama kapasitesi", "Daha düşük gecikme süreleri"], correct: "B" },
+    { question: "İşlemci hızını artırmak için kullanılan işlemci saat frekansı neyi ifade eder?", options: ["Frekans arttıkça işlemci daha hızlı çalışır", "Daha fazla çekirdek sayısı", "İşlemcinin daha fazla veri saklama kapasitesi", "Daha fazla güç tüketimi"], correct: "A" },
+    { question: "Aşağıdaki bileşenlerden hangisi en düşük gecikme süresine sahip olanıdır?", options: ["HDD", "RAM", "Cache", "SSD"], correct: "C" },
+    { question: "Bir işletim sisteminde sanal bellek oluşturulması, hangi donanım bileşenini kullanır?", options: ["RAM", "SSD", "CPU", "HDD"], correct: "B" },
+    { question: "CPU'nun çalışma hızını artırmak için hangi yöntem uygulanır?", options: ["Overclocking", "ECC RAM kullanımı", "Yüksek bellek kapasitesi", "Daha fazla çekirdek kullanımı"], correct: "A" },
+    { question: "İşlemcinin tek bir komut döngüsünde gerçekleştirdiği işlem sayısına ne denir?", options: ["Clock Speed", "Throughput", "Instructions Per Cycle (IPC)", "FLOPS"], correct: "C" },
+    { question: "Bir CPU'nun işlem yaparken kullandığı küçük veri depolama alanlarına ne ad verilir?", options: ["Cache", "Registers", "RAM", "ROM"], correct: "B" },
+    { question: "Aşağıdaki teknolojilerden hangisi işlemci çekirdeklerini sanal olarak artırarak paralel işleme yapabilmeyi sağlar?", options: ["Virtualization", "Hyper-Threading", "Multithreading", "Pipelining"], correct: "B" },
+    { question: "İşlemcinin, işlem sırasında başvuracağı talimat seti ve uygulama türünü belirleyen özellik nedir?", options: ["Instruction Set Architecture (ISA)", "Processor Core", "Clock Cycle", "Cache Size"], correct: "A" },
+    { question: "İşlemcilerde kullanılan 'turbo boost' teknolojisinin amacı nedir?", options: ["İşlemci hızını otomatik olarak arttırmak", "Fazla enerji tüketimini azaltmak", "Soğutma sistemini iyileştirmek", "İşlemci çekirdek sayısını artırmak"], correct: "A" },
+    { question: "İşlemci ve bellek arasındaki veri akışını yöneten ve hızlandıran teknoloji nedir?", options: ["HyperTransport", "PCIe", "SATA", "USB 3.0"], correct: "A" },
+    { question: "Bir bilgisayarın merkezi işlem biriminin tüm hesaplama işlemlerini kontrol eden birimi nedir?", options: ["Control Unit", "ALU", "Register", "Cache"], correct: "A" },
+    { question: "Modern CPU'larda çoklu görevleri daha hızlı işlemek için hangi özellik kullanılır?", options: ["Hyper-Threading", "Overclocking", "Turbo Boost", "Cache Memory"], correct: "A" },
+    { question: "Bir RAM modülünün daha fazla veri transfer hızına sahip olması için hangi faktör etkili olur?", options: ["Frekansı", "Bant genişliği", "Boyutu", "Tüm şıklar"], correct: "D" },
+    { question: "SSD'lerde kullanılan S.M.A.R.T teknolojisi ne işe yarar?", options: ["SSD'nin çalışma ömrünü izler", "Sistemi hızlandırır", "Veri şifreleme yapar", "Sadece okuma hızını artırır"], correct: "A" },
+    { question: "Aşağıdaki bellek türlerinden hangisi bilgisayarda en hızlı veri erişim hızına sahiptir?", options: ["HDD", "Cache", "RAM", "SSD"], correct: "B" }
 ];
+
+// Soruları karıştıran ve ilk 10 soruyu döndüren fonksiyon
+function getRandomQuestions() {
+    let shuffled = allQuestionsAdvanced.sort(() => 0.5 - Math.random()); // Soruları karıştır
+    return shuffled.slice(0, 10); // İlk 10 tanesini al
+}
+
+// Soruları ekrana yükleyen fonksiyon
+function loadQuestion() {
+    const questionContainer = document.getElementById("question");  // Sorunun gösterileceği container
+    const optionsContainer = document.getElementById("options");  // Seçeneklerin gösterileceği container
+    const currentQuestion = questions[0];  // Şu anki soruyu alıyoruz
+
+    // Soruyu ekrana yazdır
+    questionContainer.textContent = currentQuestion.question;
+
+    // Seçenekleri ekrana yazdır
+    optionsContainer.innerHTML = '';  // Önceki seçenekleri temizle
+    currentQuestion.options.forEach((option, index) => {
+        const optionElement = document.createElement("button");
+        optionElement.textContent = option;
+        optionElement.onclick = function () {
+            checkAnswer(option, currentQuestion.correct);
+        };
+        optionsContainer.appendChild(optionElement);
+    });
+}
 
 let currentQuestionIndex = 0; 
 let score = 0;  
