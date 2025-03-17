@@ -82,19 +82,22 @@ function loadQuestion() {
         return;
     }
 
-    clearInterval(timerInterval);
-    timeLeft = 45; 
+    clearInterval(timerInterval); // Timer'ı sıfırla
+    timeLeft = 15; 
     document.getElementById("timer-btn").innerText = `⏳ ${timeLeft}s`;
 
     timerInterval = setInterval(() => {
-        timeLeft--;
-        document.getElementById("timer-btn").innerText = `⏳ ${timeLeft}s`;
-
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            nextQuestion();  
+        if (!isPaused) {  // **Eğer süre durdurulmamışsa zaman azalsın**
+            timeLeft--;
+            document.getElementById("timer-btn").innerText = `⏳ ${timeLeft}s`;
+    
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                nextQuestion();  // **Süre bitince otomatik geçiş**
+            }
         }
     }, 1000);
+
 
     const questionText = document.getElementById("question-text");
     const buttons = document.querySelectorAll(".option");
@@ -319,3 +322,13 @@ document.getElementById("double-answer-joker").addEventListener("click", functio
     this.disabled = true;  // Joker kullanıldıktan sonra devre dışı bırak
     console.log("Çift cevap jokeri aktifleştirildi!");
 });
+
+// ZAMAN DONDURMA JOKERİ //
+
+const freeze = document.getElementById("time-freeze-btn");
+// Süreyi dondur
+function useTimeFreeze() {
+    isPaused = true;
+    useTimeFreeze = true;
+    document.getElementById("time-freeze-btn").disabled = true;
+}

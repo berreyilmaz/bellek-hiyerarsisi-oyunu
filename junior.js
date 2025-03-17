@@ -47,6 +47,7 @@ let currentQuestionIndex = 0;
 let score = 0;  
 const pointsPerCorrect = 10;
 const pointsPerinCorrect = -5;   
+isPaused=false;
 
 let timeLeft = 15;  // Süre sınırı (saniye)
 let timerInterval; 
@@ -63,12 +64,14 @@ function loadQuestion() {
     document.getElementById("timer-btn").innerText = `⏳ ${timeLeft}s`;
 
     timerInterval = setInterval(() => {
-        timeLeft--;
-        document.getElementById("timer-btn").innerText = `⏳ ${timeLeft}s`;
-
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            nextQuestion();  // **Süre bitince otomatik geçiş**
+        if (!isPaused) {  // **Eğer süre durdurulmamışsa zaman azalsın**
+            timeLeft--;
+            document.getElementById("timer-btn").innerText = `⏳ ${timeLeft}s`;
+    
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                nextQuestion();  // **Süre bitince otomatik geçiş**
+            }
         }
     }, 1000);
 
@@ -188,6 +191,8 @@ function nextQuestion() {
     }
 
     loadQuestion(); // Yeni soruyu yükle
+    clearInterval();
+    isPaused=false;
 }
 
 
@@ -302,7 +307,14 @@ document.getElementById("double-answer-joker").addEventListener("click", functio
 
 // ZAMAN DONDURMA JOKERİ //
 
-// SORU ATLAMA JOKERİ //
+const freeze = document.getElementById("time-freeze-btn");
+// Süreyi dondur
+function useTimeFreeze() {
+    isPaused = true;
+    useTimeFreeze = true;
+    document.getElementById("time-freeze-btn").disabled = true;
+}
+
 
 
 

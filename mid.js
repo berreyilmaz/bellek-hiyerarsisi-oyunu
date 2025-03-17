@@ -67,6 +67,7 @@ let currentQuestionIndex = 0;
 let score = 0;  
 const pointsPerCorrect = 10;
 const pointsPerIncorrect = -5;
+isPaused=false;
 
 let timeLeft = 30;  
 let timerInterval; 
@@ -78,17 +79,19 @@ function loadQuestion() {
         return;
     }
 
-    clearInterval(timerInterval); 
-    timeLeft = 30;  
+    clearInterval(timerInterval); // Timer'ı sıfırla
+    timeLeft = 30; 
     document.getElementById("timer-btn").innerText = `⏳ ${timeLeft}s`;
 
     timerInterval = setInterval(() => {
-        timeLeft--;
-        document.getElementById("timer-btn").innerText = `⏳ ${timeLeft}s`;
-
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            nextQuestion();  
+        if (!isPaused) {  // **Eğer süre durdurulmamışsa zaman azalsın**
+            timeLeft--;
+            document.getElementById("timer-btn").innerText = `⏳ ${timeLeft}s`;
+    
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                nextQuestion();  // **Süre bitince otomatik geçiş**
+            }
         }
     }, 1000);
 
@@ -202,12 +205,15 @@ function nextQuestion() {
     currentQuestionIndex++;
 
     if (currentQuestionIndex >= questions.length) {
-        endGame();
+        endGame();  // Eğer sorular bitti ise bitiş ekranı göster
         return;
     }
 
-    loadQuestion();
+    loadQuestion(); // Yeni soruyu yükle
+    clearInterval();
+    isPaused=false;
 }
+
 
 // **Oyunun tamamlanması fonksiyonu**
 function endGame() {
@@ -289,3 +295,13 @@ document.getElementById("double-answer-joker").addEventListener("click", functio
     this.disabled = true;  // Joker kullanıldıktan sonra devre dışı bırak
     console.log("Çift cevap jokeri aktifleştirildi!");
 });
+
+// ZAMAN DONDURMA JOKERİ //
+
+const freeze = document.getElementById("time-freeze-btn");
+// Süreyi dondur
+function useTimeFreeze() {
+    isPaused = true;
+    useTimeFreeze = true;
+    document.getElementById("time-freeze-btn").disabled = true;
+}

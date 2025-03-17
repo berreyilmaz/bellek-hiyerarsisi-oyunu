@@ -83,7 +83,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const doubleAnswerBtn = document.getElementById("double-answer");
     const fiftyFiftyBtn = document.getElementById("fifty-fifty");
     const timeFreezeBtn = document.getElementById("time-freeze-btn");
-    const skipQuestionBtn = document.getElementById("skip-question-btn");
 
     // Çift Cevap Jokeri
     if (doubleAnswerBtn) {
@@ -109,15 +108,6 @@ document.addEventListener("DOMContentLoaded", function () {
             // Burada süreyi durdurma fonksiyonunu çağırabilirsin
         });
     }
-
-    // Soruyu Atla Jokeri
-    if (skipQuestionBtn) {
-        skipQuestionBtn.addEventListener("click", function () {
-            alert("Soruyu Atla Jokeri Kullanıldı! Yeni soruya geçiliyor.");
-            skipQuestionBtn.disabled = true; // Joker kullanıldıktan sonra devre dışı bırak
-            // Burada yeni soruya geçiş fonksiyonunu çağırabilirsin
-        });
-    }
  
 });
 
@@ -135,7 +125,6 @@ document.addEventListener("DOMContentLoaded", function () {
             <button id="double-answer" class="joker-btn" onclick="useDoubleAnswer()">2️⃣✔️Çift Cevap</button>
             <button id="fifty-fifty" class="joker-btn" onclick="useFiftyFifty()">5️⃣0️⃣:5️⃣0️⃣Şık Eleme</button>
             <button id="time-freeze-btn" class="joker-btn" onclick="useTimeFreeze()">⏳ Zaman Dondur</button>
-            <button id="skip-question-btn" class="joker-btn" onclick="skipQuestion()">➡️ Soruyu Atla</button>
         `;
     }
 
