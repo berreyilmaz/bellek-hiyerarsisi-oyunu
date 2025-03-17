@@ -35,7 +35,7 @@ const allQuestions = [
     { question: "Bilgisayarda programları çalıştırmak için kullanılan bellek nedir?", options: ["RAM", "ROM", "HDD", "GPU"], correct: "A" }
 ];
 
-// **Soruları rastgele karıştır ve ilk 10 tanesini seç**
+// Soruları rastgele karıştır ve ilk 10 tanesini seç
 function getRandomQuestions() {
     let shuffled = allQuestions.sort(() => 0.5 - Math.random());  // Soruları karıştır
     return shuffled.slice(0, 10); // İlk 10 tanesini seç
@@ -94,34 +94,6 @@ function loadQuestion() {
     document.getElementById("result").innerText = "";
     document.getElementById("next-btn").style.display = "none";
 }
-
-/*Cevap kontrol fonksiyonu
-function checkAnswer(button, answer) {
-    clearInterval(timerInterval);  // **Doğru/yanlış cevap verildiğinde süreyi durdur**
-    
-    const currentQuestion = questions[currentQuestionIndex];
-    let buttons = document.querySelectorAll(".option");
-    let resultText = document.getElementById("result");
-    let nextBtn = document.getElementById("next-btn");
-
-    buttons.forEach(btn => btn.disabled = true);
-    
-    if (answer === currentQuestion.correct) {
-        button.classList.add("correct");
-        resultText.innerText = "Doğru! 🚀";
-        correctSound.play();  // Doğru cevap sesi
-        score += pointsPerCorrect; 
-    } else {
-        button.classList.add("incorrect");
-        resultText.innerText = "Yanlış! Tekrar dene. ❌";
-        score += pointsPerinCorrect;
-        incorrectSound.play();  // Yanlış cevap sesi  
-        button.classList.add("shake"); // Yanlış cevapta titreme efekti ekle
-    }
-
-    document.getElementById("score").innerText = score;
-    nextBtn.style.display = "block";
-} */
 
 
 // **Cevap kontrol fonksiyonu**
@@ -295,7 +267,7 @@ function useDoubleAnswer() {
 }
 
 // **Çift Cevap Jokeri Butonu Tıklanınca**
-document.getElementById("double-answer-joker").addEventListener("click", function() {
+document.getElementById("double-answer").addEventListener("click", function() {
     doubleAnswerActive = true;
     secondChanceUsed = false;
     this.disabled = true;  // Joker kullanıldıktan sonra devre dışı bırak

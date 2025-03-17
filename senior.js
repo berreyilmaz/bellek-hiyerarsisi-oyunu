@@ -118,34 +118,6 @@ function loadQuestion() {
     document.getElementById("result").innerText = "";
     document.getElementById("next-btn").style.display = "none";
 }
-/*
-function checkAnswer(button, answer) {
-    const currentQuestion = questions[currentQuestionIndex];
-    let buttons = document.querySelectorAll(".option");
-    let resultText = document.getElementById("result");
-    let nextBtn = document.getElementById("next-btn");
-
-    buttons.forEach(btn => btn.disabled = true);
-    
-    if (answer === currentQuestion.correct) {
-        button.classList.add("correct");
-        resultText.innerText = "Doğru! 🚀";
-        score += pointsPerCorrect;
-        correctSound.play();
-    } else {
-        button.classList.add("incorrect");
-        resultText.innerText = "Yanlış! Tekrar dene. ❌";
-        score += pointsPerinCorrect;  
-        incorrectSound.play();
-        button.classList.add("shake");
-    }
-
-    document.getElementById("score").innerText = score;
-
-    correctSound.onended = incorrectSound.onended = function() {
-        nextBtn.style.display = "block";
-    };
-} */
 
     // **Cevap kontrol fonksiyonu**
 function checkAnswer(button, answer) {

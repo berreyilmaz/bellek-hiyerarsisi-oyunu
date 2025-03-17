@@ -63,12 +63,12 @@ body {
 .kaydir {
     display: inline-block;
     white-space: nowrap;
-    animation: kaydir 20s linear infinite;
+    animation: kaydir 35s linear infinite;
 }
 
 .kaydir span {
     display: inline-block;
-    margin-right: 20px; /* Yazılar arasında boşluk bırakır */
+    margin-right: 300px; /* Yazılar arasında boşluk bırakır */
     font-size: 25px;
     font-weight: bold;
 }

@@ -1,9 +1,9 @@
-let questions = [];  // Global değişken olarak tanımla
+// let questions = [];  // Global değişken olarak tanımla
 
-document.addEventListener("DOMContentLoaded", function() {
-    questions = getRandomQuestions(); // Sayfa yüklendiğinde 10 rastgele soru al
-    loadQuestion();
-});
+// document.addEventListener("DOMContentLoaded", function() {
+//     questions = getRandomQuestions(); // Sayfa yüklendiğinde 10 rastgele soru al
+//     loadQuestion();
+// });
 
 // Ses dosyalarını yükle
 const correctSound = new Audio("sounds/correct.mp3");  
@@ -55,32 +55,32 @@ const allQuestions = [
 ];
 
 
-// **Soruları rastgele karıştır ve ilk 10 tanesini seç**
+// Soruları rastgele karıştır ve ilk 10 tanesini seç
 function getRandomQuestions() {
     let shuffled = allQuestions.sort(() => 0.5 - Math.random());  // Soruları karıştır
     return shuffled.slice(0, 10); // İlk 10 tanesini seç
 }
 
-
 // **Seçilen sorular**
-let currentQuestionIndex = 0;
+let questions = getRandomQuestions();
+let currentQuestionIndex = 0; 
 let score = 0;  
 const pointsPerCorrect = 10;
-const pointsPerIncorrect = -5;
+const pointsPerinCorrect = -5;   
 isPaused=false;
 
-let timeLeft = 30;  
+let timeLeft = 15;  // Süre sınırı (saniye)
 let timerInterval; 
 
 // **Soru yükleme fonksiyonu (TIMER ile birlikte)**
 function loadQuestion() {
     if (currentQuestionIndex >= questions.length) {
-        endGame();  
+        endGame();  // Tüm sorular bitince oyunu tamamla
         return;
     }
 
     clearInterval(timerInterval); // Timer'ı sıfırla
-    timeLeft = 30; 
+    timeLeft = 15; 
     document.getElementById("timer-btn").innerText = `⏳ ${timeLeft}s`;
 
     timerInterval = setInterval(() => {
@@ -99,13 +99,15 @@ function loadQuestion() {
     const buttons = document.querySelectorAll(".option");
     const currentQuestion = questions[currentQuestionIndex];
 
+    if (!questionText || !buttons.length) return;
+
     questionText.innerText = currentQuestion.question;
 
     buttons.forEach((btn, index) => {
         btn.innerText = currentQuestion.options[index];
         btn.classList.remove("correct", "incorrect", "shake");
         btn.disabled = false;
-        btn.style.display = "block";  
+        btn.style.display = "block";  // **50:50 jokeri sonrası gizlenen şıkları geri getir**
         btn.setAttribute("onclick", `checkAnswer(this, '${String.fromCharCode(65 + index)}')`);
     });
 
@@ -113,37 +115,8 @@ function loadQuestion() {
     document.getElementById("next-btn").style.display = "none";
 }
 
-/*Cevap kontrol fonksiyonu
-function checkAnswer(button, answer) {
-    const currentQuestion = questions[currentQuestionIndex];
-    let buttons = document.querySelectorAll(".option");
-    let resultText = document.getElementById("result");
-    let nextBtn = document.getElementById("next-btn");
 
-    buttons.forEach(btn => btn.disabled = true);
-
-    if (answer === currentQuestion.correct) {
-        button.classList.add("correct");
-        resultText.innerText = "Doğru! 🚀";
-        score += pointsPerCorrect; 
-        correctSound.play();
-    } else {
-        button.classList.add("incorrect");
-        resultText.innerText = "Yanlış! ❌";
-        score += pointsPerIncorrect;  
-        incorrectSound.play();
-        button.classList.add("shake");
-    }
-
-    document.getElementById("score").innerText = score;
-
-    correctSound.onended = incorrectSound.onended = function() {
-        nextBtn.style.display = "block";
-    };
-} */
-
-
-    // **Cevap kontrol fonksiyonu**
+// **Cevap kontrol fonksiyonu**
 function checkAnswer(button, answer) {
     clearInterval(timerInterval);  // **Doğru/yanlış cevap verildiğinde süreyi durdur**
 
@@ -215,34 +188,56 @@ function nextQuestion() {
 }
 
 
-// **Oyunun tamamlanması fonksiyonu**
+// **OYUN BİTTİĞİNDE ÇALIŞACAK FONKSİYON**
 function endGame() {
-    clearInterval(timerInterval);
-    document.getElementById("question-text").innerText = "Tebrikler! MID seviyesi tamamlandı 🎉";
-
+    clearInterval(timerInterval); // Timer'ı durdur
+    document.getElementById("question-text").innerText = "Tebrikler! Tüm soruları tamamladın 🎉";
+    
     document.querySelector(".answer-buttons").innerHTML = "";
     document.getElementById("next-btn").style.display = "none";
     document.getElementById("result").innerText = "";
 
-    if (score >= 80) {
-        document.getElementById("question-text").innerHTML += `<br>🏆 Yeni bir seviyeye geçmeye hazır mısın?`;
-        const seniorButton = document.createElement("button");
-        seniorButton.innerText = "Senior Seviyesine Geç";
-        seniorButton.classList.add("level-btn");
-        seniorButton.onclick = () => window.location.href = "senior.html";
-        document.querySelector(".question-box").appendChild(seniorButton);
+    const messageContainer = document.createElement("p");
+    messageContainer.id = "retry-message";
+    
+    const buttonContainer = document.createElement("div");
+    buttonContainer.id = "level-container";
+
+    if (score >= 85) {
+        buttonContainer.innerHTML = `
+            <button id="senior-level-btn" class="next-level-btn" onclick="goToSeniorLevel()">SENIOR seviyesine geçin</button>
+        `;
     } else {
-        document.getElementById("question-text").innerHTML += `<br>😞 Skorunuz yetersiz! Tekrar çözün.`;
-        const retryButton = document.createElement("button");
-        retryButton.innerText = "Mid Seviyesini Yeniden Çöz";
-        retryButton.classList.add("retry-btn");
-        retryButton.onclick = () => window.location.reload();
-        document.querySelector(".question-box").appendChild(retryButton);
+        messageContainer.innerText = "Ne yazık ki skorunuz düşük, bir üst level için tekrar çözmelisiniz. 🆙🥲";
+        messageContainer.classList.add("retry-message");
+
+        buttonContainer.innerHTML = `
+            <button id="retry-btn" class="retry-btn" onclick="restartGame()">Mid seviyesine tekrar başla</button>
+        `;
     }
+
+    document.querySelector(".question-box").appendChild(messageContainer);
+    document.querySelector(".question-box").appendChild(buttonContainer);
 }
 
-// **50:50 JOKER**
-let usedFiftyFifty = false;
+// **MİD seviyesine geçiş fonksiyonu**
+function goToMidLevel() {
+    window.location.href = "senior.html";  
+}
+
+// **Oyunu yeniden başlatma fonksiyonu**
+function restartGame() {
+    window.location.href = "mid.html";  
+}
+
+// **İlk soruyu yükle**
+loadQuestion();
+
+
+
+
+// 50:50 JOKER
+let usedFiftyFifty = false;  // 50:50 jokerinin kullanılıp kullanılmadığını kontrol ediyoruz
 
 function useFiftyFifty() {
     if (usedFiftyFifty) {
@@ -250,24 +245,27 @@ function useFiftyFifty() {
         return;
     }
 
+    // Şıkları alıyoruz
     const options = document.querySelectorAll(".option");
     let wrongAnswers = [];
 
+    // Yanlış şıkları buluyoruz
     options.forEach(option => {
         if (!option.classList.contains("correct")) {
             wrongAnswers.push(option);
         }
     });
 
+    // Yanlış şıkları gizliyoruz (2 tanesini)
     if (wrongAnswers.length >= 2) {
         wrongAnswers[0].style.display = "none";
         wrongAnswers[1].style.display = "none";
     }
 
+    // Jokeri kullandık, butonu devre dışı bırakıyoruz
     usedFiftyFifty = true;
     document.getElementById("fifty-fifty").disabled = true;
 }
-
 
 // **ÇİFT CEVAP JOKERİ**
 let usedDoubleAnswer = false;  // Jokerin kullanılıp kullanılmadığını kontrol eder
@@ -289,12 +287,15 @@ function useDoubleAnswer() {
 }
 
 // **Çift Cevap Jokeri Butonu Tıklanınca**
-document.getElementById("double-answer-joker").addEventListener("click", function() {
+document.getElementById("double-answer").addEventListener("click", function() {
     doubleAnswerActive = true;
     secondChanceUsed = false;
     this.disabled = true;  // Joker kullanıldıktan sonra devre dışı bırak
     console.log("Çift cevap jokeri aktifleştirildi!");
 });
+
+
+
 
 // ZAMAN DONDURMA JOKERİ //
 
@@ -305,3 +306,4 @@ function useTimeFreeze() {
     useTimeFreeze = true;
     document.getElementById("time-freeze-btn").disabled = true;
 }
+

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mid</title>
     <link rel="stylesheet" href="style.css"> 
+    <link rel="icon" type="image/png" href="favicon.png">
+
 </head>
 <body>
     <audio id="audio" src="sounds/ses.mp3"></audio>
@@ -21,22 +23,24 @@
         </div>
 
         <p id="result"></p>
-
         <button id="next-btn" style="display: none;" onclick="nextQuestion()">Sonraki Soru</button>
 
         <div id="score-box">Skor: <span id="score">0</span></div>
+
     </div>
 
     <!-- 🔥 SENIOR seviyesine geçiş butonu (BAŞLANGIÇTA GİZLİ) -->
-    <button id="senior-level-btn" style="display:none;" onclick="goToSeniorLevel()">SENIOR seviyesine geç</button>
+    <div id="mid-level-container" style="display: none;">
+        <button id="senior-level-btn" onclick="goToSeniorLevel()">SENIOR seviyesine geçin</button>
+    </div>
 
-    <!-- 🔥 Eğer puan 80 altındaysa gösterilecek uyarı mesajı ve tekrar çözme butonu -->
+    <!-- 🔥 Eğer puan 80 altındaysa gösterilecek uyarı mesajı ve tekrar çözme butonu
     <div id="retry-container" style="display:none; text-align: center;">
         <p id="retry-message" style="color: red; font-weight: bold;">😞 Skorunuz yetersiz! Tekrar çözün.</p>
         <button id="retry-btn" onclick="retryMidLevel()">Mid Seviyesini Yeniden Çöz</button>
-    </div>
+    </div> -->
 
-    <!-- 🃏 JOKER BUTONLARI -->
+    <!-- JOKER BUTONLARI -->
     <div id="joker-container">
         <button class="joker-btn" id="double-answer" onclick="useDoubleAnswer()">🃏 Çift Cevap</button>
         <button class="joker-btn" id="fifty-fifty" onclick="useFiftyFifty()">❌ 50/50</button>
