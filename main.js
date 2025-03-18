@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     audio.play(); // Müziği başlat
-    
+
     // Sayfa değiştirilirken zamanı kaydet
     window.addEventListener("beforeunload", function () {
         sessionStorage.setItem("musicTime", audio.currentTime);
@@ -135,3 +135,25 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("modalContainer");
+    const btn = document.getElementById("hzrbtn");
+    const closeBtn = document.querySelector(".close-btn");
+
+    // Butona tıklanınca modal aç
+    btn.addEventListener("click", function () {
+        modal.style.display = "flex";
+    });
+
+    // Kapatma butonuna tıklanınca modalı kapat
+    closeBtn.addEventListener("click", function () {
+        modal.style.display = "none";
+    });
+
+    // Modal dışına tıklayınca kapansın
+    window.addEventListener("click", function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+});
