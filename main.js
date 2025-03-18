@@ -29,17 +29,50 @@ document.addEventListener("DOMContentLoaded", function () {
     audio.loop = true; // Müziğin sürekli çalmasını sağlar
     audio.volume = 0.5; // Ses seviyesi %50
 
-    let savedTime = localStorage.getItem("musicTime");
+    // Önceki kaldığı süreyi al
+    let savedTime = sessionStorage.getItem("musicTime");
     if (savedTime) {
-        audio.currentTime = parseFloat(savedTime); // Kaldığı yerden devam ettir
+        audio.currentTime = parseFloat(savedTime);
     }
 
     audio.play(); // Müziği başlat
-
+    
+    // Sayfa değiştirilirken zamanı kaydet
     window.addEventListener("beforeunload", function () {
-        localStorage.setItem("musicTime", audio.currentTime); // Sayfa kapanırken zamanı kaydet
+        sessionStorage.setItem("musicTime", audio.currentTime);
     });
+
+    let musicButton = document.getElementById("muzik-volume-upbtn");
+    let musicSlider = document.getElementById("muzikvolumeControl");
+    
+    window.addEventListener("pagehide", function () {
+        window.sharedAudio = audio; // Müziği hafızada tut
+    });
+
+    // Müzik butonuna basınca sesi aç/kapat
+    musicButton.addEventListener("click", function () {
+        if (audio.volume > 0) {
+            audio.volume = 0;
+            musicButton.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+        } else {
+            audio.volume = musicSlider.value;
+            musicButton.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+        }
+    });
+
+    // Ses çubuğuyla sesi ayarla
+    musicSlider.addEventListener("input", function () {
+        audio.volume = musicSlider.value;
+        localStorage.setItem("musicVolume", audio.volume);
+        musicButton.innerHTML = audio.volume > 0 ? 
+            '<i class="fa-solid fa-volume-high"></i>' : 
+            '<i class="fa-solid fa-volume-xmark"></i>';
+    });
+
+
 });
+
+
 
 
 // Jokerler 

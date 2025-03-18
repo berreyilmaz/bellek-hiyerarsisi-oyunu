@@ -240,7 +240,7 @@ body {
     gap: 10px;  /* Buton ile çubuk arasındaki boşluk */
 }
 
-#volume-upbtn {
+.volume-button {
     background: #007bff;
     color: white;
     border: none;
@@ -253,11 +253,11 @@ body {
     justify-content: center;
 }
 
-#volume-upbtn i {
+.volume-button i {
     font-size: 20px;
 }
 
-#volume-upbtn:hover {
+.volume-button:hover {
     background: #0056b3;
 }
 
