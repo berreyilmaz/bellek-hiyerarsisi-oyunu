@@ -1,9 +1,9 @@
-let questions = [];  // Global değişken olarak tanımla
+// let questions = [];  // Global değişken olarak tanımla
 
-document.addEventListener("DOMContentLoaded", function() {
-    questions = getRandomQuestions(); // Sayfa yüklendiğinde 10 rastgele soru al
-    loadQuestion(); // İlk soruyu yükle
-});
+// document.addEventListener("DOMContentLoaded", function() {
+//     questions = getRandomQuestions(); // Sayfa yüklendiğinde 10 rastgele soru al
+//     loadQuestion(); // İlk soruyu yükle
+// });
 
 // Ses dosyalarını yükle
 const correctSound = new Audio("sounds/correct.mp3");  // ✅ Doğru cevap sesi
@@ -47,43 +47,26 @@ function getRandomQuestions() {
     return shuffled.slice(0, 10); // İlk 10 tanesini al
 }
 
-// Soruları ekrana yükleyen fonksiyon
-function loadQuestion() {
-    const questionContainer = document.getElementById("question");  // Sorunun gösterileceği container
-    const optionsContainer = document.getElementById("options");  // Seçeneklerin gösterileceği container
-    const currentQuestion = questions[0];  // Şu anki soruyu alıyoruz
-
-    // Soruyu ekrana yazdır
-    questionContainer.textContent = currentQuestion.question;
-
-    // Seçenekleri ekrana yazdır
-    optionsContainer.innerHTML = '';  // Önceki seçenekleri temizle
-    currentQuestion.options.forEach((option, index) => {
-        const optionElement = document.createElement("button");
-        optionElement.textContent = option;
-        optionElement.onclick = function () {
-            checkAnswer(option, currentQuestion.correct);
-        };
-        optionsContainer.appendChild(optionElement);
-    });
-}
-
+// **Seçilen sorular**
+let questions = getRandomQuestions();
 let currentQuestionIndex = 0; 
 let score = 0;  
 const pointsPerCorrect = 10;
-const pointsPerinCorrect = -5;  
+const pointsPerinCorrect = -5;   
+isPaused=false;
 
-let timeLeft = 45;  
+let timeLeft = 45;  // Süre sınırı (saniye)
 let timerInterval; 
 
+// **Soru yükleme fonksiyonu (TIMER ile birlikte)**
 function loadQuestion() {
     if (currentQuestionIndex >= questions.length) {
-        endGame();
+        endGame();  // Tüm sorular bitince oyunu tamamla
         return;
     }
 
     clearInterval(timerInterval); // Timer'ı sıfırla
-    timeLeft = 15; 
+    timeLeft = 45; 
     document.getElementById("timer-btn").innerText = `⏳ ${timeLeft}s`;
 
     timerInterval = setInterval(() => {
@@ -98,7 +81,6 @@ function loadQuestion() {
         }
     }, 1000);
 
-
     const questionText = document.getElementById("question-text");
     const buttons = document.querySelectorAll(".option");
     const currentQuestion = questions[currentQuestionIndex];
@@ -111,13 +93,14 @@ function loadQuestion() {
         btn.innerText = currentQuestion.options[index];
         btn.classList.remove("correct", "incorrect", "shake");
         btn.disabled = false;
-        btn.style.display = "block";
+        btn.style.display = "block";  // **50:50 jokeri sonrası gizlenen şıkları geri getir**
         btn.setAttribute("onclick", `checkAnswer(this, '${String.fromCharCode(65 + index)}')`);
     });
 
     document.getElementById("result").innerText = "";
     document.getElementById("next-btn").style.display = "none";
 }
+
 
     // **Cevap kontrol fonksiyonu**
 function checkAnswer(button, answer) {

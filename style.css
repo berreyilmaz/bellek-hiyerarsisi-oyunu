@@ -449,18 +449,6 @@ body {
     cursor: default; /* Tıklanamaz */
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
-/* titreşim butonu*/
-@keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    75% { transform: translateX(-5px); }
-    100% { transform: translateX(0); }
-}
-
-.shake {
-    animation: shake 0.3s ease-in-out;
-}
 
 /* 📌 Tüm seviyelerde kullanılan geçiş butonları (Mid → Senior, Senior → Impossible) */
 .level-btn, #retry-btn {
@@ -523,7 +511,7 @@ body {
 .joker-btn:hover {
     background-color: #e68900;
 }
- .button-container {
+.button-container {
     display: flex;
     justify-content: center;
     gap: 15px;
@@ -566,3 +554,15 @@ button:disabled {
 
 
 
+/* titreşim butonu*/
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+
+}
+.shake {
+    animation: shake 0.3s ease-in-out;
+}
