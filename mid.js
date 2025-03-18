@@ -69,7 +69,7 @@ const pointsPerCorrect = 10;
 const pointsPerinCorrect = -5;   
 isPaused=false;
 
-let timeLeft = 15;  // Süre sınırı (saniye)
+let timeLeft = 30;  // Süre sınırı (saniye)
 let timerInterval; 
 
 // **Soru yükleme fonksiyonu (TIMER ile birlikte)**
@@ -80,7 +80,7 @@ function loadQuestion() {
     }
 
     clearInterval(timerInterval); // Timer'ı sıfırla
-    timeLeft = 15; 
+    timeLeft = 30; 
     document.getElementById("timer-btn").innerText = `⏳ ${timeLeft}s`;
 
     timerInterval = setInterval(() => {
@@ -145,7 +145,11 @@ function checkAnswer(button, answer) {
             resultText.innerText = "Yanlış! Bir hakkın daha var. 🔄";
             button.classList.add("incorrect");
             incorrectSound.play();  // Yanlış cevap sesi  
-            button.classList.add("shake");  // Yanlış cevapta titreme efekti ekle
+                // **Titreme efekti ekle**
+        button.classList.add("shake");
+        setTimeout(() => {
+            button.classList.remove("shake"); // 0.5 saniye sonra kaldır
+        }, 500);
 
             console.log("İlk yanlış yapıldı, ikinci hak verildi.");  
 
@@ -158,6 +162,12 @@ function checkAnswer(button, answer) {
         button.classList.add("incorrect");
         resultText.innerText = "Yanlış! ❌";
         incorrectSound.play();  
+            // **Titreme efekti ekle**
+            button.classList.add("shake");
+            setTimeout(() => {
+                button.classList.remove("shake"); // 0.5 saniye sonra kaldır
+            }, 500);
+            
         score += pointsPerinCorrect;
 
         // Tüm butonları devre dışı bırak

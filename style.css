@@ -585,11 +585,12 @@ button:disabled {
     50% { transform: translateX(5px); }
     75% { transform: translateX(-5px); }
     100% { transform: translateX(0); }
+}
 
-}
 .shake {
-    animation: shake 0.3s ease-in-out;
+    animation: shake 0.5s ease-in-out;
 }
+
 
 
 /* Modal Arka Plan */
