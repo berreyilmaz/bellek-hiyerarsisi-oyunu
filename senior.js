@@ -181,21 +181,24 @@ function endGame() {
 
     if (score >= 75) {
         document.getElementById("question-text").innerHTML += `
-            <p>Eğer gerçek bir Senior isen, son ve imkansız zorlukta bir seviyeye var mısın?</p>
-            <div class="button-container">
-                <button id="yes-impossible" class="btn-yes">Evet, varım!</button>
-                <button id="no-impossible" class="btn-no">Benden şimdilik bu kadar!</button>
-            </div>
+        <p>Gerçek bir efsane misin? "Legendary" seviyesine geçmeye cesaretin var mı?</p>
+        <div class="button-container">
+            <button id="yes-legendary" class="btn-yes">Evet, efsane olmaya hazırım!</button>
+            <button id="no-legendary" class="btn-no">Şimdilik yeterli!</button>
+        </div>
+    `;
+
+    document.getElementById("yes-legendary").addEventListener("click", function() {
+        window.location.href = "legendary.html"; // Legendary seviyesine yönlendirme
+    });
+    document.getElementById("no-legendary").addEventListener("click", function() {
+        document.getElementById("question-text").innerHTML = `
+            <h2>Tebrikler! Skorunuz: ${score} 🏆</h2>
+            <p>Daha cesur bir zamanında görüşmek üzere...</p>
         `;
+        
+    });
 
-        document.getElementById("yes-impossible").addEventListener("click", function() {
-            window.location.href = "impossible.html"; 
-        });
-
-        document.getElementById("no-impossible").addEventListener("click", function() {
-            document.getElementById("question-text").innerHTML = `<h2>Tebrikler! Skorunuz: ${score} 🏆</h2>
-                <p>Daha cesur bir zamanında görüşmek üzere...</p>`;
-        });
 
     } else {
         document.getElementById("question-text").innerHTML += `
