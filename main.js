@@ -21,56 +21,78 @@ if (basla) basla.addEventListener('click', () => window.location.href = "basla.h
 if (nasilbtn) nasilbtn.addEventListener('click', () => window.location.href = "nasiloynanir.html");
 if (ayarlar) ayarlar.addEventListener('click', () => window.location.href = "ayarlar.html");
 
-
-//Ayarlar
+// AYARLAR 
 
 document.addEventListener("DOMContentLoaded", function () {
-    let audio = new Audio("sounds/ses.mp3"); // Buraya müzik dosyanızın yolunu ekleyin
-    audio.loop = true; // Müziğin sürekli çalmasını sağlar
-    audio.volume = 0.5; // Ses seviyesi %50
+    let audio = new Audio("sounds/ses.mp3");
+    audio.loop = true;
 
-    // Önceki kaldığı süreyi al
-    let savedTime = sessionStorage.getItem("musicTime");
+    // **Önceki ses seviyesi, zaman ve mute durumu kontrol et**
+    let savedVolume = localStorage.getItem("musicVolume");
+    let savedTime = localStorage.getItem("musicTime");
+    let isMuted = localStorage.getItem("isMuted") === "true"; // Ses kapalı mı?
+
+    // **Ses seviyesi ayarla, eğer mute ise ses 0 olsun**
+    if (isMuted) {
+        audio.volume = 0;
+    } else {
+        audio.volume = savedVolume ? parseFloat(savedVolume) : 0.5;
+    }
+
+    // **Müzik kaldığı yerden devam etsin**
     if (savedTime) {
         audio.currentTime = parseFloat(savedTime);
     }
 
-    audio.play(); // Müziği başlat
+    audio.play();
 
-    // Sayfa değiştirilirken zamanı kaydet
+    // **Sayfa kapanırken süreyi kaydet**
     window.addEventListener("beforeunload", function () {
-        sessionStorage.setItem("musicTime", audio.currentTime);
+        localStorage.setItem("musicTime", audio.currentTime);
     });
 
     let musicButton = document.getElementById("muzik-volume-upbtn");
     let musicSlider = document.getElementById("muzikvolumeControl");
-    
-    window.addEventListener("pagehide", function () {
-        window.sharedAudio = audio; // Müziği hafızada tut
-    });
 
-    // Müzik butonuna basınca sesi aç/kapat
+    // **Sayfa yüklendiğinde butonun durumunu kontrol et**
+    if (isMuted) {
+        musicButton.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>'; // Sessiz
+    } else {
+        musicButton.innerHTML = '<i class="fa-solid fa-volume-high"></i>'; // Ses açık
+    }
+
+    // **Mute butonu ses kapat/aç**
     musicButton.addEventListener("click", function () {
-        if (audio.volume > 0) {
+        if  (audio.volume > 0) {
+            // Eğer ses açıksa, sesi kapat
             audio.volume = 0;
+            localStorage.setItem("isMuted", "true"); // Ses kapalı
             musicButton.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
         } else {
-            audio.volume = musicSlider.value;
-            musicButton.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+              // Eğer ses kapalıysa, ses aç ve biraz arttır
+              audio.volume = Math.min(1, audio.volume + 0.1); // Ses seviyesini arttır (max: 1)
+              localStorage.setItem("isMuted", "false"); // Ses açık
+              musicButton.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
         }
+        localStorage.setItem("musicVolume", audio.volume); // Ses seviyesini kaydet
+
+          // **Ses açıldığında, çubuğu da yeni seviyeye ayarla**
+          musicSlider.value = audio.volume; // Çubuğu güncelle
     });
 
-    // Ses çubuğuyla sesi ayarla
+    // **Ses çubuğuyla sesi ayarla**
+    musicSlider.value = audio.volume; // Mevcut sesi kaydırıcıya uygula
     musicSlider.addEventListener("input", function () {
         audio.volume = musicSlider.value;
         localStorage.setItem("musicVolume", audio.volume);
+        localStorage.setItem("isMuted", "false"); // Ses açıldı olarak işaretle
         musicButton.innerHTML = audio.volume > 0 ? 
             '<i class="fa-solid fa-volume-high"></i>' : 
             '<i class="fa-solid fa-volume-xmark"></i>';
     });
-
-
 });
+
+
 
 
 
