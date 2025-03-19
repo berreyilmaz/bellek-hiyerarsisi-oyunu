@@ -654,3 +654,38 @@ button:disabled {
     margin: 0;
 }
 
+.lg-question-box {
+    position: relative;
+    background: linear-gradient(45deg, red, orange, yellow);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 600px;
+    text-align: center;
+}
+
+/* Başlık (soru) stili */
+.lg-question-box h2 {
+    font-size: 23px;
+    margin-bottom: 30px;
+}
+#lg-score-box{
+    background: linear-gradient(45deg, rgb(13, 13, 13), rgb(91, 94, 90), rgb(7, 7, 7));
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 17px;
+    font-weight: bold;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+#lg-joker-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px; /* Butonlar arasında boşluk bırak */
+}
+

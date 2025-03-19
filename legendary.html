@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legendary</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body style="background-color: black;">
+
+    <audio id="audio" src="sounds/ses.mp3"></audio>
+    <button id="timer-btn" disabled>Kalan Süre: 15s</button>
+
+    <div class="lg-question-box">
+        <h2 id="question-text">Bellek hiyerarşisinde en hızlı bileşen hangisidir?</h2>
+
+        <div class="answer-buttons">
+            <button class="option" onclick="checkAnswer(this, 'A')">Ana Bellek</button>
+            <button class="option" onclick="checkAnswer(this, 'B')">Önbellek (Cache)</button>
+            <button class="option" onclick="checkAnswer(this, 'C')">Sabit Disk</button>
+            <button class="option" onclick="checkAnswer(this, 'D')">Flash Bellek</button>
+        </div>
+
+        <p id="result"></p>
+        <button id="next-btn" style="display: none; 
+        background: linear-gradient(45deg, rgb(13, 13, 13), rgb(91, 94, 90), rgb(163, 159, 159)); 
+        color: white; 
+        padding: 10px 20px; 
+        border: none; 
+        border-radius: 5px; 
+        font-weight: bold; 
+        cursor: pointer;" onclick="nextQuestion()">Sonraki Soru</button>
+
+        <div id="lg-score-box">Skor: <span id="score">0</span></div>
+
+    </div>
+
+
+
+    <!-- JOKER HAK BUTONLARI -->
+        <div id="lg-joker-container">
+            <button class="lg-joker-btn" id="double-answer"  
+            style="background: linear-gradient(45deg, red, orange, yellow); 
+           color: black; 
+           padding: 10px 20px; 
+           border: none; 
+           border-radius: 5px; 
+           font-weight: bold; 
+           font-size: 20px;
+           cursor: pointer; 
+           transition: background 0.3s, transform 0.25s;" onclick="useDoubleAnswer()">🃏 Çift Cevap</button>
+            <button class="lg-joker-btn" id="fifty-fifty" style="background: linear-gradient(45deg, red, orange, yellow); 
+            color: black; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 5px; 
+            font-weight: bold; 
+            font-size: 20px;
+            cursor: pointer; 
+            transition: background 0.3s, transform 0.25s;" onclick="useFiftyFifty()">❌ 50/50</button>
+            <button class="lg-joker-btn" id="time-freeze-btn" style="background: linear-gradient(45deg, red, orange, yellow); 
+            color: black; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 5px; 
+            font-weight: bold; 
+            font-size: 20px;
+            cursor: pointer; 
+            transition: background 0.3s, transform 0.25s;" onclick="useTimeFreeze()">⏳ Zaman Dondur</button>
+        </div>
+            
+        <body class="quiz-page">
+
+        
+
+        <script src="legendary.js"></script>
+        <script src="main.js"></script>
+     
+</body>
+</html>
