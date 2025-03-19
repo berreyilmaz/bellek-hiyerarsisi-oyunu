@@ -9,9 +9,17 @@
 <body style="background-color: black;">
 
     <audio id="audio" src="sounds/ses.mp3"></audio>
-    <button id="timer-btn" disabled>Kalan Süre: 15s</button>
+    <button id="timer-btn" disabled>Kalan Süre: 20s</button>
 
     <div class="lg-question-box">
+
+          <!-- Video alanı -->
+        <div id="video-container" style="display: none;">
+            <video id="question-video" width="640" height="360" controls>
+              <source id="video-source" src="" type="video/mp4">
+               Tarayıcınız video etiketini desteklemiyor.
+            </video>
+        </div>
         <h2 id="question-text">Bellek hiyerarşisinde en hızlı bileşen hangisidir?</h2>
 
         <div class="answer-buttons">

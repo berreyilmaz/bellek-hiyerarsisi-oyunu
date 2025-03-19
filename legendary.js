@@ -2,43 +2,39 @@
 const correctSound = new Audio("sounds/correct.mp3");  
 const incorrectSound = new Audio("sounds/incorrect.mp3");  
 
-// **30 BASİT SEVİYE SORU**
-const allQuestions = [
-    { question: "Bilgisayarın kısa süreli hafızasına ne ad verilir?", options: ["HDD", "RAM", "SSD", "CD"], correct: "B" },
-    { question: "Bilgisayarın uzun süreli veri saklama birimi nedir?", options: ["RAM", "Cache", "HDD", "ROM"], correct: "C" },
-    { question: "Bilgisayar kapandığında verileri saklamayan bellek nedir?", options: ["SSD", "RAM", "HDD", "Flash Bellek"], correct: "B" },
-    { question: "Bilgisayarın beyni olarak adlandırılan bileşen nedir?", options: ["RAM", "HDD", "CPU", "GPU"], correct: "C" },
-    { question: "Bir bilgisayarın hızını en çok etkileyen bileşen nedir?", options: ["RAM", "HDD", "CPU", "Monitör"], correct: "C" },
-    { question: "İşlemcinin en hızlı erişebildiği bellek nedir?", options: ["Cache", "RAM", "HDD", "USB"], correct: "A" },
-    { question: "Bilgisayarda veri geçici olarak hangi bellekte saklanır?", options: ["RAM", "Cache", "HDD", "CD"], correct: "A" },
-    { question: "Aşağıdakilerden hangisi kalıcı veri saklamak için kullanılır?", options: ["RAM", "Cache", "ROM", "SSD"], correct: "D" },
-    { question: "Bilgisayar açıldığında işletim sistemini başlatan bellek türü nedir?", options: ["RAM", "ROM", "Cache", "HDD"], correct: "B" },
-    { question: "İşlemcinin en çok kullandığı küçük ve hızlı bellek nedir?", options: ["RAM", "SSD", "Cache", "HDD"], correct: "C" },
-    { question: "Aşağıdakilerden hangisi taşınabilir bellek türüdür?", options: ["HDD", "Flash Bellek", "RAM", "CPU"], correct: "B" },
-    { question: "Bilgisayarın en büyük veri saklama birimi nedir?", options: ["RAM", "Cache", "HDD", "SSD"], correct: "C" },
-    { question: "Hangisi bilgisayarın merkezi işlem birimidir?", options: ["RAM", "SSD", "CPU", "USB"], correct: "C" },
-    { question: "Hangi bellek bilgisayar kapatıldığında verileri saklamaz?", options: ["HDD", "SSD", "RAM", "Flash Bellek"], correct: "C" },
-    { question: "Bilgisayarda veri depolamak için kullanılan donanım nedir?", options: ["RAM", "SSD", "Monitor", "CPU"], correct: "B" },
-    { question: "Bilgisayarda en hızlı çalışan bellek türü hangisidir?", options: ["Cache", "RAM", "HDD", "SSD"], correct: "A" },
-    { question: "Aşağıdakilerden hangisi bir depolama cihazıdır?", options: ["RAM", "CPU", "HDD", "GPU"], correct: "C" },
-    { question: "Hangi donanım birimi verileri kalıcı olarak saklar?", options: ["RAM", "SSD", "CPU", "Cache"], correct: "B" },
-    { question: "Bilgisayar açıldığında çalışan ilk bellek nedir?", options: ["RAM", "ROM", "Cache", "HDD"], correct: "B" },
-    { question: "Hangi donanım veri işleme görevini yapar?", options: ["RAM", "HDD", "CPU", "GPU"], correct: "C" },
-    { question: "Hangisi geçici bellek olarak bilinir?", options: ["SSD", "Cache", "RAM", "ROM"], correct: "C" },
-    { question: "Bilgisayarda grafik işlemlerini yöneten donanım hangisidir?", options: ["CPU", "GPU", "RAM", "SSD"], correct: "B" },
-    { question: "Veriler en hızlı hangi bellekte saklanır?", options: ["HDD", "RAM", "Cache", "SSD"], correct: "C" },
-    { question: "Hangi donanım bilgileri elektrik kesildiğinde saklamaz?", options: ["HDD", "SSD", "RAM", "USB"], correct: "C" },
-    { question: "İşlemci ile en hızlı veri alışverişi yapan bellek nedir?", options: ["HDD", "SSD", "RAM", "Cache"], correct: "D" },
-    { question: "Hangisi geçici olarak veri saklayan donanımdır?", options: ["RAM", "SSD", "HDD", "Flash Bellek"], correct: "A" },
-    { question: "Bilgisayarın hızını artıran en önemli bellek hangisidir?", options: ["RAM", "Cache", "HDD", "SSD"], correct: "B" },
-    { question: "Hangisi bir depolama birimidir?", options: ["CPU", "RAM", "HDD", "Cache"], correct: "C" },
-    { question: "Bilgisayarda programları çalıştırmak için kullanılan bellek nedir?", options: ["RAM", "ROM", "HDD", "GPU"], correct: "A" }
+// **20 ekstra zor  SEVİYE SORU**
+const  allQuestionsAdvanced = [
+    { question: "Out-of-Order Execution (OoOE) mekanizmasının işlemcide sağladığı en büyük avantaj nedir?", options: ["Enerji verimliliğini artırır", "Komutları sırayla yürütür", "Veri bağımlılıklarını en aza indirir", "Pipeline tıkanmalarını artırır"], correct: "C" },
+    { question: "Branch Prediction algoritmalarında kullanılan Two-Level Adaptive Predictor modelinin temel çalışma prensibi nedir?", options: ["Statik tahmin yöntemi kullanır", "Geçmiş dallanma sonuçlarını analiz ederek dinamik tahmin yapar", "Tahmin yapılmaz, direkt dallanma sonucu işlenir", "Tüm dallanmaları yanlış olarak varsayar"], correct: "B" },
+    { question: "Cache belleklerde kullanılan Write-Through ve Write-Back mekanizmalarının farkı nedir?", options: ["Write-Back, veriyi doğrudan ana belleğe yazar", "Write-Through, daha az enerji tüketir", "Write-Back, bellek erişim sayısını azaltarak performansı artırır", "Write-Through, veriyi CPU yerine disk belleğine kaydeder"], correct: "C" },
+    { question: "CPU’daki Speculative Execution tekniğinin güvenlik açığı oluşturabileceği saldırı türü nedir?", options: ["Stack Overflow", "Row Hammer", "Spectre & Meltdown", "Side-Channel Timing Attack"], correct: "C" },
+    { question: "İşlemcideki L1, L2 ve L3 önbelleklerin temel farkı nedir?", options: ["L1 en büyük boyutlu, L3 en küçük boyutlu önbellektir", "L1 en hızlı, L3 en yavaş erişim süresine sahiptir", "L2 ve L3 sadece işlemcide kullanılmaz, RAM içinde de bulunur", "L3 yalnızca enerji tasarrufu sağlar"], correct: "B" },
+    { question: "CISC ve RISC işlemci mimarileri arasındaki temel fark nedir?", options: ["RISC, daha fazla komut türü kullanır", "CISC, daha düşük transistör sayısına sahiptir", "RISC, daha basit komut setleri kullanarak yüksek performans sağlar", "CISC, pipeline optimizasyonu için tasarlanmıştır"], correct: "C" },
+    { question: "Hangi bellek erişim modeli, işlemcinin çok çekirdekli ortamlarda önbellek tutarlılığını korumasını sağlar?", options: ["NUMA", "DMA", "SMP", "Cache Coherency Protocol"], correct: "D" },
+    { question: "Bir işlemcide ILP (Instruction-Level Parallelism) optimizasyonu sağlamak için hangi teknik kullanılır?", options: ["Vectorization", "Branch Merging", "Thread Pooling", "Memory Swapping"], correct: "A" },
+    { question: "Pipelining aşamalarında 'hazard' (tehlike) türlerinden biri olan 'data hazard' nedir?", options: ["Bellek yetersizliği nedeniyle yaşanan gecikmeler", "Bir komutun sonucu, diğer bir komut tarafından kullanılmadan önce hesaplanamazsa ortaya çıkar", "CPU çekirdekleri arasındaki iletişim gecikmeleri", "Tahmin edilen dallanmaların yanlış sonuçlanması"], correct: "B" },
+    { question: "Bir CPU’nun Out-of-Order Execution mekanizmasını başarılı bir şekilde uygulayabilmesi için hangi bileşene ihtiyaç duyulur?", options: ["Instruction Window", "Stack Pointer", "Program Counter", "Thread Scheduler"], correct: "A" },
+    { question: "Hangi CPU tasarım tekniği, bir çekirdeğin birçok iş parçacığını aynı anda çalıştırmasını sağlar?", options: ["Super-scalar Execution", "Hyper-Threading", "Out-of-Order Execution", "Dynamic Branch Prediction"], correct: "B" },
+    { question: "Hangi bellek yönetimi stratejisi, CPU’nun aynı anda birden fazla bellek bloğuna erişerek performansı artırmasını sağlar?", options: ["Paging", "Memory Interleaving", "Segmentation", "Swapping"], correct: "B" },
+    { question: "Modern CPU'larda 'register renaming' neden kullanılır?", options: ["Bellek erişim süresini azaltmak için", "Komut satırlarını daha verimli işleyebilmek için", "Pipeline’daki veri bağımlılıklarını azaltmak için", "RAM kullanımını en aza indirmek için"], correct: "C" },
+    { question: "Modern bilgisayarlarda kullanılan giriş/çıkış portları arasında, veri aktarım hızı ve çoklu cihaz desteği açısından en gelişmiş olan aşağıdakilerden hangisidir?", options: [" USB 3.1 Gen 1", "Thunderbolt 4", "HDMI 2.1", "PCIe 4.0"], correct: "B", video: "video1.mp4" },
+    { question: "Hangi optimizasyon tekniği, aynı anda birden fazla ALU birimi kullanarak birden çok komutun yürütülmesini sağlar?", options: ["Branch Prediction", "Pipeline Execution", "Superscalar Execution", "Simultaneous Multithreading"], correct: "C" },
+    { question: "Bir CPU'da kullanılan TLB (Translation Lookaside Buffer) hangi amaçla kullanılır?", options: ["Veri önbelleklemeyi hızlandırmak", "Sanal bellek adreslerini fiziksel adreslere çevirmek", "Veri bağımlılığını en aza indirmek", "CPU çekirdekleri arasında iletişimi sağlamak"], correct: "B" },
+    { question: "Modern işlemcilerde SMT (Simultaneous Multithreading) teknolojisinin temel amacı nedir?", options: ["İşlemci frekansını dinamik olarak artırmak", "Bellek erişim hızını iyileştirmek", "Aynı çekirdek içinde birden fazla iş parçacığını eşzamanlı yürütmek", "Talimat setlerini optimize etmek"], correct: "C" },
+    { question: "Bir işlemcide Prefetching mekanizması neden kullanılır?", options: ["Tahmin edilen verileri önceden yükleyerek bellek erişim gecikmesini azaltmak", "CPU’nun komutlarını hızlandırmak", "Overclocking için işlemciye daha fazla güç sağlamak", "Yanlış tahminleri düzeltmek için"], correct: "A" },
+    { question: "Hangi optimizasyon yöntemi, kodun belirli bölümlerini işlemci önbelleğinde daha verimli saklamayı sağlar?", options: ["Loop Unrolling", "Cache Blocking", "Thread Pooling", "Memory Swapping"], correct: "B" }
 ];
 
-// Soruları rastgele karıştır ve ilk 10 tanesini seç
+//// soruların sonuna bu eklenti eklenicek////
+//video: "video1.mp4"  // Video ekledik//
+//video: "video2.mp4"  // Video ekledik
+
+
+
+// Soruları karıştıran ve ilk 10 soruyu döndüren fonksiyon
 function getRandomQuestions() {
-    let shuffled = allQuestions.sort(() => 0.5 - Math.random());  // Soruları karıştır
-    return shuffled.slice(0, 10); // İlk 10 tanesini seç
+    let shuffled = allQuestionsAdvanced.sort(() => 0.5 - Math.random()); // Soruları karıştır
+    return shuffled.slice(0, 10); // İlk 10 tanesini al
 }
 
 // **Seçilen sorular**
@@ -49,7 +45,7 @@ const pointsPerCorrect = 10;
 const pointsPerinCorrect = -5;   
 isPaused=false;
 
-let timeLeft = 15;  // Süre sınırı (saniye)
+let timeLeft = 20;  // Süre sınırı (saniye)
 let timerInterval; 
 
 // **Soru yükleme fonksiyonu (TIMER ile birlikte)**
@@ -60,7 +56,7 @@ function loadQuestion() {
     }
 
     clearInterval(timerInterval); // Timer'ı sıfırla
-    timeLeft = 15; 
+    timeLeft = 20; 
     document.getElementById("timer-btn").innerText = `⏳ ${timeLeft}s`;
 
     timerInterval = setInterval(() => {
@@ -82,6 +78,27 @@ function loadQuestion() {
     if (!questionText || !buttons.length) return;
 
     questionText.innerText = currentQuestion.question;
+
+    //////////////////////////// video soru için///////////////////
+
+
+ 
+  // Eğer videolu soru ise video kaynağını yükle
+    if (currentQuestion.video) {
+        const videoElement = document.getElementById("question-video");
+        const videoSource = document.getElementById("video-source");
+        videoSource.src = `videos/${currentQuestion.video}`;  // Videoyu videos klasöründen al
+        videoElement.muted = true;  // Sessiz başlat
+        videoElement.load(); //video yüklendi
+        videoElement.play();
+        videoElement.style.display = "block";  // Videoyu görünür yap
+        document.getElementById("video-container").style.display = "block";  // Video alanını göster
+    } else {
+        document.getElementById("question-video").style.display = "none";  // Video gizle
+        document.getElementById("video-container").style.display = "none";  // Video alanını gizle
+    }
+
+
 
     buttons.forEach((btn, index) => {
         btn.innerText = currentQuestion.options[index];
