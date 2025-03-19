@@ -161,6 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById("modalContainer");
     const btn = document.getElementById("hzrbtn");
     const closeBtn = document.querySelector(".close-btn");
+    modal.style.display = "none";
 
     // Butona tıklanınca modal aç
     btn.addEventListener("click", function () {
