@@ -2,16 +2,17 @@
 const correctSound = new Audio("sounds/correct.mp3");  
 const incorrectSound = new Audio("sounds/incorrect.mp3");  
 
+
 // **20 ekstra zor  SEVİYE SORU**
 const  allQuestionsAdvanced = [
     { question: "Out-of-Order Execution (OoOE) mekanizmasının işlemcide sağladığı en büyük avantaj nedir?", options: ["Enerji verimliliğini artırır", "Komutları sırayla yürütür", "Veri bağımlılıklarını en aza indirir", "Pipeline tıkanmalarını artırır"], correct: "C" },
     { question: "Branch Prediction algoritmalarında kullanılan Two-Level Adaptive Predictor modelinin temel çalışma prensibi nedir?", options: ["Statik tahmin yöntemi kullanır", "Geçmiş dallanma sonuçlarını analiz ederek dinamik tahmin yapar", "Tahmin yapılmaz, direkt dallanma sonucu işlenir", "Tüm dallanmaları yanlış olarak varsayar"], correct: "B" },
     { question: "Cache belleklerde kullanılan Write-Through ve Write-Back mekanizmalarının farkı nedir?", options: ["Write-Back, veriyi doğrudan ana belleğe yazar", "Write-Through, daha az enerji tüketir", "Write-Back, bellek erişim sayısını azaltarak performansı artırır", "Write-Through, veriyi CPU yerine disk belleğine kaydeder"], correct: "C" },
     { question: "CPU’daki Speculative Execution tekniğinin güvenlik açığı oluşturabileceği saldırı türü nedir?", options: ["Stack Overflow", "Row Hammer", "Spectre & Meltdown", "Side-Channel Timing Attack"], correct: "C" },
-    { question: "İşlemcideki L1, L2 ve L3 önbelleklerin temel farkı nedir?", options: ["L1 en büyük boyutlu, L3 en küçük boyutlu önbellektir", "L1 en hızlı, L3 en yavaş erişim süresine sahiptir", "L2 ve L3 sadece işlemcide kullanılmaz, RAM içinde de bulunur", "L3 yalnızca enerji tasarrufu sağlar"], correct: "B" },
+    { question: "İşlemcideki L1, L2 ve L3 önbelleklerin temel farkı nedir?", options: ["L1 en büyük boyutlu, L3 en küçük boyutlu önbellektir", "L1 en hızlı, L3 en yavaş erişim süresine sahiptir", "L2 ve L3 sadece işlemcide kullanılmaz, RAM içinde de bulunur", "L3 yalnızca enerji tasarrufu sağlar"], correct: "B", video: "video2.mp4"  },
     { question: "CISC ve RISC işlemci mimarileri arasındaki temel fark nedir?", options: ["RISC, daha fazla komut türü kullanır", "CISC, daha düşük transistör sayısına sahiptir", "RISC, daha basit komut setleri kullanarak yüksek performans sağlar", "CISC, pipeline optimizasyonu için tasarlanmıştır"], correct: "C" },
     { question: "Hangi bellek erişim modeli, işlemcinin çok çekirdekli ortamlarda önbellek tutarlılığını korumasını sağlar?", options: ["NUMA", "DMA", "SMP", "Cache Coherency Protocol"], correct: "D" },
-    { question: "Bir işlemcide ILP (Instruction-Level Parallelism) optimizasyonu sağlamak için hangi teknik kullanılır?", options: ["Vectorization", "Branch Merging", "Thread Pooling", "Memory Swapping"], correct: "A" },
+    { question: "Bir işlemcide ILP (Instruction-Level Parallelism) optimizasyonu sağlamak için hangi teknik kullanılır?", options: ["Vectorization", "Branch Merging", "Thread Pooling", "Memory Swapping"], correct: "A", video: "video2.mp4" },
     { question: "Pipelining aşamalarında 'hazard' (tehlike) türlerinden biri olan 'data hazard' nedir?", options: ["Bellek yetersizliği nedeniyle yaşanan gecikmeler", "Bir komutun sonucu, diğer bir komut tarafından kullanılmadan önce hesaplanamazsa ortaya çıkar", "CPU çekirdekleri arasındaki iletişim gecikmeleri", "Tahmin edilen dallanmaların yanlış sonuçlanması"], correct: "B" },
     { question: "Bir CPU’nun Out-of-Order Execution mekanizmasını başarılı bir şekilde uygulayabilmesi için hangi bileşene ihtiyaç duyulur?", options: ["Instruction Window", "Stack Pointer", "Program Counter", "Thread Scheduler"], correct: "A" },
     { question: "Hangi CPU tasarım tekniği, bir çekirdeğin birçok iş parçacığını aynı anda çalıştırmasını sağlar?", options: ["Super-scalar Execution", "Hyper-Threading", "Out-of-Order Execution", "Dynamic Branch Prediction"], correct: "B" },
@@ -21,7 +22,7 @@ const  allQuestionsAdvanced = [
     { question: "Hangi optimizasyon tekniği, aynı anda birden fazla ALU birimi kullanarak birden çok komutun yürütülmesini sağlar?", options: ["Branch Prediction", "Pipeline Execution", "Superscalar Execution", "Simultaneous Multithreading"], correct: "C" },
     { question: "Bir CPU'da kullanılan TLB (Translation Lookaside Buffer) hangi amaçla kullanılır?", options: ["Veri önbelleklemeyi hızlandırmak", "Sanal bellek adreslerini fiziksel adreslere çevirmek", "Veri bağımlılığını en aza indirmek", "CPU çekirdekleri arasında iletişimi sağlamak"], correct: "B" },
     { question: "Modern işlemcilerde SMT (Simultaneous Multithreading) teknolojisinin temel amacı nedir?", options: ["İşlemci frekansını dinamik olarak artırmak", "Bellek erişim hızını iyileştirmek", "Aynı çekirdek içinde birden fazla iş parçacığını eşzamanlı yürütmek", "Talimat setlerini optimize etmek"], correct: "C" },
-    { question: "Bir işlemcide Prefetching mekanizması neden kullanılır?", options: ["Tahmin edilen verileri önceden yükleyerek bellek erişim gecikmesini azaltmak", "CPU’nun komutlarını hızlandırmak", "Overclocking için işlemciye daha fazla güç sağlamak", "Yanlış tahminleri düzeltmek için"], correct: "A" },
+    { question: "Bir işlemcide Prefetching mekanizması neden kullanılır?", options: ["Tahmin edilen verileri önceden yükleyerek bellek erişim gecikmesini azaltmak", "CPU’nun komutlarını hızlandırmak", "Overclocking için işlemciye daha fazla güç sağlamak", "Yanlış tahminleri düzeltmek için"], correct: "A" , video: "video2.mp4"},
     { question: "Hangi optimizasyon yöntemi, kodun belirli bölümlerini işlemci önbelleğinde daha verimli saklamayı sağlar?", options: ["Loop Unrolling", "Cache Blocking", "Thread Pooling", "Memory Swapping"], correct: "B" }
 ];
 
@@ -37,6 +38,8 @@ function getRandomQuestions() {
     return shuffled.slice(0, 10); // İlk 10 tanesini al
 }
 
+
+
 // **Seçilen sorular**
 let questions = getRandomQuestions();
 let currentQuestionIndex = 0; 
@@ -47,6 +50,7 @@ isPaused=false;
 
 let timeLeft = 20;  // Süre sınırı (saniye)
 let timerInterval; 
+
 
 // **Soru yükleme fonksiyonu (TIMER ile birlikte)**
 function loadQuestion() {
@@ -88,7 +92,7 @@ function loadQuestion() {
         const videoElement = document.getElementById("question-video");
         const videoSource = document.getElementById("video-source");
         videoSource.src = `videos/${currentQuestion.video}`;  // Videoyu videos klasöründen al
-        videoElement.muted = true;  // Sessiz başlat
+        videoElement.muted = false;  // Sesli başlat
         videoElement.load(); //video yüklendi
         videoElement.play();
         videoElement.style.display = "block";  // Videoyu görünür yap
