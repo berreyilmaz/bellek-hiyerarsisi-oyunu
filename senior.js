@@ -197,19 +197,43 @@ function endGame() {
             <button id="yes-legendary" class="btn-yes">Evet, efsane olmaya hazırım!</button>
             <button id="no-legendary" class="btn-no">Şimdilik yeterli!</button>
         </div>
-    `;
-
-    document.getElementById("yes-legendary").addEventListener("click", function() {
-        window.location.href = "legendary.html"; // Legendary seviyesine yönlendirme
-    });
-    document.getElementById("no-legendary").addEventListener("click", function() {
-        document.getElementById("question-text").innerHTML = `
-            <h2>Tebrikler! Skorunuz: ${score} 🏆</h2>
-            <p>Daha cesur bir zamanında görüşmek üzere...</p>
+        <div id="video-container" style="display: none;">
+            <video id="legendary-video" width="640" height="360" controls>
+                <source src="videos/video2.mp4" type="video/mp4">
+                Tarayıcınız video etiketini desteklemiyor.
+            </video>
+        </div>
         `;
-        
-    });
 
+        document.getElementById("yes-legendary").addEventListener("click", function() {
+            document.querySelector(".button-container").style.display = "none"; // Butonları gizle
+            document.getElementById("video-container").style.display = "block"; // Videoyu göster
+            let video = document.getElementById("legendary-video");
+            video.play();
+
+            // Fullscreen işlemi
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.mozRequestFullScreen) { // Firefox
+                video.mozRequestFullScreen();
+            } else if (video.webkitRequestFullscreen) { // Chrome, Safari ve Opera
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) { // IE/Edge
+                video.msRequestFullscreen();
+            }
+
+            // Video bitince Legendary seviyesine yönlendir
+            video.onended = function() {
+                window.location.href = "legendary.html";
+            };
+        });
+
+        document.getElementById("no-legendary").addEventListener("click", function() {
+            document.getElementById("question-text").innerHTML = `
+                <h2>Tebrikler! Skorunuz: ${score} 🏆</h2>
+                <p>Daha cesur bir zamanında görüşmek üzere...</p>
+            `;
+        });
 
     } else {
         document.getElementById("question-text").innerHTML += `
@@ -230,6 +254,7 @@ function endGame() {
         }, 500);
     }
 }
+
 
 
 

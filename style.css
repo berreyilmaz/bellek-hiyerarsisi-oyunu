@@ -689,3 +689,9 @@ button:disabled {
     gap: 10px; /* Butonlar arasında boşluk bırak */
 }
 
+
+#legendary-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Videonun ekranı kaplamasını sağlar */
+}
