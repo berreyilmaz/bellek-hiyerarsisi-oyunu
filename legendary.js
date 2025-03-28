@@ -9,10 +9,10 @@ const  allQuestionsAdvanced = [
     { question: "Branch Prediction algoritmalarında kullanılan Two-Level Adaptive Predictor modelinin temel çalışma prensibi nedir?", options: ["Statik tahmin yöntemi kullanır", "Geçmiş dallanma sonuçlarını analiz ederek dinamik tahmin yapar", "Tahmin yapılmaz, direkt dallanma sonucu işlenir", "Tüm dallanmaları yanlış olarak varsayar"], correct: "B" },
     { question: "Cache belleklerde kullanılan Write-Through ve Write-Back mekanizmalarının farkı nedir?", options: ["Write-Back, veriyi doğrudan ana belleğe yazar", "Write-Through, daha az enerji tüketir", "Write-Back, bellek erişim sayısını azaltarak performansı artırır", "Write-Through, veriyi CPU yerine disk belleğine kaydeder"], correct: "C" },
     { question: "CPU’daki Speculative Execution tekniğinin güvenlik açığı oluşturabileceği saldırı türü nedir?", options: ["Stack Overflow", "Row Hammer", "Spectre & Meltdown", "Side-Channel Timing Attack"], correct: "C" },
-    { question: "İşlemcideki L1, L2 ve L3 önbelleklerin temel farkı nedir?", options: ["L1 en büyük boyutlu, L3 en küçük boyutlu önbellektir", "L1 en hızlı, L3 en yavaş erişim süresine sahiptir", "L2 ve L3 sadece işlemcide kullanılmaz, RAM içinde de bulunur", "L3 yalnızca enerji tasarrufu sağlar"], correct: "B", video: "video2.mp4"  },
+    { question: "İşlemcideki L1, L2 ve L3 önbelleklerin temel farkı nedir?", options: ["L1 en büyük boyutlu, L3 en küçük boyutlu önbellektir", "L1 en hızlı, L3 en yavaş erişim süresine sahiptir", "L2 ve L3 sadece işlemcide kullanılmaz, RAM içinde de bulunur", "L3 yalnızca enerji tasarrufu sağlar"], correct: "B" },
     { question: "CISC ve RISC işlemci mimarileri arasındaki temel fark nedir?", options: ["RISC, daha fazla komut türü kullanır", "CISC, daha düşük transistör sayısına sahiptir", "RISC, daha basit komut setleri kullanarak yüksek performans sağlar", "CISC, pipeline optimizasyonu için tasarlanmıştır"], correct: "C" },
     { question: "Hangi bellek erişim modeli, işlemcinin çok çekirdekli ortamlarda önbellek tutarlılığını korumasını sağlar?", options: ["NUMA", "DMA", "SMP", "Cache Coherency Protocol"], correct: "D" },
-    { question: "Bir işlemcide ILP (Instruction-Level Parallelism) optimizasyonu sağlamak için hangi teknik kullanılır?", options: ["Vectorization", "Branch Merging", "Thread Pooling", "Memory Swapping"], correct: "A", video: "video2.mp4" },
+    { question: "Bir işlemcide ILP (Instruction-Level Parallelism) optimizasyonu sağlamak için hangi teknik kullanılır?", options: ["Vectorization", "Branch Merging", "Thread Pooling", "Memory Swapping"], correct: "A"},
     { question: "Pipelining aşamalarında 'hazard' (tehlike) türlerinden biri olan 'data hazard' nedir?", options: ["Bellek yetersizliği nedeniyle yaşanan gecikmeler", "Bir komutun sonucu, diğer bir komut tarafından kullanılmadan önce hesaplanamazsa ortaya çıkar", "CPU çekirdekleri arasındaki iletişim gecikmeleri", "Tahmin edilen dallanmaların yanlış sonuçlanması"], correct: "B" },
     { question: "Bir CPU’nun Out-of-Order Execution mekanizmasını başarılı bir şekilde uygulayabilmesi için hangi bileşene ihtiyaç duyulur?", options: ["Instruction Window", "Stack Pointer", "Program Counter", "Thread Scheduler"], correct: "A" },
     { question: "Hangi CPU tasarım tekniği, bir çekirdeğin birçok iş parçacığını aynı anda çalıştırmasını sağlar?", options: ["Super-scalar Execution", "Hyper-Threading", "Out-of-Order Execution", "Dynamic Branch Prediction"], correct: "B" },
@@ -21,14 +21,14 @@ const  allQuestionsAdvanced = [
     { question: "Modern bilgisayarlarda kullanılan giriş/çıkış portları arasında, veri aktarım hızı ve çoklu cihaz desteği açısından en gelişmiş olan aşağıdakilerden hangisidir?", options: [" USB 3.1 Gen 1", "Thunderbolt 4", "HDMI 2.1", "PCIe 4.0"], correct: "B", video: "video1.mp4" },
     { question: "Hangi optimizasyon tekniği, aynı anda birden fazla ALU birimi kullanarak birden çok komutun yürütülmesini sağlar?", options: ["Branch Prediction", "Pipeline Execution", "Superscalar Execution", "Simultaneous Multithreading"], correct: "C" },
     { question: "Bir CPU'da kullanılan TLB (Translation Lookaside Buffer) hangi amaçla kullanılır?", options: ["Veri önbelleklemeyi hızlandırmak", "Sanal bellek adreslerini fiziksel adreslere çevirmek", "Veri bağımlılığını en aza indirmek", "CPU çekirdekleri arasında iletişimi sağlamak"], correct: "B" },
-    { question: "Modern işlemcilerde SMT (Simultaneous Multithreading) teknolojisinin temel amacı nedir?", options: ["İşlemci frekansını dinamik olarak artırmak", "Bellek erişim hızını iyileştirmek", "Aynı çekirdek içinde birden fazla iş parçacığını eşzamanlı yürütmek", "Talimat setlerini optimize etmek"], correct: "C" },
-    { question: "Bir işlemcide Prefetching mekanizması neden kullanılır?", options: ["Tahmin edilen verileri önceden yükleyerek bellek erişim gecikmesini azaltmak", "CPU’nun komutlarını hızlandırmak", "Overclocking için işlemciye daha fazla güç sağlamak", "Yanlış tahminleri düzeltmek için"], correct: "A" , video: "video2.mp4"},
+    { question: "Modern işlemcilerde SMT (Simultaneous Multithreading) teknolojisinin temel amacı nedir?", options: ["İşlemci frekansını dinamik olarak artırmak", "Bellek erişim hızını iyileştirmek", "Aynı çekirdek içinde birden fazla iş parçacığını eşzamanlı yürütmek", "Talimat setlerini optimize etmek"], correct: "C"},
+    { question: "Bir işlemcide Prefetching mekanizması neden kullanılır?", options: ["Tahmin edilen verileri önceden yükleyerek bellek erişim gecikmesini azaltmak", "CPU’nun komutlarını hızlandırmak", "Overclocking için işlemciye daha fazla güç sağlamak", "Yanlış tahminleri düzeltmek için"], correct: "A" },
     { question: "Hangi optimizasyon yöntemi, kodun belirli bölümlerini işlemci önbelleğinde daha verimli saklamayı sağlar?", options: ["Loop Unrolling", "Cache Blocking", "Thread Pooling", "Memory Swapping"], correct: "B" }
 ];
 
 //// soruların sonuna bu eklenti eklenicek////
 //video: "video1.mp4"  // Video ekledik//
-//video: "video2.mp4"  // Video ekledik
+
 
 
 
@@ -61,12 +61,13 @@ function loadQuestion() {
 
     clearInterval(timerInterval); // Timer'ı sıfırla
     timeLeft = 20; 
-    document.getElementById("timer-btn").innerText = `⏳ ${timeLeft}s`;
+    document.getElementById("legendary-timer-btn").innerText = `⏳ ${timeLeft}s`;  // Legendary timer'ı güncelle
+
 
     timerInterval = setInterval(() => {
         if (!isPaused) {  // **Eğer süre durdurulmamışsa zaman azalsın**
             timeLeft--;
-            document.getElementById("timer-btn").innerText = `⏳ ${timeLeft}s`;
+            document.getElementById("legendary-timer-btn").innerText = `⏳ ${timeLeft}s`;  // Legendary timer'ı güncelle
     
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);

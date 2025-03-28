@@ -474,6 +474,32 @@ body {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+
+/* 📌 Normal Modlar (Easy, Medium, Senior) İçin */
+.normal-timer {
+    background: linear-gradient(45deg, rgb(255, 123, 0), rgb(57, 148, 217));
+    color: white;
+    font-size: 18px;
+    border-radius: 8px;
+}
+
+/* 📌 Legendary Modu İçin */
+.legendary-timer {
+    position: absolute;
+    top: 10px;
+    left: 10px; /* En sola hizala */
+    background: linear-gradient(45deg, red, orange, yellow);
+    color: black;
+    border: none;
+    padding: 10px 15px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: default; /* Tıklanamaz */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
 /* 📌 Tüm seviyelerde kullanılan geçiş butonları (Mid → Senior, Senior → Impossible) */
 .level-btn, #retry-btn {
     background-color: #6a0dad;  /* Mor renk uyumlu */
