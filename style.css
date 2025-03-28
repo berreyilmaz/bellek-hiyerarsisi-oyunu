@@ -12,6 +12,7 @@ body {
     flex-direction: column; /* Dikey sıralama */
     align-items: center; /* Yatayda ortala */
     gap: 20px; /* Butonlar arasında boşluk bırak */
+    margin-top: 50px;
 }
 
 /* Tüm butonların ortak stilini buradan belirliyoruz */
@@ -720,4 +721,25 @@ button:disabled {
     width: 100%;
     height: 100%;
     object-fit: cover; /* Videonun ekranı kaplamasını sağlar */
+}
+
+
+.home-button {
+    background-color: rgb(0, 17, 128);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 25px;
+}
+
+.home-button-container {
+    text-align: center;
+    margin-top: 200px; /* Üstteki butonlardan boşluk bırakır */
+}
+
+.home-button:hover {
+    background-color: rgb(211, 158, 0);
 }

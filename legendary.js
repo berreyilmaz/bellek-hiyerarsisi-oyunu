@@ -211,7 +211,10 @@ function endGame() {
     clearInterval(timerInterval); // Timer'ı durdur
     document.getElementById("question-text").innerText = "Tebrikler! Tüm soruları tamamladın 🎉";
     
-    document.querySelector(".answer-buttons").innerHTML = "";
+    document.querySelector(".answer-buttons").innerHTML = `
+            <div class="home-button-container">
+        <button class="home-button" onclick="window.location.href='index.html'">Ana Sayfaya Dön</button>
+            </div>`;
     document.getElementById("next-btn").style.display = "none";
     document.getElementById("result").innerText = "";
 
