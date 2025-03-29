@@ -390,7 +390,7 @@ body {
 
 /* Hover efektiyle görselin biraz büyümesini sağlıyoruz */
 .img:hover {
-    transform: scale(1.05);
+    transform: scale(1.55);
 }
 
 /* Büyütülmüş görselin gösterileceği overlay alanı */
