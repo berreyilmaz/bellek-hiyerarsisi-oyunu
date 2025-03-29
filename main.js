@@ -14,8 +14,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (junior) junior.addEventListener("click", () => window.location.href = "junior.html");
     if (mid) mid.addEventListener("click", () => window.location.href = "mid.html");
     if (senior) senior.addEventListener("click", () => window.location.href = "senior.html");
-    
-    loadQuestion(); // İlk soruyu yükle
+
+    // loadQuestion fonksiyonu varsa çalıştır
+    if (typeof loadQuestion === "function") {
+        loadQuestion(); // İlk soruyu yükle
+    } else {
+        console.warn("loadQuestion fonksiyonu tanımlı değil!");
+    }
 });
 
 if (basla) basla.addEventListener('click', () => window.location.href = "basla.html");

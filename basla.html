@@ -5,26 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Bellek Hiyerarşisi Oyunu</title>
-    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <audio id="audio" src="sounds/ses.mp3"></audio>
 
-
-    <!-- Butonları ortalayan div -->
-    <div class="buton-container">
+    <!-- 🟣 Butonlar -->
+    <div class="button-container">
         <button id="junior" class="seviyebtn">Junior</button>
         <button id="mid" class="seviyebtn">Mid</button>
         <button id="senior" class="seviyebtn">Senior</button>
-        <button id="legendary">Legendary</button>
-    </div>
-    
-    <div class="home-button-container">
+        <button id="legendary" class="seviyebtn">Legendary</button>
         <button class="home-button" onclick="window.location.href='index.html'">Ana Sayfaya Dön</button>
     </div>
 
-
-
+    <!-- ❌ Joker container burada da görünmeyecek çünkü class="quiz-page" yok -->
     <script src="main.js"></script>
 </body>
 </html>

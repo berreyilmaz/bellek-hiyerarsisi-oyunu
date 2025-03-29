@@ -1,38 +1,35 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bellek Hiyerarşisi Oyunu</title>
     <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
+</head>
+<body>
+    <!-- 🔈 Ses dosyası -->
     <audio id="audio" src="sounds/ses.mp3"></audio>
 
+    <!-- 🎮 Ana butonlar -->
     <div class="button-container">
-            <button id=btn class="baslabtn">Oyuna Başla</button>
-            <button id=btn class="nasilbtn">Nasıl Oynanır?</button>
-            <button id=btn class="ayarlarbtn">Ayarlar</button>
+        <button class="baslabtn" onclick="window.location.href='basla.html'">Oyuna Başla</button>
+        <button class="nasilbtn" onclick="window.location.href='nasiloynanir.html'">Nasıl Oynanır?</button>
+        <button class="ayarlarbtn" onclick="window.location.href='ayarlar.html'">Ayarlar</button>
     </div>
 
+    <!-- 📘 Bilgilendirme yazısı -->
     <div class="kayan-yazi">
         <div class="kaydir">
-        <span>Disk: Verilerin kalıcı olarak saklandığı depolama birimidir, genellikle daha büyük kapasiteye ve daha düşük hızlara sahiptir.</span>
-        <span>RAM: Bilgisayarın geçici belleğidir; çalışan programların ve verilerin hızlı erişim için burada depolanır.</span>
-        <span>Cache: İşlemcinin sıkça eriştiği verileri hızlıca erişilebilecek şekilde saklayan küçük, hızlı bellek türüdür.</span>
-        <span>Register: İşlemci içinde bulunan, verilerin hızlı bir şekilde işlenmesi için kullanılan en hızlı bellek alanıdır.</span>
-        <div></div>
+            <span>Disk: Verilerin kalıcı olarak saklandığı depolama birimidir...</span>
+            <span>RAM: Bilgisayarın geçici belleğidir...</span>
+            <span>Cache: İşlemcinin sıkça eriştiği verileri hızlıca saklar...</span>
+            <span>Register: İşlemcideki en hızlı bellek türüdür...</span>
+        </div>
     </div>
 
-    <div id="joker-container">
-      <button id="double-answer" class="joker-btn" onclick="useDoubleAnswer()">Çift Cevap Jokeri</button>
-      <button id="fifty-fifty" class="joker-btn" onclick="useFiftyFifty()">Şık Eleme Jokeri</button>
-      <button id="time-freeze-btn" class="joker-btn" onclick="useTimeFreeze()">⏳ Zaman Dondur</button>
-  </div>
-  
+    <!-- ❌ Jokerler burada görünmemeli! -->
+    <!-- Joker container görünmeyecek çünkü <body class="quiz-page"> DEĞİL -->
 
-    <script src="style.css"></script>
     <script src="main.js" defer></script>
-    
-  </body>
+</body>
 </html>

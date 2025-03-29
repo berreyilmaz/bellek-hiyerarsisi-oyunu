@@ -42,7 +42,9 @@ body {
     padding: 20px 40px;
     font-size: 20px;
 }
-
+.seviyebtn {
+    width: 220px; /* ✅ EŞİT GENİŞLİK */
+}
 
 
 #btn:hover {
@@ -85,18 +87,20 @@ body {
 
 
 /* Sayfanın tam ortasına butonları hizalar */
-.buton-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.button-container {
     display: flex;
-    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row; /* ✅ YAN YANA */
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 100px;
 }
 
 /* Butonlara stil verelim */
 .seviyebtn {
-    padding: 10px 20px;
+    width: 220px; /* ✅ Sabit genişlik */
+    padding: 15px 20px;
     font-size: 30px;
     font-weight: bold;
     background-color: #b026da;
@@ -104,7 +108,11 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    text-align: center;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
 
 .seviyebtn:hover {
     background-color: #8600b3;
@@ -732,7 +740,9 @@ button:disabled {
     border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
-    font-size: 15px;
+    margin-top: 90px;
+    width: 35%;
+    font-size: 25px;
 }
 
 .home-button-container {
@@ -749,16 +759,243 @@ button:disabled {
 }
 
 #legendary {
+
     background: linear-gradient(45deg, red, orange, yellow);
     color: white;
-    padding: 10px 20px;
+    width: 220px;
+    padding: 15px 20px;
+    font-size: 30px;
+    font-weight: bold;
     border: none;
     border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
-    font-size: 25px;
+    text-align: center;
+ 
 }
 
 #legendary:hover {
     background: #905207;
 }
+
+/* 📱 Mobil Cihazlar İçin Düzeltmeler */
+@media (max-width: 768px) {
+    
+    #legendary {
+        width: 90%;
+        max-width: 300px;
+        font-size: 23px;
+        padding: 14px 20px;
+        text-align: center;
+        font-weight: bold;
+        white-space: nowrap;
+        border-radius: 8px;
+    }
+    
+    /* Joker butonları hizalama */
+    #joker-container {
+        position: fixed !important;
+        top: 10px !important;
+        left: 75% !important;
+        transform: translateX(-50%);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        padding: 5px;
+        z-index: 998;
+    }
+
+    .joker-btn {
+        width: auto;
+        padding: 8px 12px;
+        font-size: 13px;
+        white-space: nowrap;
+        margin: 2px;
+    }
+
+    /* Süre butonu sol üstte küçük şekilde */
+    #timer-btn {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-size: 12px;
+        padding: 6px 10px;
+        z-index: 999;
+        border-radius: 6px;
+    }
+
+    /* Skor kutusu - soru kutusunun üstüne gelsin */
+    #score-box {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #604caf;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: bold;
+        z-index: 2;
+    }
+
+    #lg-score-box {
+        position: absolute;
+        top: -30px;
+        right: 10px;
+        font-size: 13px;
+        padding: 5px 8px;
+        z-index: 997;
+    }
+
+    /* Soru kutusu genişliği ve konumu */
+    .question-box,
+    .lg-question-box {
+        position: relative;
+        width: 90%;
+        padding: 20px;
+        margin: 100px auto 10px auto;
+    }
+
+    .question-box h2,
+    .lg-question-box h2 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    /* Cevap butonları */
+    .answer-btn {
+        width: 95%;
+        max-width: none;
+        font-size: 20px;
+        padding: 12px 14px;
+    }
+
+    .answer-buttons {
+        gap: 6px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    /* Başlangıç ekranı butonları */
+    .baslabtn{
+        width: 85%;
+        max-width: 300px;
+        padding: 15px 30px;
+        font-size: 28px;
+        cursor: pointer;
+        border-radius: 20px;
+        background-color: #7fabd2;
+        color: #132507;
+        box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.3);
+        border: 3px solid #000000;
+        transition: 0.3s;
+        text-align: center;
+    }
+    .nasilbtn {
+        width: 70%;
+        max-width: 200px;
+        padding: 15px 30px;
+        font-size: 20px;
+        cursor: pointer;
+        border-radius: 20px;
+        background-color: #7fabd2;
+        color: #132507;
+        box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.3);
+        border: 3px solid #000000;
+        transition: 0.3s;
+        text-align: center;
+    }
+    .ayarlarbtn {
+        width: 55%;
+        max-width: 200px;
+        padding: 15px 30px;
+        font-size: 20px;
+        cursor: pointer;
+        border-radius: 20px;
+        background-color: #7fabd2;
+        color: #132507;
+        box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.3);
+        border: 3px solid #000000;
+        transition: 0.3s;
+        text-align:center;
+    }
+
+    .buton-container {
+        flex-direction: column !important; /* ✅ ALT ALTA MOBİL */
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 100px;
+    }
+
+    /* Modal kutu */
+    .modal-content {
+        width: 90%;
+        max-width: 500px;
+        padding: 20px;
+    }
+
+    /* Legendary joker */
+    #lg-joker-container {
+        top: 5px;
+        right: 5px;
+        gap: 5px;
+    }
+
+    /* 🎯 Başla ekranındaki seviye butonları ve ana sayfa butonları */
+    .buton-container {
+        display: flex;
+        flex-direction: column !important;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 100px;
+    }
+
+    .seviyebtn {
+        width: 90%;
+        max-width: 300px;
+        font-size: 25px;
+        padding: 12px;
+        text-align: center;
+    }
+
+    .home-button {
+        width: 100%;
+        max-width: 200px;
+        font-size: 16px;
+        padding: 10px 16px;
+        text-align: center;
+        white-space: nowrap;
+        margin-top: 70px;
+        background-color: rgb(94, 4, 4);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+    }
+
+    .home-button:hover {
+        background-color: rgb(211, 158, 0);
+    }
+
+    .home-button-container {
+        display: flex;
+        justify-content: center;
+    }
+    #image-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin: 10px;
+    }
+
+    .img {
+        width: 100%;
+        height: auto;
+    }
+       
+}
+
+
