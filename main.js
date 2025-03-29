@@ -2,6 +2,7 @@
 const basla = document.querySelector(".baslabtn");
 const nasilbtn = document.querySelector(".nasilbtn");
 const ayarlar = document.querySelector(".ayarlarbtn");
+const legendary = document.querySelector("#legendary");
 
 
 // Sayfa yönlendirmeleri
@@ -20,6 +21,16 @@ document.addEventListener("DOMContentLoaded", () => {
 if (basla) basla.addEventListener('click', () => window.location.href = "basla.html");
 if (nasilbtn) nasilbtn.addEventListener('click', () => window.location.href = "nasiloynanir.html");
 if (ayarlar) ayarlar.addEventListener('click', () => window.location.href = "ayarlar.html");
+if (legendary) {
+    legendary.addEventListener('click', () => {
+        Swal.fire({
+            title: 'Herkes efsane olamaz!',
+            text: 'Efsanevi de oynamak için önce senioru tamamlamalısın.',
+            icon: 'warning',
+            background: '#f5f5f5', // Açık gri arka plan
+        });
+    });
+}
 
 // AYARLAR 
 
