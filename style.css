@@ -780,7 +780,12 @@ button:disabled {
 
 /* 📱 Mobil Cihazlar İçin Düzeltmeler */
 @media (max-width: 768px) {
-    
+    #backgroundVideo {
+        object-fit: cover;   /* Videoyu taşırmadan kırp */
+        object-position: center center; /* 📍 Ortala */
+        width: 100vw;
+        height: 100vh;
+    }
     #legendary {
         width: 90%;
         max-width: 300px;
@@ -879,13 +884,14 @@ button:disabled {
 
     /* Başlangıç ekranı butonları */
     .baslabtn{
+        
         width: 85%;
         max-width: 300px;
         padding: 15px 30px;
         font-size: 28px;
         cursor: pointer;
         border-radius: 20px;
-        background-color: #7fabd2;
+        background-color: #d6c4dfe3;
         color: #132507;
         box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.3);
         border: 3px solid #000000;
@@ -899,7 +905,7 @@ button:disabled {
         font-size: 20px;
         cursor: pointer;
         border-radius: 20px;
-        background-color: #7fabd2;
+        background-color: #d6c4dfe3;
         color: #132507;
         box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.3);
         border: 3px solid #000000;
@@ -913,7 +919,7 @@ button:disabled {
         font-size: 20px;
         cursor: pointer;
         border-radius: 20px;
-        background-color: #7fabd2;
+        background-color: #d6c4dfe3;
         color: #132507;
         box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.3);
         border: 3px solid #000000;
