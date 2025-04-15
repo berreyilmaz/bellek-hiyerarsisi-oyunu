@@ -190,7 +190,7 @@ function endGame() {
     document.getElementById("next-btn").style.display = "none";
     document.getElementById("result").innerText = "";
 
-    if (score >= 75) {
+    if (score >= 85) {
         document.getElementById("question-text").innerHTML += `
         <p>Gerçek bir efsane misin? "Legendary" seviyesine geçmeye cesaretin var mı?</p>
         <div class="button-container">

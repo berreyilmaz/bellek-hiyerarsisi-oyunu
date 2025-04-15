@@ -213,7 +213,7 @@ function endGame() {
     const buttonContainer = document.createElement("div");
     buttonContainer.id = "level-container";
 
-    if (score >= 85) {
+    if (score >= 70) {
         buttonContainer.innerHTML = `
             <button id="senior-level-btn" class="next-level-btn" onclick="goToSeniorLevel()">SENIOR seviyesine geçin</button>
         `;
