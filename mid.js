@@ -1,10 +1,3 @@
-// let questions = [];  // Global değişken olarak tanımla
-
-// document.addEventListener("DOMContentLoaded", function() {
-//     questions = getRandomQuestions(); // Sayfa yüklendiğinde 10 rastgele soru al
-//     loadQuestion();
-// });
-
 // Ses dosyalarını yükle
 const correctSound = new Audio("sounds/correct.mp3");  
 const incorrectSound = new Audio("sounds/incorrect.mp3");  

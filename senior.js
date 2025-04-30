@@ -1,10 +1,3 @@
-// let questions = [];  // Global değişken olarak tanımla
-
-// document.addEventListener("DOMContentLoaded", function() {
-//     questions = getRandomQuestions(); // Sayfa yüklendiğinde 10 rastgele soru al
-//     loadQuestion(); // İlk soruyu yükle
-// });
-
 // Ses dosyalarını yükle
 const correctSound = new Audio("sounds/correct.mp3");  // ✅ Doğru cevap sesi
 const incorrectSound = new Audio("sounds/incorrect.mp3");  // ❌ Yanlış cevap sesi
@@ -169,8 +162,6 @@ function checkAnswer(button, answer) {
     document.getElementById("score").innerText = score;
 }
 
-
-
 function nextQuestion() {
     currentQuestionIndex++;
 
@@ -254,10 +245,6 @@ function endGame() {
         }, 500);
     }
 }
-
-
-
-
 
 // 50:50 JOKER
 let usedFiftyFifty = false;  // 50:50 jokerinin kullanılıp kullanılmadığını kontrol ediyoruz

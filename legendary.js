@@ -26,20 +26,11 @@ const  allQuestionsAdvanced = [
     { question: "Hangi optimizasyon yöntemi, kodun belirli bölümlerini işlemci önbelleğinde daha verimli saklamayı sağlar?", options: ["Loop Unrolling", "Cache Blocking", "Thread Pooling", "Memory Swapping"], correct: "B" }
 ];
 
-//// soruların sonuna bu eklenti eklenicek////
-//video: "video1.mp4"  // Video ekledik//
-
-
-
-
 // Soruları karıştıran ve ilk 10 soruyu döndüren fonksiyon
 function getRandomQuestions() {
     let shuffled = allQuestionsAdvanced.sort(() => 0.5 - Math.random()); // Soruları karıştır
     return shuffled.slice(0, 10); // İlk 10 tanesini al
 }
-
-
-
 // **Seçilen sorular**
 let questions = getRandomQuestions();
 let currentQuestionIndex = 0; 
@@ -83,9 +74,6 @@ function loadQuestion() {
     if (!questionText || !buttons.length) return;
 
     questionText.innerText = currentQuestion.question;
-
-    //////////////////////////// video soru için///////////////////
-
 
  
   // Eğer videolu soru ise video kaynağını yükle
@@ -184,12 +172,8 @@ function checkAnswer(button, answer) {
         doubleAnswerActive = false;
         secondChanceUsed = false;
     }
-
-
-
     document.getElementById("score").innerText = score;
 }
-    
 
 // **Sonraki soruya geçiş fonksiyonu**
 function nextQuestion() {
@@ -255,8 +239,6 @@ function restartGame() {
 loadQuestion();
 
 
-
-
 // 50:50 JOKER
 let usedFiftyFifty = false;  // 50:50 jokerinin kullanılıp kullanılmadığını kontrol ediyoruz
 
@@ -315,12 +297,9 @@ document.getElementById("double-answer").addEventListener("click", function() {
     console.log("Çift cevap jokeri aktifleştirildi!");
 });
 
-
-
-
 // ZAMAN DONDURMA JOKERİ //
-
 const freeze = document.getElementById("time-freeze-btn");
+
 // Süreyi dondur
 function useTimeFreeze() {
     isPaused = true;

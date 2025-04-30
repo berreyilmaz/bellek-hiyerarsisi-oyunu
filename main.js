@@ -4,7 +4,6 @@ const nasilbtn = document.querySelector(".nasilbtn");
 const ayarlar = document.querySelector(".ayarlarbtn");
 const legendary = document.querySelector("#legendary");
 
-
 // Sayfa yönlendirmeleri
 document.addEventListener("DOMContentLoaded", () => {
     const junior = document.querySelector("#junior");
@@ -38,7 +37,6 @@ if (legendary) {
 }
 
 // AYARLAR 
-
 document.addEventListener("DOMContentLoaded", function () {
     let audio = new Audio("sounds/ses.mp3");
     audio.loop = true;
@@ -108,11 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
-
-
-
-
 // Jokerler 
 document.addEventListener("DOMContentLoaded", function () {
     // Joker butonlarını seç
@@ -147,12 +140,6 @@ document.addEventListener("DOMContentLoaded", function () {
  
 });
 
-
-
-
-
-
-
 document.addEventListener("DOMContentLoaded", function () {
     const jokerContainer = document.getElementById("joker-container");
 
@@ -171,7 +158,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (timeFreezeBtn) timeFreezeBtn.style.display = "inline-block";
     if (skipQuestionBtn) skipQuestionBtn.style.display = "inline-block";
 });
-
 
 document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById("modalContainer");
