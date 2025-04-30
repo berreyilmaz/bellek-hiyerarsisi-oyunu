@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
      <!-- Görsellerin bulunduğu container -->
     <div id="image-container">
         <!-- 9 görseli buraya ekle, her bir görsele 'onclick' ile tıklandığında 'enlargeImage' fonksiyonunu çalıştıracak şekilde -->
@@ -18,17 +17,12 @@
         <img src="images/legendary.png" alt="Görsel 5" class="img" onclick="enlargeImage(this)">
         <img src="images/ayarlarsayfasi.png" alt="Görsel 6" class="img" onclick="enlargeImage(this)">
     </div>
-    
+
     <!-- Büyütülmüş görseli gösterecek alan -->
     <div id="overlay" onclick="closeImage()">
         <img id="expanded-img" src="" alt="Büyütülmüş Görsel">
     </div>
-
-
     <script src="main.js" defer></script>
     <script src="js/nasiloynanir.js"></script>
-
-
-
 </body>
 </html>
