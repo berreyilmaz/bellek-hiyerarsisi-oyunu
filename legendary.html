@@ -14,10 +14,7 @@
     <audio id="audio" src="sounds/ses.mp3"></audio>
   <!-- Legendary mod için timer butonu -->
 <button id="legendary-timer-btn" class="legendary-timer" disabled>Kalan Süre: 20s</button>
-       
-
     <div class="lg-question-box" > <!--style eklemesi-->
-
           <!-- Video alanı -->
         <div id="video-container" style="display: none;">
             <video id="question-video" width="640" height="360" controls>
@@ -33,7 +30,6 @@
             <button class="option" onclick="checkAnswer(this, 'C')">Sabit Disk</button>
             <button class="option" onclick="checkAnswer(this, 'D')">Flash Bellek</button>
         </div>
-
         <p id="result"></p>
         <button id="next-btn" style="display: none; 
         background: linear-gradient(45deg, rgb(13, 13, 13), rgb(91, 94, 90), rgb(163, 159, 159)); 
@@ -43,13 +39,8 @@
         border-radius: 5px; 
         font-weight: bold; 
         cursor: pointer;" onclick="nextQuestion()">Sonraki Soru</button>
-
         <div id="lg-score-box">Skor: <span id="score">0</span></div>
-
     </div>
-
-
-
     <!-- JOKER HAK BUTONLARI -->
         <div id="lg-joker-container">
             <button class="lg-joker-btn" id="double-answer"  
@@ -81,13 +72,8 @@
             cursor: pointer; 
             transition: background 0.3s, transform 0.25s;" onclick="useTimeFreeze()">⏳ Zaman Dondur</button>
         </div>
-            
         <body class="quiz-page">
-
-        
-
         <script src="legendary.js"></script>
         <script src="main.js"></script>
-     
 </body>
 </html>
